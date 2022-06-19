@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    @@include('html/_head.htm', {
+		"title": "Blog"
+	})
+<body>
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.modelahmed {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+
+<!-- The Modal -->
+<div id="myModal" class="modal" >
+
+  <!-- Modal content -->
+    <div class="back" style="background-image:url('img/pop up.png');">
+  <div class="modal-content">
+
+
+
+    <form action="/action_page.php" style="margin-top: 400px">
+        <h1 style="font-size: 25px;text-align: center;font-weight: bold">Contact Us</h1>
+    <label for="fname">Name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+    <label for="lname">Email</label>
+    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" name="lastname" placeholder="Your last name..">
+
+
+    <input type="submit" value="Submit">
+  </form>
+  </div>
+        </div>
+    </dev>
+
+</div>
+
+
+    <div class="wrapper">
+        @@include('html/_header.htm',{})
+        <main class="page">
+            <section class="page__main-blog main-blog">
+                <div class="main-blog__wrapper">
+                    <div class="main-blog__container">
+                        <div class="main-blog__body">
+                            <h1 class="main-blog__title">Dubai's Real Estate News, Insights & Tips</h1>
+                        </div>
+                    </div>
+                    <img class="main-blog__image-ibg" data-src="@img/blog/01.jpg" alt="">
+                </div>
+            </section>
+            <section class="page__news-blog news-blog">
+                <div class="news-blog__container">
+                    <div class="news-blog__body">
+
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        @@include('html/_footer.htm',{})
+    </div>
+    @@include('html/_js.htm',{})
+</body>
