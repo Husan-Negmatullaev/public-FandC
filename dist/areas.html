@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Areas</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?language=ru&key=AIzaSyAk1cygku8dx0DrpE8IpRs0331s3DzC-08&_v=20220621192454"></script>
+	<link rel="stylesheet" href="css/style.min.css?_v=20220621192454">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <style>body{opacity: 0;}</style> -->
+	<meta name="yandex-verification" content="3a5e9a975daa740f" />
+	<meta name="google-site-verification" content="liKfoYQoi0UOwsowWtgJeQ-WCMF29a9KlcXleIxNGzs" />
+	<!-- Marquiz script start -->
+	<script>
+		(function(w, d, s, o) {
+			var j = d.createElement(s);
+			j.async = true;
+			j.src = '//script.marquiz.io/v2.js';
+			j.onload = function() {
+				if (document.readyState !== 'loading') Marquiz.init(o);
+				else document.addEventListener("DOMContentLoaded", function() {
+					Marquiz.init(o);
+				});
+			};
+			d.head.insertBefore(j, d.head.firstElementChild);
+		})(window, document, 'script', {
+			host: '//quiz.marquiz.io',
+			region: 'eu',
+			id: '62a9d7fb7cd214004ab0c35a',
+			autoOpen: false,
+			autoOpenFreq: 'once',
+			openOnExit: false,
+			disableOnMobile: false
+		});
+	</script>
+	<!-- Marquiz script end -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js?_v=20220621192454"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js?_v=20220621192454"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Yandex.Metrika counter -->
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function(m, e, t, r, i, k, a) {
+			m[i] = m[i] || function() {
+				(m[i].a = m[i].a || []).push(arguments)
+			};
+			m[i].l = 1 * new Date();
+			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+		})
+		(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(89157800, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true
+		});
+	</script>
+
+	<noscript>
+		<div><img src="https://mc.yandex.ru/watch/89157800" style="position:absolute; left:-9999px;" alt="" /></div>
+	</noscript>
+	<!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+	<div id="loader-wrapper">
+		<div id="loader"></div>
+
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+
+	</div>
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__wrapper">
+				<div class="header__container">
+					<div class="header__body">
+						<a href="home.html" class="header__logo">
+							<img src="img/logo-ru.png" alt="">
+						</a>
+						<div class="header__menu menu">
+							<button type="button" class="menu__icon icon-menu">
+								<span></span>
+							</button>
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item"><a href="home.html" class="menu__link">Новые проекты</a></li>
+									<li class="menu__item"><a href="developers.html" class="menu__link">Застройщики</a></li>
+									<li class="menu__item"><a href="areas.html" class="menu__link">Области</a></li>
+									<li class="menu__item"><a href="map.html" class="menu__link">Карта</a></li>
+									<li class="menu__item"><a href="faq.html" class="menu__link">Часто задаваемые вопросы</a></li>
+									<li class="menu__item"><a href="blog.html" class="menu__link">Новости</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="page">
+			<section class="page__main-blog main-blog">
+				<div class="main-blog__wrapper">
+					<div class="main-blog__container">
+						<div class="main-blog__body">
+							<h1 class="main-blog__title">Лучшие районы недвижимости в Дубае</h1>
+						</div>
+					</div>
+					<img class="main-blog__image-ibg" data-src="img/blog/01.jpg" alt="">
+				</div>
+			</section>
+			<section class="page__areas-city areas-city">
+				<div class="areas-city__container">
+					<div class="areas-city__body">
+
+						<div class="areas-city__content">
+
+						</div>
+						<button class="page-link button button_small2" id="nextButton">Показать больше</button>
+					</div>
+				</div>
+			</section>
+			<section class="page__best-section best-properties">
+				<div class="best-properties__container">
+					<div class="best-properties__body">
+
+						<form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find" name="search" style="margin-bottom: 40px">
+							<div class="form-find__wrapper">
+								<div class="form-find__body">
+									<div class="form-find__column">
+										<select name="types" class="form-find__select select">
+											<option value="Type" class="select__option form-find__option">Все виды недвижимости</option>
+											<option value="Apartments" class="select__option form-find__option">Квартира</option>
+											<option value="Penhouses" class="select__option form-find__option">Пентхаусы</option>
+											<option value="Mansions" class="select__option form-find__option">Особняки</option>
+											<option value="Townhouse" class="select__option form-find__option">Таунхаусы</option>
+											<option value="Villa" class="select__option form-find__option">Виллы</option>
+											<option value="Building" class="select__option form-find__option">Здания</option>
+										</select>
+									</div>
+									<div class="form-find__column form-find__column_large">
+										<div class="form-find__item">
+											<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Поиск по названию проекта" class="form-find__input input">
+											<button data-da=".form-find__body,479.98,last" type="submit" class="form-find__button button button_large">
+												<span class="_icon-magnify"></span>
+												Находить
+											</button>
+										</div>
+									</div>
+									<div class="form-find__column">
+										<select name="developer" class="form-find__select-developer select">
+											<option value="" selected="">Все разработчики</option>
+
+
+										</select>
+									</div>
+									<div class="form-find__column">
+										<select name="area" class="form-find__select-area select">
+											<option value="" selected="">Все районы</option>
+										</select>
+									</div>
+									<div class="form-find__column">
+										<select name="lifestyle" class="form-find__select-type select">
+											<option value="" selected="">Все типы образа жизни</option>
+										</select>
+									</div>
+									<div class="form-find__column">
+										<select name="min" class="form-find__select select">
+											<option value="" selected="">Мин. Цена</option>
+											<option value="200000">AED 200,000</option>
+											<option value="300000">AED 300,000</option>
+											<option value="500000">AED 500,000</option>
+											<option value="1000000">AED 1,000,000</option>
+											<option value="2000000">AED 2,000,000</option>
+											<option value="3000000">AED 3,000,000</option>
+											<option value="5000000">AED 5,000,000</option>
+											<option value="10000000">AED 10,000,000</option>
+										</select>
+									</div>
+									<div class="form-find__column">
+										<select name="max" class="form-find__select select">
+											<option value="" selected="">Макс. Цена</option>
+											<option value="500000">AED 500,000</option>
+											<option value="1000000">AED 1,000,000</option>
+											<option value="2000000">AED 2,000,000</option>
+											<option value="3000000">AED 3,000,000</option>
+											<option value="5000000">AED 5,000,000</option>
+											<option value="10000000">AED 10,000,000</option>
+											<option value="20000000">AED 20,000,000</option>
+											<option value="50000000">AED 50,000,000</option>
+										</select>
+									</div>
+
+								</div>
+							</div>
+						</form>
+						<div class="best-properties__content">
+							<!--                            <div class="best-properties__item-propertie item-propertie">-->
+							<!--                                <div class="item-propertie__body">-->
+							<!--                                    <a href="#" class="item-propertie__image-ibg">-->
+							<!--                                        <img data-src="img/developers-page/01.jpg" alt="">-->
+							<!--                                        <div class="item-propertie__types">-->
+							<!--                                            <span>Townhouse</span>-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__stickers">-->
+							<!--                                            <span>50/50 Payment Plan</span>-->
+							<!--                                        </div>-->
+							<!--                                    </a>-->
+							<!--                                    <div class="item-propertie__content">-->
+							<!--                                        <a href="#" class="item-propertie__title">Emaar The Valley Orania Townhouses</a>-->
+							<!--                                        <div class="item-propertie__location">-->
+							<!--                                            Al Ain Road-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__developer">-->
+							<!--                                            <img src="img/icons/building.svg" alt="Building icon">-->
+							<!--                                            Emaar-->
+							<!--                                        </div>-->
+							<!--								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">-->
+							<!--                                            Play Video Overview-->
+							<!--                                        </button>-->
+							<!--                                        <div class="item-propertie__price">-->
+							<!--                                            <span class="item-propertie__from">from</span>-->
+							<!--                                            <span class="item-propertie__value">AED 1,528,888</span>-->
+							<!--                                        </div>-->
+							<!--                                    </div>-->
+							<!--                                </div>-->
+							<!--                            </div>-->
+							<!--                            <div class="best-properties__item-propertie item-propertie">-->
+							<!--                                <div class="item-propertie__body">-->
+							<!--                                    <a href="#" class="item-propertie__image-ibg">-->
+							<!--                                        <img data-src="img/developers-page/01.jpg" alt="">-->
+							<!--                                        <div class="item-propertie__types">-->
+							<!--                                            <span>Townhouse</span>-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__stickers">-->
+							<!--                                            <span>50/50 Payment Plan</span>-->
+							<!--                                        </div>-->
+							<!--                                    </a>-->
+							<!--                                    <div class="item-propertie__content">-->
+							<!--                                        <a href="#" class="item-propertie__title">Emaar The Valley Orania Townhouses</a>-->
+							<!--                                        <div class="item-propertie__location">-->
+							<!--                                            Al Ain Road-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__developer">-->
+							<!--                                            <img src="img/icons/building.svg" alt="Building icon">-->
+							<!--                                            Emaar-->
+							<!--                                        </div>-->
+							<!--								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">-->
+							<!--                                            Play Video Overview-->
+							<!--                                        </button>-->
+							<!--                                        <div class="item-propertie__price">-->
+							<!--                                            <span class="item-propertie__from">from</span>-->
+							<!--                                            <span class="item-propertie__value">AED 1,528,888</span>-->
+							<!--                                        </div>-->
+							<!--                                    </div>-->
+							<!--                                </div>-->
+							<!--                            </div>-->
+							<!--                            <div class="best-properties__item-propertie item-propertie">-->
+							<!--                                <div class="item-propertie__body">-->
+							<!--                                    <a href="#" class="item-propertie__image-ibg">-->
+							<!--                                        <img data-src="img/developers-page/01.jpg" alt="">-->
+							<!--                                        <div class="item-propertie__types">-->
+							<!--                                            <span>Townhouse</span>-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__stickers">-->
+							<!--                                            <span>50/50 Payment Plan</span>-->
+							<!--                                        </div>-->
+							<!--                                    </a>-->
+							<!--                                    <div class="item-propertie__content">-->
+							<!--                                        <a href="#" class="item-propertie__title">Emaar The Valley Orania Townhouses</a>-->
+							<!--                                        <div class="item-propertie__location">-->
+							<!--                                            Al Ain Road-->
+							<!--                                        </div>-->
+							<!--                                        <div class="item-propertie__developer">-->
+							<!--                                            <img src="img/icons/building.svg" alt="Building icon">-->
+							<!--                                            Emaar-->
+							<!--                                        </div>-->
+							<!--								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">-->
+							<!--                                            Play Video Overview-->
+							<!--                                        </button>-->
+							<!--                                        <div class="item-propertie__price">-->
+							<!--                                            <span class="item-propertie__from">from</span>-->
+							<!--                                            <span class="item-propertie__value">AED 1,528,888</span>-->
+							<!--                                        </div>-->
+							<!--                                    </div>-->
+							<!--                                </div>-->
+							<!--                            </div>-->
+							<!--                        </div>-->
+							<!--                    </div>-->
+						</div>
+					</div>
+					<button class="page-link button button_small2" id="nextButton2">Показать больше</button>
+				</div>
+	</div>
+	</section>
+	<section class="page__trusted trusted">
+		<div class="trusted__container">
+			<div class="trusted__body">
+				<div class="trusted__left">
+					<h2 class="trusted__title title">Buy Dubai Properties</h2>
+					<div class="trusted__subtitle">from Trusted Developers</div>
+					<div class="trusted__line"></div>
+					<div class="trusted__text">
+						<p>Dubai offers a large variety of off-plan properties which are still in progress and will be delivered soon, while the top developers in UAE keep launching more newest unique real estate projects for sale in Dubai.</p>
+						<p>The world's most renowned and trusted companies have proved that they can shape beautifully crafted, well-designed and secure future and Dubai already has everything to become its pioneer today.</p>
+						<p>Dubai is considered to be one of the most popular and demanding tourism and business destinations and attracts many buyers from all around the globe.</p>
+						<p>UAE's best real estate developers are constantly adding new high-end communities and residences in Dubai, implementing the latest advanced technologies and innovations to create sustainable environment.</p>
+					</div>
+				</div>
+				<div class="trusted__right trusted-slider">
+					<div class="trusted-slider__body">
+						<div class="trusted-slider__wrapper swiper-wrapper">
+							<div class="trusted-slider__slide swiper-slide">
+								<a href="#" class="trusted-slider__item">
+									<div class="trusted-slider__image-ibg"><img data-src="img/developers-page/01.jpg" alt=""></div>
+									<div class="trusted-slider__content">
+										<div class="trusted-slider__text-content">
+											<h3 class="trusted-slider__title">
+												All Properties
+												<span>for Sale in Dubai</span>
+											</h3>
+											<div class="trusted-slider__price">
+												FROM AED 398,000
+											</div>
+										</div>
+										<div class="trusted-slider__icon">
+											<img src="img/icons/right-arrow.svg" alt="">
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="trusted-slider__slide swiper-slide">
+								<a href="#" class="trusted-slider__item">
+									<div class="trusted-slider__image-ibg"><img data-src="img/developers-page/01.jpg" alt=""></div>
+									<div class="trusted-slider__content">
+										<div class="trusted-slider__text-content">
+											<h3 class="trusted-slider__title">
+												All Properties
+												<span>for Sale in Dubai</span>
+											</h3>
+											<div class="trusted-slider__price">
+												FROM AED 398,000
+											</div>
+										</div>
+										<div class="trusted-slider__icon">
+											<img src="img/icons/right-arrow.svg" alt="">
+										</div>
+									</div>
+								</a>
+							</div>
+							<div class="trusted-slider__slide swiper-slide">
+								<a href="#" class="trusted-slider__item">
+									<div class="trusted-slider__image-ibg"><img data-src="img/developers-page/01.jpg" alt=""></div>
+									<div class="trusted-slider__content">
+										<div class="trusted-slider__text-content">
+											<h3 class="trusted-slider__title">
+												All Properties
+												<span>for Sale in Dubai</span>
+											</h3>
+											<div class="trusted-slider__price">
+												FROM AED 398,000
+											</div>
+										</div>
+										<div class="trusted-slider__icon">
+											<img src="img/icons/right-arrow.svg" alt="">
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="trusted-slider__pagination">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="page__property property">
+		<div class="property__container">
+			<div class="property__body">
+				<div class="property__image-ibg">
+					<img data-src="img/areas/09.png" alt="">
+					<button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="property__icon-play _icon-play"></button>
+				</div>
+				<div class="property__content">
+					<div class="property__title title">How to Buy <br> An Off-Plan Property in Dubai?</div>
+					<div class="property__info">
+						<p class="property__text">
+							When buying off-plan property directly from a developer in Dubai you get a lot of benefits. Most of the real estate developers have special offers like DLD waiver or free property management.
+						</p>
+						<p class="property__text">
+							For the past decade, off-plan apartments in Dubai has become very popular among buyer and investors both local and foreign.
+						</p>
+						<p class="property__text">
+							There are several major reasons of increased demand in Dubai’s real estate sector. First of all, off-plan property comes at much lower price than ready property.
+						</p>
+						<p class="property__text">
+							Secondly, most of the off-plan properties in Dubai feature special payment plan: you can purchase a property and pay for it in small installments instead of paying the full price upfront.
+						</p>
+						<p class="property__text">
+							Finally, considering constant increasing popularity of real estate in Dubai, buying off-plan property is a great investment opportunity with high returns of investments (ROI).
+						</p>
+					</div>
+					<div class="property__row">
+						<div class="property__card">
+							<div class="property__image">
+								<img src="img/properties/1.png" alt="">
+							</div>
+							<div class="property__subtitle">
+								Full Support
+							</div>
+						</div>
+						<div class="property__card">
+							<div class="property__image">
+								<img src="img/properties/2.png" alt="">
+							</div>
+							<div class="property__subtitle">
+								Full Support
+							</div>
+						</div>
+						<div class="property__card">
+							<div class="property__image">
+								<img src="img/properties/3.png" alt="">
+							</div>
+							<div class="property__subtitle">
+								Full Support
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="page__quiz quiz">
+		<div class="quiz__container">
+			<div class="quiz__body">
+				<div class="quiz__image-ibg"><img data-src="img/areas/10.png" alt=""></div>
+				<div class="quiz__content">
+					<div class="quiz__icon-success">
+						<img src="img/success.png" alt="Success icon">
+					</div>
+					<div class="quiz__title">
+						Запутались? Пройдите тест и получите лучшие предложения
+					</div>
+					<div class="quiz__text">
+						<p>Будучи квалифицированными экспертами в области недвижимости с многолетним опытом, мы понимаем, насколько запутанным может быть рынок незавершенной недвижимости Дубая для новых покупателей, а также для профессиональных инвесторов. Особенно, когда в Дубае тысячи незавершенных объектов.</p>
+						<p>Вам не нужно будет просматривать бесчисленные списки на других сайтах недвижимости ОАЭ. Мы собрали всю доступную информацию о строящейся недвижимости в одном месте и создали небольшой тест, чтобы вы могли найти свой идеальный дом менее чем за две минуты.</p>
+						<p>Следуйте простым шагам на экране, чтобы получить персональную подборку проектов, отвечающих всем вашим требованиям. Изучите любой интересующий вас проект в Дубае и свяжитесь с нами!</p>
+					</div>
+					<div class="quiz__actions">
+						<a href="#" class="quiz__button button button_normal">Пройдите быстрый тест</a>
+						<div class="quiz__less-time">
+							<span class="_icon-clock"></span>
+							Это занимает менее 2 минут
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	</main>
+	<footer class="footer">
+		<div class="footer__wrapper">
+			<div class="footer__container">
+				<div class="footer__main" data-spollers="767.98,max">
+					<div class="footer__column column-footer">
+						<button type="button" data-spoller class="column-footer__title">
+							Застройщики в Дубае
+						</button>
+						<div class="column-footer__content">
+							<ul class="column-footer__list">
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Emaar</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Meraas</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">DAMAC</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Dubai Properties</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Select Group</a>
+								</li>
+							</ul>
+							<ul class="column-footer__list">
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Sobha</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Azizi</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Omniyat</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Ellington</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Nakheel</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="footer__column column-footer">
+						<button type="button" data-spoller class="column-footer__title">
+							Популярные районы Дубая
+						</button>
+						<div class="column-footer__content">
+							<ul class="column-footer__list">
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Downtown Dubai</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Dubai Hills Estate</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Dubai Creek Harbour</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Emaar Beachfront</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Arabian Ranches</a>
+								</li>
+							</ul>
+							<ul class="column-footer__list">
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Emaar South</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Dubai Marina</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">Palm Jumairah</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">DAMAC Hills</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="" class="column-footer__link">JBR</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="footer__column column-footer">
+						<button type="button" data-spoller class="column-footer__title">
+							Застройщики в Дубае
+						</button>
+						<div class="column-footer__content">
+							<ul class="column-footer__list">
+								<li class="column-footer__item">
+									<a href="search.html?types=Type&developer=&area=&lifestyle=&min=&max=&search=" class="column-footer__link">Квартиры в Дубае</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="search.html?types=Type&developer=&area=&lifestyle=&min=&max=&search=" class="column-footer__link">Таунхаусы в Дубае</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="search.html?types=Type&developer=&area=&lifestyle=&min=&max=&search=" class="column-footer__link">Виллы в Дубае</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="search.html?types=Type&developer=&area=&lifestyle=&min=&max=&search=" class="column-footer__link">Здание в Дубае</a>
+								</li>
+								<li class="column-footer__item">
+									<a href="search.html?types=Type&developer=&area=&lifestyle=&min=&max=&search=" class="column-footer__link">Купить недвижимость за биткойн</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer__container footer_border-top">
+				<div class="footer__actions">
+					<div class="footer__actions-info _icon-bell">
+						<span class="footer__text">Присоединяйтесь к более чем 6000 участникам, чтобы получать еженедельные обновления</span>
+					</div>
+					<div class="footer__social">
+						<a href="https://m.facebook.com/fcpropertiesdubai/" class="footer__social-link">
+							<span class="_icon-facebook"></span>
+						</a>
+						<a href="https://www.instagram.com/fandcproperties/" class="footer__social-link">
+							<span class="_icon-instagram"></span>
+						</a>
+						<a href="https://www.youtube.com/channel/UCDxXOlXvlvuAUbF9PkbhGLw" class="footer__social-link">
+							<span class="_icon-youtube"></span>
+						</a>
+						<a href="#" class="footer__social-link">
+							<span class="_icon-twitter"></span>
+						</a>
+						<a href="https://www.linkedin.com/company/fandfproperties?original_referer=https%3A%2F%2Fyandex.ru%2F" class="footer__social-link">
+							<span class="_icon-linkedin"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	</div>
+	<div class="page__social-links social-links">
+		<a href="tel:+971588070001" class="social-links__link social-links__link_phone">
+			<img src="img/more/24.png" alt="">
+			<span class="social-links__text">
+				Phone
+			</span>
+		</a>
+		<a href="https://wa.me/971588070001" class="social-links__link social-links__link_whatsapp">
+			<img src="img/more/25.png" alt="">
+			<span class="social-links__text">
+				Whatsapp
+			</span>
+		</a>
+	</div>
+	<!-- <div id="popup" aria-hidden="true" class="popup">
+	<div class="popup__wrapper">
+		<div class="popup__content">
+			<button data-close type="button" class="popup__close">Закрыть</button>
+			<div class="popup__text">
+				
+			</div>
+		</div>
+	</div>
+</div> -->
+
+	<div id="video" aria-hidden="true" class="popup popup-video">
+		<div class="popup__wrapper">
+			<div class="popup__content popup-video__content">
+				<button data-close type="button" class="popup__close popup-video__close"></button>
+				<div class="popup__text">
+
+				</div>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/Q52LJes0LxY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js?_v=20220621192454"></script>
+	<script src="js/app.min.js?_v=20220621192454"></script>
+</body>
