@@ -192,10 +192,10 @@
 	&_red {
 		background: #CA0000;
 		border-radius: 10px;
-		@include adaptiveValue("padding-top", 30, 15, $containerWidth, $minWidth, 1);
-		@include adaptiveValue("padding-bottom", 30, 15, $containerWidth, $minWidth, 1);
-		@include adaptiveValue("padding-left", 70, 35, $containerWidth, $minWidth, 1);
-		@include adaptiveValue("padding-right", 70, 35, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("padding-top", 25, 15, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("padding-bottom", 25, 15, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("padding-left", 30, 15, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("padding-right", 30, 15, $containerWidth, $minWidth, 1);
 		@include adaptiveValue("font-size", 24, 16, $containerWidth, $minWidth, 1);
 		text-align: center;
 		line-height: 180%;

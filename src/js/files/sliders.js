@@ -32,7 +32,7 @@ function initSliders() {
 		new Swiper('.overviews-slider__body', { // Указываем скласс нужного слайдера
 			// Подключаем модули слайдера
 			// для конкретного случая
-			modules: [Navigation],
+			modules: [Navigation, Pagination],
 			observer: true,
 			observeParents: true,
 			slidesPerView: 1,
@@ -162,8 +162,8 @@ function initSliders() {
 			},
 		});
 	}
-	if (document.querySelector('.inline-gallery__body')) {
-		const thumbsSlider = new Swiper('.gallery-bottom', {
+	if (document.querySelector('.gallery-interier__content')) {
+		const thumbsInterier = new Swiper('.thumbs-interier', {
 			modules: [Navigation, Pagination, Thumbs],
 			watchOverflow: true,
 			observer: true,
@@ -184,7 +184,7 @@ function initSliders() {
 			}
 		})
 
-		new Swiper('.inline-gallery__body', {
+		new Swiper('.gallery-interier__content', {
 			modules: [Navigation, Pagination, Thumbs],
 			spaceBetween: 10,
 			loop: true,
@@ -194,11 +194,51 @@ function initSliders() {
 			speed: 800,
 
 			navigation: {
-				nextEl: ".inline-gallery-slider .slider-arrow_next",
-				prevEl: ".inline-gallery-slider .slider-arrow_prev",
+				nextEl: ".inline-gallery-slider__arrows .slider-arrow_next",
+				prevEl: ".inline-gallery-slider__arrows .slider-arrow_prev",
 			},
 			thumbs: {
-				swiper: thumbsSlider,
+				swiper: thumbsInterier,
+			},
+		})
+	}
+	if (document.querySelector('.gallery-exterier__content')) {
+		const thumbsInterier = new Swiper('.thumbs-exterier', {
+			modules: [Navigation, Pagination, Thumbs],
+			watchOverflow: true,
+			observer: true,
+			observeParents: true,
+			spaceBetween: 10,
+			slidesPerView: 2,
+			watchSlidesProgress: true,
+			loop: true,
+			speed: 800,
+
+			breakpoints: {
+				991.98: {
+					slidesPerView: 4,
+				},
+				768.98: {
+					slidesPerView: 3,
+				},
+			}
+		})
+
+		new Swiper('.gallery-exterier__content', {
+			modules: [Navigation, Pagination, Thumbs],
+			spaceBetween: 10,
+			loop: true,
+			watchOverflow: true,
+			observer: true,
+			observeParents: true,
+			speed: 800,
+
+			navigation: {
+				nextEl: ".inline-gallery-slider__arrows .slider-arrow_next",
+				prevEl: ".inline-gallery-slider__arrows .slider-arrow_prev",
+			},
+			thumbs: {
+				swiper: thumbsInterier,
 			},
 		})
 	}
@@ -227,6 +267,30 @@ function initSliders() {
 						<span class="${className} bedroom-tabs-pagination__item">Plan ${index + 1}</span>
 					`
 				},
+			},
+		})
+	}
+	// trusted-slider__body
+	if (document.querySelector('.trusted-slider__body')) {
+		new Swiper('.trusted-slider__body', {
+			modules: [Navigation, Pagination],
+			observer: true,
+			observeParents: true,
+			slidesPerView: 1,
+			spaceBetween: 20,
+			watchOverflow: false,
+			loop: true,
+			preloadImages: false,
+			speed: 800,
+
+			navigation: {
+				prevEl: '.trusted-slider__body .slider-arrow_prev',
+				nextEl: '.trusted-slider__body .slider-arrow_next',
+			},
+
+			pagination: {
+				el: ".trusted-slider__body .trusted-slider__pagination",
+				clickable: true,
 			},
 		})
 	}
@@ -264,7 +328,7 @@ window.addEventListener("load", function (e) {
 	// Запуск инициализации слайдеров
 	setTimeout(function () {
 		initSliders();
-	}, 0)
+	}, 1500)
 	// Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
 	//initSlidersScroll();
 });

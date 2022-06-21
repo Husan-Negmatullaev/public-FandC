@@ -74,9 +74,17 @@ window.onload = function () {
         });
     }
 
+    const quizButton = document.querySelector(".quiz__button")
+
+    if (quizButton) {
+        quizButton.addEventListener("click", (e) => {
+            e.preventDefault()
+            Marquiz.showModal('62a9d7fb7cd214004ab0c35a')
+        })
+    }
+
     setTimeout(function () {
         flsModules.popup.open("#quiz")
     }, 4000)
-
 }
 

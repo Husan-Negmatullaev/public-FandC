@@ -4,6 +4,13 @@
 		"title": "Areas"
 	})
 <body>
+<div id="loader-wrapper">
+  <div id="loader"></div>
+
+  <div class="loader-section section-left"></div>
+  <div class="loader-section section-right"></div>
+
+</div>
     <div class="wrapper">
         @@include('html/_header.htm',{})
         <main class="page">
@@ -11,7 +18,7 @@
                 <div class="main-blog__wrapper">
                     <div class="main-blog__container">
                         <div class="main-blog__body">
-                            <h1 class="main-blog__title">Top Real Estate Areas in Dubai</h1>
+                            <h1 class="main-blog__title">Лучшие районы недвижимости в Дубае</h1>
                         </div>
                     </div>
                     <img class="main-blog__image-ibg" data-src="@img/blog/01.jpg" alt="">
@@ -20,21 +27,19 @@
             <section class="page__areas-city areas-city">
                 <div class="areas-city__container">
                     <div class="areas-city__body">
-                        <div class="areas-city__header form-search">
-                            <input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="Search Area Name" class="areas-city__input input form-search__input">
-                            <button type="button" class="button button_small form-search__button _icon-magnify">Find</button>
-                        </div>
+
                         <div class="areas-city__content">
 
                         </div>
+                        <button class="page-link button button_small2" id="nextButton">Показать больше</button>
                     </div>
                 </div>
             </section>
             <section class="page__best-section best-properties">
                 <div class="best-properties__container">
                     <div class="best-properties__body">
-                        <h2 class="best-properties__title title">Best Properties for Sale in Dubai</h2>
-                        <form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find">
+
+                       <form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find" name="search" style="margin-bottom: 40px">
 									<div class="form-find__wrapper">
 										<div class="form-find__body">
 											<div class="form-find__column">
@@ -50,33 +55,33 @@
 											</div>
 											<div class="form-find__column form-find__column_large">
 												<div class="form-find__item">
-													<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Search Project Name" class="form-find__input input">
+													<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Поиск по названию проекта" class="form-find__input input">
 													<button data-da=".form-find__body,479.98,last" type="submit" class="form-find__button button button_large">
 														<span class="_icon-magnify"></span>
-														Find
+														Находить
 													</button>
 												</div>
 											</div>
 											<div class="form-find__column">
 												<select name="developer" class="form-find__select-developer select">
-													<option value="" selected="">All Developers</option>
+													<option value="" selected="">Все разработчики</option>
 
 
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="area" class="form-find__select-area select">
-													<option value="" selected="">All Areas</option>
+													<option value="" selected="">Все районы</option>
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="lifestyle" class="form-find__select-type select">
-													<option value="" selected="">All Lifestyle Types</option>
+													<option value="" selected="">Все типы образа жизни</option>
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="min" class="form-find__select select">
-													<option value="" selected="">Min. Price</option>
+													<option value="" selected="">Мин. Цена</option>
 													<option value="200000">AED 200,000</option>
 													<option value="300000">AED 300,000</option>
 													<option value="500000">AED 500,000</option>
@@ -89,7 +94,7 @@
 											</div>
 											<div class="form-find__column">
 												<select name="max" class="form-find__select select">
-													<option value="" selected="">Max. Price</option>
+													<option value="" selected="">Макс. Цена</option>
 													<option value="500000">AED 500,000</option>
 													<option value="1000000">AED 1,000,000</option>
 													<option value="2000000">AED 2,000,000</option>
@@ -198,6 +203,7 @@
 <!--                        </div>-->
 <!--                    </div>-->
                         </div></div>
+                     <button class="page-link button button_small2" id="nextButton2">Показать больше</button>
                     </div>
                 </div>
             </section>
@@ -284,54 +290,6 @@
                     </div>
                 </div>
             </section>
-            <section class="page__real-estate best-area">
-                <div class="best-area__container">
-                    <div class="best-area__title title">Best Real Estate Areas</div>
-                    <div class="best-area__subtitle">in Dubai</div>
-                </div>
-                <div class="best-area__body">
-                    <a href="" class="best-area__item item-area">
-                        <div class="item-area__image-ibg"><img data-src="@img/areas/05.png" alt=""></div>
-                        <div class="item-area__content">
-                            <div class="item-area__message">From AED 1,095,450</div>
-                            <div class="item-area__info">
-                                <div class="item-area__title title title_w">Downtown Dubai</div>
-                                <div class="item-area__text">Flagship Emaar's mega-development occupies two of the most prestigious square kilometers in Dubai</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="best-area__item item-area">
-                        <div class="item-area__image-ibg"><img data-src="@img/areas/06.png" alt=""></div>
-                        <div class="item-area__content">
-                            <div class="item-area__message">From AED 1,095,450</div>
-                            <div class="item-area__info">
-                                <div class="item-area__title title title_w">Downtown Dubai</div>
-                                <div class="item-area__text">Flagship Emaar's mega-development occupies two of the most prestigious square kilometers in Dubai</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="best-area__item item-area">
-                        <div class="item-area__image-ibg"><img data-src="@img/areas/07.png" alt=""></div>
-                        <div class="item-area__content">
-                            <div class="item-area__message">From AED 1,095,450</div>
-                            <div class="item-area__info">
-                                <div class="item-area__title title title_w">Downtown Dubai</div>
-                                <div class="item-area__text">Flagship Emaar's mega-development occupies two of the most prestigious square kilometers in Dubai</div>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" class="best-area__item item-area">
-                        <div class="item-area__image-ibg"><img data-src="@img/areas/08.png" alt=""></div>
-                        <div class="item-area__content">
-                            <div class="item-area__message">From AED 1,095,450</div>
-                            <div class="item-area__info">
-                                <div class="item-area__title title title_w">Downtown Dubai</div>
-                                <div class="item-area__text">Flagship Emaar's mega-development occupies two of the most prestigious square kilometers in Dubai</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </section>
             <section class="page__property property">
                 <div class="property__container">
                     <div class="property__body">
@@ -388,60 +346,32 @@
                     </div>
                 </div>
             </section>
-            <section class="page__overviews-slider-developer overviews-slider">
-                <div class="overviews-slider__container">
-                    <div class="overviews-slider__title title">Dubai's Best Real Estate Video Overviews</div>
-                    <div class="overviews-slider__body">
-                        <div class="overviews-slider__controls controls-overviews-slider" data-da=".overviews-slider__body,1570,first">
-                            <div class="controls-overviews-slider__arrows slider-arrows">
-                                <button type="button" class="slider-arrow slider-arrow_prev _icon-angle-right"></button>
-                                <button type="button" class="slider-arrow slider-arrow_next _icon-angle-left"></button>
-                            </div>
-                        </div>
-                        <div class="overviews-slider__wrapper swiper-wrapper">
-                            <div class="swiper-slide overviews-slider__slide">
-                                <div class="overviews-slider__video"><iframe class="video-wrapper" frameborder="0" allowfullscreen="true" data-gtm-yt-inspected-52589444_107="true" src="//www.youtube.com/embed/aVEw5hX3D5E?autoplay=0&amp;loop=0&amp;rel=0&amp;modestbranding=1"></iframe></div>
-                                <!-- <a href="" class="overviews-slider__image-ibg"><img data-src="@img/oveviews/01.png" alt=""></a> -->
-                                <div class="overviews-slider__subtitle">Omniyat The Sterling</div>
-                                <a href="" class="button button_small overviews-slider__button">Video Overview</a>
-                            </div>
-                            <div class="swiper-slide overviews-slider__slide">
-                                <div class="overviews-slider__video"><iframe class="video-wrapper" frameborder="0" allowfullscreen="true" data-gtm-yt-inspected-52589444_107="true" src="//www.youtube.com/embed/aVEw5hX3D5E?autoplay=0&amp;loop=0&amp;rel=0&amp;modestbranding=1"></iframe></div>
-                                <!-- <a href="" class="overviews-slider__image-ibg"><img data-src="@img/oveviews/01.png" alt=""></a> -->
-                                <div class="overviews-slider__subtitle">Omniyat The Sterling</div>
-                                <a href="" class="button button_small overviews-slider__button">Video Overview</a>
-                            </div>
-                        </div>
-                        <div class="overviews-slider__pagination"></div>
-                    </div>
-                </div>
-            </section>
             <section class="page__quiz quiz">
-                <div class="quiz__container">
-                    <div class="quiz__body">
-                        <div class="quiz__image-ibg"><img data-src="@img/areas/10.png" alt=""></div>
-                        <div class="quiz__content">
-                            <div class="quiz__icon-success">
-                                <img src="@img/success.png" alt="Success icon">
-                            </div>
-                            <div class="quiz__title">
-                                Got Confused? Complete A Quiz & Get The Best Offers
-                            </div>
-                            <div class="quiz__text">
-                                <p>Being qualified property experts with years of experience, we realize how confusing Dubai’s off-plan property market could be for new buyers, as well as for professional investors. Especially when there are thousands of off-plan properties in Dubai.</p>
-                                <p>You won’t need to look through countless listings on other the UAE's property websites. We have gathered all available information about off-plan property in one place and created a short quiz for you to find your perfect home in less than two minutes.</p>
-                                <p>Follow simple steps on the screen to get your personal selection of projects that meet all your requirements. Explore any project in Dubai relevant to you and contact us!</p>
-                            </div>
-                            <div class="quiz__actions">
-                                <a href="#" class="quiz__button button button_normal">Take A Quick Test</a>
-                                <div class="quiz__less-time">
-                                    <span class="_icon-clock"></span>
-                                    It takes less than 2 minutes
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+					<div class="quiz__container">
+						<div class="quiz__body">
+							<div class="quiz__image-ibg"><img data-src="@img/areas/10.png" alt=""></div>
+							<div class="quiz__content">
+								<div class="quiz__icon-success">
+									<img src="@img/success.png" alt="Success icon">
+								</div>
+								<div class="quiz__title">
+									Запутались? Пройдите тест и получите лучшие предложения
+								</div>
+								<div class="quiz__text">
+									<p>Будучи квалифицированными экспертами в области недвижимости с многолетним опытом, мы понимаем, насколько запутанным может быть рынок незавершенной недвижимости Дубая для новых покупателей, а также для профессиональных инвесторов. Особенно, когда в Дубае тысячи незавершенных объектов.</p>
+									<p>Вам не нужно будет просматривать бесчисленные списки на других сайтах недвижимости ОАЭ. Мы собрали всю доступную информацию о строящейся недвижимости в одном месте и создали небольшой тест, чтобы вы могли найти свой идеальный дом менее чем за две минуты.</p>
+									<p>Следуйте простым шагам на экране, чтобы получить персональную подборку проектов, отвечающих всем вашим требованиям. Изучите любой интересующий вас проект в Дубае и свяжитесь с нами!</p>
+								</div>
+								<div class="quiz__actions">
+									<a href="#" class="quiz__button button button_normal">Пройдите быстрый тест</a>
+									<div class="quiz__less-time">
+										<span class="_icon-clock"></span>
+										Это занимает менее 2 минут
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
             </section>
         </main>
         @@include('html/_footer.htm',{})

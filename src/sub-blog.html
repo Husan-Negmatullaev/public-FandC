@@ -1,30 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-	@@include('html/_head.htm',{
-		"title":"Main"
+    @@include('html/_head.htm', {
+		"title": "Blog"
 	})
-	<body>
-	<div id="loader-wrapper">
-  <div id="loader"></div>
+<body>
+  <!-- Loader -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
 
-  <div class="loader-section section-left"></div>
-  <div class="loader-section section-right"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
 
-</div>
-		<div class="wrapper">
-			@@include('html/_header.htm',{})
-			<main class="page">
-				<section class="page__main-blog main-blog">
+    </div>
+  <!-- Loader end -->
+  <style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .modelahmed {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  </style>
+
+  <!-- The Modal -->
+    <div id="myModal" class="modal" >
+
+      <!-- Modal content -->
+        <div class="back" style="background-image:url('img/pop up.png');">
+      <div class="modal-content">
+
+
+
+        <form action="/action_page.php" style="margin-top: 400px">
+            <h1 style="font-size: 25px;text-align: center;font-weight: bold">Contact Us</h1>
+        <label for="fname">Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+
+        <label for="lname">Email</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="lastname" placeholder="Your last name..">
+
+
+        <input type="submit" value="Submit">
+      </form>
+      </div>
+            </div>
+        </dev>
+
+    </div>
+  <!-- The Modal end -->
+  <div class="wrapper">
+      @@include('html/_header.htm',{})
+        <main class="page">
+            <section class="page__main-blog-sub main-blog main-blog-sub">
                 <div class="main-blog__wrapper">
                     <div class="main-blog__container">
                         <div class="main-blog__body">
-                            <h1 class="main-blog__title">Найдите лучшую недвижимость для себя в Дубае</h1>
+                            <div class="main-blog-sub__body">
+                                <div class="main-blog-sub__images">
+                                    <img class="main-blog-sub__image" src="@img/developers/01.png" alt="">
+                                </div>
+                                <h1 class="main-blog__title main-blog-sub__title">DAMAC Properties Will Have An Open House Event Dedicated to Safa Two</h1>
+                                <div class="main-blog-sub__content">
+                                    <div class="main-blog-sub__date _icon-calendar">
+                                        <span>
+                                            <span class="main-blog-sub__date-text">16</span>
+                                            <sup>th</sup>
+                                            <span class="main-blog-sub__date-month">June 2022</span>
+                                        </span>
+                                    </div>
+                                    <a href="/blog.html" class="main-blog-sub__link">
+                                        Все статьи →
+                                    </a>
+                                    
+                                </div>
+                                <button data-popup="#video" data-popup-youtube="" class="main-blog-sub__button-quiz button button_red">
+                                    Видео обзор
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <img class="main-blog__image-ibg" data-src="@img/blog/01.jpg" alt="">
                 </div>
             </section>
-				<section class="page__best-section best-properties">
+            <section class="page__news-blog news-blog">
+                <div class="news-blog__container">
+                    <div class="news-blog__body">
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="page__content-text content-text">
+                <div class="content-text__container">
+                    <div class="content-text__body">
+
+                        <p class="content-text__text">
+                            One of the leading UAE developers, DAMAC Properties, is set to host an exclusive Open House on the 18th June in Carson B, DAMAC Hills. The long awaited event will take place between 10AM and 8PM, where potential real estate investors will have the opportunity to learn more about the recently launched Safa Two development, in association with the luxury jewellery de GRISOGONO. The stunning project follows in the footsteps of the highly successful Safa One development in the verdant area of Al Safa, offering a stunning view of the iconic Dubai Canal and the Burj Khalifa.
+                            <br>
+                            <br>
+                            The ultra-refined tower of 80+ levels will have a distinctive scarlet theme, as it will pay tribute to a signature gem from founder Fawaz Gruosi’s collection, which is a highly sought-after 45.39 carat natural ruby ring ‘Virgin Scarlet’. That being said, Safa Two will be illuminated in red and house expansive leafy spaces across the residential units and communal spaces. The 2 towers will be interconnected at the base, middle and crown by exquisite features, including a ruby heart at the center on the 60th floor, with a beautiful floating pool.
+                            <br>
+                            <br>
+                            Among the defining features of Safa Two, it is definitely worth mentioning the 'Fog Forest', which will be complemented by lush landscape and a manmade fog, as well as laser icon shows, F&B outlets, and a gorgeous observation deck. For an adrenaline rush, a Glass Slide will be built on the top level of the upcoming tower, which will lead from the Fog Forest to the Edge Walk. Not forgetting an artificial beach pool, a public elevated glass pool and a media screen, among other recreational offerings that can all be found within Safa Two.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="page__gallery gallery gallery-blog">
+                <div class="gallery__container">
+                    <!-- <div class="gallery__title title title_large">Beachfront Lives & Miami Vibes</div> -->
+                    <div class="gallery__tab tab-gallery">
+                        <div class="tab-gallery__content">
+                            <div class="tab-gallery__body gallery-interier">
+                                <div class="gallery-interier__content">
+                                    <div class="gallery-interier__controls">
+                                        <div class="inline-gallery-slider__arrows slider-arrows">
+                                            <button type="button" class="slider-arrow slider-arrow_prev _icon-angle-right"></button>
+                                            <button type="button" class="slider-arrow slider-arrow_next _icon-angle-left"></button>
+                                        </div>
+                                    </div>
+                                    <div class="gallery-interier__wrapper swiper-wrapper">
+
+                                    </div>
+                                </div>
+                                <div class="gallery-interier__thumbs thumbs-interier" thumbsSlider="1">
+                                    <div class="thumbs-interier__wrapper swiper-wrapper">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+      	<section class="page__best-section best-properties">
                 <div class="best-properties__container">
                     <div class="best-properties__body">
 
@@ -193,54 +330,39 @@
 <!--                    </div>-->
                         </div></div>
                     </div>
+            <button class="page-link button button_small2" id="nextButton2">Показать больше</button>
+                </div>
+            <!-- ============ -->
+            <section class="page__quiz quiz">
+                <div class="quiz__container">
+                    <div class="quiz__body">
+                        <div class="quiz__image-ibg"><img data-src="@img/areas/10.png" alt=""></div>
+                        <div class="quiz__content">
+                            <div class="quiz__icon-success">
+                                <img src="@img/success.png" alt="Success icon">
+                            </div>
+                            <div class="quiz__title">
+                                Запутались? Пройдите тест и получите лучшие предложения
+                            </div>
+                            <div class="quiz__text">
+                                <p>Будучи квалифицированными экспертами в области недвижимости с многолетним опытом, мы понимаем, насколько запутанным может быть рынок незавершенной недвижимости Дубая для новых покупателей, а также для профессиональных инвесторов. Особенно, когда в Дубае тысячи незавершенных объектов.</p>
+                                <p>Вам не нужно будет просматривать бесчисленные списки на других сайтах недвижимости ОАЭ. Мы собрали всю доступную информацию о строящейся недвижимости в одном месте и создали небольшой тест, чтобы вы могли найти свой идеальный дом менее чем за две минуты.</p>
+                                <p>Следуйте простым шагам на экране, чтобы получить персональную подборку проектов, отвечающих всем вашим требованиям. Изучите любой интересующий вас проект в Дубае и свяжитесь с нами!</p>
+                            </div>
+                            <div class="quiz__actions">
+                                <a href="#" class="quiz__button button button_normal">Пройдите быстрый тест</a>
+                                <div class="quiz__less-time">
+                                    <span class="_icon-clock"></span>
+                                    Это занимает менее 2 минут
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
-
-				<section class="page__quiz quiz">
-					<div class="quiz__container">
-						<div class="quiz__body">
-							<div class="quiz__image-ibg"><img data-src="@img/areas/10.png" alt=""></div>
-							<div class="quiz__content">
-								<div class="quiz__icon-success">
-									<img src="@img/success.png" alt="Success icon">
-								</div>
-								<div class="quiz__title">
-									Запутались? Пройдите тест и получите лучшие предложения
-								</div>
-								<div class="quiz__text">
-									<p>Будучи квалифицированными экспертами в области недвижимости с многолетним опытом, мы понимаем, насколько запутанным может быть рынок незавершенной недвижимости Дубая для новых покупателей, а также для профессиональных инвесторов. Особенно, когда в Дубае тысячи незавершенных объектов.</p>
-									<p>Вам не нужно будет просматривать бесчисленные списки на других сайтах недвижимости ОАЭ. Мы собрали всю доступную информацию о строящейся недвижимости в одном месте и создали небольшой тест, чтобы вы могли найти свой идеальный дом менее чем за две минуты.</p>
-									<p>Следуйте простым шагам на экране, чтобы получить персональную подборку проектов, отвечающих всем вашим требованиям. Изучите любой интересующий вас проект в Дубае и свяжитесь с нами!</p>
-								</div>
-								<div class="quiz__actions">
-									<a href="#" class="quiz__button button button_normal">Пройдите быстрый тест</a>
-									<div class="quiz__less-time">
-										<span class="_icon-clock"></span>
-										Это занимает менее 2 минут
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<div class="page__social-links social-links">
-					<a href="tel:+971588070001" class="social-links__link social-links__link_phone">
-						<img src="@img/more/24.png" alt="">
-						<span class="social-links__text">
-							Phone
-						</span>
-					</a>
-					<a href="https://wa.me/971588070001" class="social-links__link social-links__link_whatsapp">
-						<img src="@img/more/25.png" alt="">
-						<span class="social-links__text">
-							Whatsapp
-						</span>
-					</a>
-				</div>
-			</main>
-			@@include('html/_footer.htm',{})
-		</div>
-		@@include('html/_popup.htm',{})
-		@@include('html/_js.htm',{})
-	</body>
-</html>
+      </main>
+      @@include('html/_footer.htm',{})
+      @@include('html/_popup.htm', {})
+  </div>
+  @@include('html/_js.htm',{})
+</body>

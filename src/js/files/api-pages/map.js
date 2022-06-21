@@ -8,6 +8,11 @@ export async function pageMap() {
 
        // Get the modal
 
+  // Fakes the loading setting a timeout
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+
 
 
     const body = document.body;

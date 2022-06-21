@@ -4,43 +4,33 @@ import { flsModules } from "../modules.js";
 
 // https://kvartirivdubai.ru/api/an_object/
 export async function pageMore() {
-    const body = document.body
+
+      // Fakes the loading setting a timeout
+    // setTimeout(function() {
+    //     $('body').addClass('loaded');
+    // }, 5000);
+
+
+
+    const body = document.body;
     if (location.pathname === "/more.html") {
 
 
-        // Get the modal
-var modal = document.getElementById("myModal");
-    modal.style.display = "none";
 
-
-
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+// var btn6 = document.getElementById("myBtn6");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+
 
 // When the user clicks the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-
-}
-
-// When the user clicks on <span> (x), close the modal
 
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 
         const dataCurrentObject = await getResource(`/an_object/${getHash()}`);
         const dataDeveloper = await getResource("/developer/")
         const dataAllObject = await getResource("/an_object/")
 
+        document.title = dataCurrentObject.title;
 
         /* ======================== */
         // Apartment
@@ -56,7 +46,7 @@ window.onclick = function(event) {
         apartmentHandover2.innerHTML = `<h4>${dataCurrentObject.post_handover}</h4>`;
         apartmentHandover.appendChild(apartmentHandover2);
 
-         const apartmentBooking = document.querySelector('.apartments__info-number3');
+        const apartmentBooking = document.querySelector('.apartments__info-number3');
         const apartmentBooking2 = document.createElement("div");
         apartmentBooking2.className = "apartments__info-number";
         apartmentBooking2.innerHTML = `<h4>${dataCurrentObject.booking}</h4>`;
@@ -69,7 +59,7 @@ window.onclick = function(event) {
         apartmentTitle.textContent = dataCurrentObject.title;
 
         const apartmentSafe = document.querySelector('.apartments__safe');
-        apartmentSafe.style.marginTop = apartmentTitle.offsetHeight+20+'px';
+        apartmentSafe.style.marginTop = apartmentTitle.offsetHeight + 20 + 'px';
 
         const apartmentText = document.querySelector('.apartments__text');
         apartmentText.innerHTML = dataCurrentObject.description
@@ -107,30 +97,61 @@ window.onclick = function(event) {
         discoverText.innerHTML = dataCurrentObject.text_ru_ru;
         /* ======================== */
 
+        const features = document.querySelector('.advantages__body')
+        dataCurrentObject.object_gallery.forEach((item) => {
+            const div = document.createElement("div");
+            div.className = "advantages__card advantages-card"
+            div.innerHTML = `
+             <div class="advantages-card__content">
+             <div class="advantages-card__image">
+                                    <img src="${item.image}" alt="">
+                                </div>
+                              
+                            </div>
+                            </div>
+            `;
+            features.appendChild(div);
+        })
+
         /* ======================== */
+        // YOU NEED TO CHANGE THIS CODE. I change HTML
         // Gallery
         // inline-gallery__wrapper
-        const inlineGalleryWrapper = document.querySelector(".inline-gallery__wrapper");
-        dataCurrentObject.exterior_gallery.forEach((item) => {
-            const div = document.createElement("div");
-            div.className = "inline-gallery__slide swiper-slide";
-            div.innerHTML = `
-                <div exterior-gallery="${item.exterior_gallery}" class="inline-gallery__image-ibg"><img src="${item.exterior}" alt=""></div>
+        const galleryInterier = document.querySelector(".gallery-interier__wrapper");
+        const galleryInterierThumbs = document.querySelector(".thumbs-interier__wrapper");
+        dataCurrentObject.interier_gallery.forEach((item) => {
+             const div = document.createElement("div");
+             const divThumb = document.createElement("div");
+             div.className = "gallery-interier__slide swiper-slide";
+             divThumb.className = "thumbs-interier__slide swiper-slide";
+             divThumb.innerHTML = `
+                <div data-exterior="${item.interior_gallery}" class="thumbs-interier__image-ibg"><img src="${item.exterior}" alt=""></div>
+             `
+             div.innerHTML = `
+                <div data-exterior="${item.interior_gallery}" class="gallery-interier__image-ibg"><img src="${item.exterior}" alt=""></div>
             `;
-            inlineGalleryWrapper.appendChild(div);
+             galleryInterier.appendChild(div);
+             galleryInterierThumbs.appendChild(divThumb)
         })
         
-        const galleryBottomWrapper = document.querySelector('.gallery-bottom__wrapper');
+        const galleryExterier = document.querySelector(".gallery-exterier__wrapper");
+        const galleryExterierThumbs = document.querySelector(".thumbs-exterier__wrapper");
         dataCurrentObject.exterior_gallery.forEach((item) => {
-            const div = document.createElement('div');
-            div.className = "gallery-bottom__slide swiper-slide";
-            div.innerHTML = `
-                <div exterior-gallery="${item.exterior}" class="gallery-bottom__image-ibg"><img src="${item.exterior}" alt=""></div>
+             const div = document.createElement("div");
+             const divThumb = document.createElement("div");
+             div.className = "gallery-exterier__slide swiper-slide";
+             divThumb.className = "thumbs-exterier__slide swiper-slide";
+             divThumb.innerHTML = `
+                <div data-exterior="${item.exterior_gallery}" class="thumbs-interier__image-ibg"><img src="${item.exterior}" alt=""></div>
+             `
+             div.innerHTML = `
+                <div data-exterior="${item.exterior_gallery}" class="gallery-interier__image-ibg"><img src="${item.exterior}" alt=""></div>
             `;
-            galleryBottomWrapper.appendChild(div);
-        });
+             galleryExterier.appendChild(div);
+             galleryExterierThumbs.appendChild(divThumb);
+        })
         /* ======================== */
-        
+
 
         /* ======================== */
         // located
@@ -157,8 +178,7 @@ window.onclick = function(event) {
                     <div class="advantages-card__image">
                         <img src="${item.logo}" alt="">
                     </div>
-                    <div class="advantages-card__title">15 Minutes</div>
-                    <div class="advantages-card__subtitle">to Downtown Dubai</div>
+               
                 </div>
             `;
 
@@ -178,9 +198,9 @@ window.onclick = function(event) {
             // button.textContent = index + 1 + " bedroom";
 
             const div = document.createElement("div");
-                div.setAttribute("object-plan", item.object_plan)
-                div.className = "bedroom-tabs-content__body swiper-slide";
-                div.innerHTML = `
+            div.setAttribute("object-plan", item.object_plan)
+            div.className = "bedroom-tabs-content__body swiper-slide";
+            div.innerHTML = `
                     <div class="bedroom-tabs-content__content">
                         <div class="bedroom-tabs-content__title">${item.name}</div>
                         <div class="bedroom-tabs-content__area-info">
@@ -193,9 +213,9 @@ window.onclick = function(event) {
                                 Total Area: ${item.total_area} sqft
                             </div>
                         </div>
-                        <a href="" class="bedroom-tabs-content__button button button_small-large">Получить все планы флоры</a>
+                        <a href="" class="bedroom-tabs-content__button button button_small-large" onclick="Marquiz.showModal('62a9d7fb7cd214004ab0c35a')">Получить всю планировку</a>
                         <br>
-                        <a href="" class="bedroom-tabs-content__button button button_small-large-transparent">Скачать брошюру</a>
+                        <a href="" class="bedroom-tabs-content__button button button_small-large-transparent" onclick="Marquiz.showModal('62a9d7fb7cd214004ab0c35a')">Скачать брошюру</a>
                     </div>
                     <div class="bedroom-tabs-content__image">
                         <div class="bedroom-tabs-content__image-ibg"><img src="${item.plan}" alt=""></div>
@@ -240,76 +260,76 @@ window.onclick = function(event) {
 
         /* ======================== */
         // Properties-Filter
-        // const propertiesFilterContent = document.querySelector(".properties-filter .properties__content");
-        // dataAnObject.forEach((char, index) => {
-        //     const div = document.createElement("div");
-        //     div.className = `properties__item item-properties ${char.properties.join(' ')}`;
-        //     div.innerHTML = `
-        //         <a href="/more.html" class="item-properties__image-ibg">
-        //             <img src="${char.mainphoto}" alt="">
-        //         </a>
-        //         <div class="item-properties__content">
-        //             <div class="item-properties__body">
-        //                 <div class="item-properties__title">${char.area}</div>
-        //                 <div class="item-properties__subtitle">
-        //                     Area: <span class="item-properties__value">
-        //                         ${dataAllObject[index]?.name ? dataAllObject[index].name : ''}
-        //                     </span>
-        //                 </div>
-        //                 <div class="item-properties__position">
-        //                     <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">
-        //                     <span class="item-properties__value">Azizi</span>
-        //                 </div>
-        //                 <div class="item-properties__info">
-        //                     <a href="${
-        //                         char.video_link
-        //                     }" class="item-properties__col">
-        //                         <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">
-        //                         <span class="item-properties__subtitle">
-        //                             Play Video Overview
-        //                         </span>
-        //                     </a>
-        //                     <a href="${
-        //                         char.tour_360
-        //                     }" class="item-properties__col">
-        //                         <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">
-        //                         <span class="item-properties__subtitle">
-        //                             Open 3600 Tour
-        //                         </span>
-        //                     </a>
-        //                 </div>
-        //                 <div class="item-properties__subtitle">
-        //                     from:
-        //                     <span class="item-properties__price">
-        //                         AED ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}
-        //                     </span>
-        //                 </div>
-        //             </div>
-        //             <a href="/more.html#${char.id}" class="item-properties__next">
-        //                 <span class="_icon-arrow-right"></span>
-        //             </a>
-        //         </div>`;
-        //     propertiesFilterContent.appendChild(div);
-        // })
+        const propertiesFilterContent = document.querySelector(".properties-filter .properties__content");
+        dataAllObject.forEach((char, index) => {
+            const div = document.createElement("div");
+            console.log(char.properties.join(' '))
+            div.className = `properties__item item-properties ${char.properties.join(' ')}`;
+            div.innerHTML = `
+                <a href="/more.html" class="item-properties__image-ibg">
+                    <img src="${char.mainphoto}" alt="">
+                </a>
+                <div class="item-properties__content">
+                    <div class="item-properties__body">
+                        <div class="item-properties__title">${char.area}</div>
+                        <div class="item-properties__subtitle">
+                            Area: <span class="item-properties__value">
+                                ${dataAllObject[index]?.name ? dataAllObject[index].name : ''}
+                            </span>
+                        </div>
+                        <div class="item-properties__position">
+                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">
+                            <span class="item-properties__value">Azizi</span>
+                        </div>
+                        <div class="item-properties__info">
+                            <a href="${
+                                char.video_link
+                            }" class="item-properties__col">
+                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">
+                                <span class="item-properties__subtitle">
+                                    Play Video Overview
+                                </span>
+                            </a>
+                            <a href="${
+                                char.tour_360
+                            }" class="item-properties__col">
+                                <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">
+                                <span class="item-properties__subtitle">
+                                    Open 3600 Tour
+                                </span>
+                            </a>
+                        </div>
+                        <div class="item-properties__subtitle">
+                            <span class="item-properties__price">
+                                AED ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}
+                            </span>
+                        </div>
+                    </div>
+                    <a href="/more.html#${char.id}" class="item-properties__next">
+                        <span class="_icon-arrow-right"></span>
+                    </a>
+                </div>`;
+            propertiesFilterContent.appendChild(div);
+        })
 
         const $filterContent = $(".properties-filter .properties__content")
             .isotope({
                 itemSelector: ".properties__item",
             });
 
-        $('.properties-filter__actions').on( 'click', 'button', function() {
+        $('.properties-filter__actions').on('click', 'button', function () {
             var sortValue = $(this).attr('data-filter');
             $filterContent.isotope({ filter: sortValue });
         });
-            
-        $('.properties-filter__actions').each( function( i, buttonGroup ) {
-            var $buttonGroup = $( buttonGroup );
-            $buttonGroup.on( 'click', 'button', function() {
+
+        $('.properties-filter__actions').each(function (i, buttonGroup) {
+            var $buttonGroup = $(buttonGroup);
+            $buttonGroup.on('click', 'button', function () {
                 $buttonGroup.find('.is-checked').removeClass('is-checked');
-                $( this ).addClass('is-checked');
+                $(this).addClass('is-checked');
             });
         });
-              
+
 
         /* ======================== */
     }

@@ -625,6 +625,16 @@ export function dataMediaQueries(array, dataSetValue) {
 	}
 }
 
+export function extractVideoID(url) {
+  let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+  let match = url.match(regExp);
+  if (match && match[7].length == 11) {
+    return match[7];
+  } else {
+    alert('Could not extract video ID.');
+  }
+}
+
 // Обработка запросов
 export async function getResource(url) {
 	const _apiBase = "https://kvartirivdubai.ru/api"

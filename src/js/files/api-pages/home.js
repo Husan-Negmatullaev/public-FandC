@@ -5,6 +5,14 @@ import { flsModules } from "../modules.js";
 
 export async function pageHome() {
 
+
+
+  // Fakes the loading setting a timeout
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+
+
        // Get the modal
 
 
@@ -286,15 +294,18 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
 
             const a = document.createElement("a");
             a.className = "best-area__item item-area";
+            a.hreflang ="search.html"
             a.innerHTML = `
-                <div class="item-area__image-ibg"><img data-src="${char.mainphoto}" alt=""></div>
+               <a href="search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=" > <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""> </div>
                 <div class="item-area__content">
                     <div class="item-area__message">From AED ${char.starting_price}</div>
                     <div class="item-area__info">
+                    
                         <div class="item-area__title title title_w">${char.name}</div>
                         <div class="item-area__text">${char.description}</div>
                     </div>
-                </div>`;
+                    
+                </div></a>`;
                 bestAreaBody.appendChild(a);
         });
 } catch (e) {
@@ -310,12 +321,12 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
         try {
         dataArea.forEach((char, index) => {
          console.log(aar);
-          if (aar === 5) throw BreakException;
+          if (aar === 4) throw BreakException;
           aar+=1
             const a = document.createElement("a");
             a.className = "area__item";
             a.innerHTML = `
-                <div class="area__image-ibg"><img data-src="${char.mainphoto}" alt="Dubai island buildings"></div>
+                <div class="area__image-ibg"><a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max="><img src="${char.mainphoto}" alt="Dubai island buildings"></a></div>
                 <div class="area__title">
                     ${char.name}
                 </div>`;

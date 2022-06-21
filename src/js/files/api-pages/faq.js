@@ -3,7 +3,7 @@ import { isMobile, getResource } from "../functions.js";
 
 
 
-export async function pageDevelopers() {
+export async function pageFaq() {
 
        // Get the modal
 
@@ -15,15 +15,15 @@ export async function pageDevelopers() {
 
 
     const body = document.body;
-    if (location.pathname === "/" || location.pathname === "/developers.html") {
-        const data = await getResource("/an_object/");
+    if (location.pathname === "/" || location.pathname === "/faq.html") {
+
         const developers = await getResource("/an_object/");
         const area = await getResource("/an_object/");
         const type = await getResource("/an_object/");
-        const data_developer = await getResource("/developer/");
+
          var projectData =[];
          var projectData2 =[];
-         var projectIndex =[];
+
          var start =0
          var start2 =0
         var end =10
@@ -36,72 +36,6 @@ export async function pageDevelopers() {
 
 
 
-
-        /* Areas Div */
-async function getResourceHere() {
-	const _apiBase = "https://kvartirivdubai.ru/api/developer/"
-	const res = await fetch(`${_apiBase}`)
-
-    const body = await res.json()
-    projectData = body;
-             start = (currentPage - 1) * pageSize
-             end = currentPage * pageSize
-
-}
-async function renderProjects(page =1,first,last){
-
-    await getResourceHere()
-    if (page == numPages()) {
-    nextButton.style.visibility = "hidden";
-  } else {
-    nextButton.style.visibility = "visible";
-  }
-    projectData.filter((row,index) =>{
-             start = first
-             end = last
-
-            if (index >= start && index < end) return true ;
-
-        }).forEach(char => {
-
-             const overviewsWrapper = document.querySelector(".developers__content");
-            const div = document.createElement("a");
-            div.className = "developers__card lead-card";
-            div.innerHTML = `
-            <div class="lead-card__body">
-                                    <div class="lead-card__image-ibg"><img src="" alt=""></div>
-                                    <div class="lead-card__company-logo">
-                                        <img src="${char.mainphoto}" alt="">
-                                    </div>
-                                    <div class="lead-card__content">
-                                        <div class="lead-card__title title">${char.name}</div>
-                                        <p class="lead-card__text">${char.title_ru_ru}</p>
-                                    </div>
-                                </div>`;
-            overviewsWrapper.appendChild(div)
-        })
-}
-renderProjects(1,start,end)
-
-        function numPages() {
-  return Math.ceil(projectData.length / pageSize);
-}
-
-        function previousPage(){
-    if(currentPage > 1)
-        currentPage--;
-    renderProjects(currentPage)
-        }
-
-        function nextPage(){
-    start+=10
-            end+=10
-    renderProjects(currentPage,start,end)
-        }
-
-document.querySelector('#nextButton').addEventListener('click', nextPage, false);
-
-/* End Of Area Div */
 
 
      /* Properties Fields */
@@ -119,9 +53,9 @@ async function renderProjects2(page =1,first,last){
 
     await getResourceHere2()
     if (page == numPages2()) {
-    nextButton.style.visibility = "hidden";
+    nextButton2.style.visibility = "hidden";
   } else {
-    nextButton.style.visibility = "visible";
+    nextButton2.style.visibility = "visible";
   }
     projectData2.filter((row,index) =>{
              start2 = first
@@ -153,11 +87,11 @@ async function renderProjects2(page =1,first,last){
                                     <div class="item-propertie__content">
                                         <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>
                                         <div class="item-propertie__location">
-                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>
+                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=">${char.area}</a>
                                         </div>
                                         <div class="item-propertie__developer">
                                             <img src="img/icons/building.svg" alt="Building icon">
-                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>
+                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=">${char.developer}</a>
                                         </div>
 								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
                                             Play Video Overview

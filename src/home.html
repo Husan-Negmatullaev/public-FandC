@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	@@include('html/_head.htm',{
-		"title":"Main"
+		"title":"F&C properties агентство недвижимости"
 	})
-	<body>
+	<body >
+	<div id="loader-wrapper">
+  <div id="loader"></div>
+
+  <div class="loader-section section-left"></div>
+  <div class="loader-section section-right"></div>
+
+</div>
 	<style>
 input[type=text], select {
   width: 100%;
@@ -51,13 +58,13 @@ input[type=submit]:hover {
 						<div class="main-block__container">
 							<div class="main-block__body">
 								<div class="main-block__play">
-									<button type="button" data-popup="#video" class="main-block__text">Video About the new project</button>
+									<button type="button" data-popup="#video" class="main-block__text">Видео о новом проекте</button>
 									<button type="button" data-popup="#video" class="main-block__icon">
 										<span class="_icon-play"></span>
 									</button>
 								</div>
 								<div class="main-block__title title title_w">
-									Standalone Luxury 6 & 7BR Villas in DAMAC Hills Designed Exclusively by Roberto Cavalli
+									Отдельные роскошные виллы с 6 и 7 спальнями в DAMAC Hills, спроектированные эксклюзивно Роберто Кавалли
 								</div>
 								<form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find">
 									<div class="form-find__wrapper">
@@ -75,33 +82,33 @@ input[type=submit]:hover {
 											</div>
 											<div class="form-find__column form-find__column_large">
 												<div class="form-find__item">
-													<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Search Project Name" class="form-find__input input">
+													<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Поиск по названию проекта" name="search" class="form-find__input input">
 													<button data-da=".form-find__body,479.98,last" type="submit" class="form-find__button button button_large">
 														<span class="_icon-magnify"></span>
-														Find
+														Находить
 													</button>
 												</div>
 											</div>
 											<div class="form-find__column">
 												<select name="developer" class="form-find__select-developer select">
-													<option value="" selected="">All Developers</option>
+													<option value="" selected="">Все разработчики</option>
 
 
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="area" class="form-find__select-area select">
-													<option value="" selected="">All Areas</option>
+													<option value="" selected="">Все районы</option>
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="lifestyle" class="form-find__select-type select">
-													<option value="" selected="">All Lifestyle Types</option>
+													<option value="" selected="">Все типы образа жизни</option>
 												</select>
 											</div>
 											<div class="form-find__column">
 												<select name="min" class="form-find__select select">
-													<option value="" selected="">Min. Price</option>
+													<option value="" selected="">Мин. Цена</option>
 													<option value="200000">AED 200,000</option>
 													<option value="300000">AED 300,000</option>
 													<option value="500000">AED 500,000</option>
@@ -114,7 +121,7 @@ input[type=submit]:hover {
 											</div>
 											<div class="form-find__column">
 												<select name="max" class="form-find__select select">
-													<option value="" selected="">Max. Price</option>
+													<option value="" selected="">Макс. Цена</option>
 													<option value="500000">AED 500,000</option>
 													<option value="1000000">AED 1,000,000</option>
 													<option value="2000000">AED 2,000,000</option>
@@ -136,7 +143,7 @@ input[type=submit]:hover {
 					<div class="page__properties properties">
 						<div class="properties__container">
 							<div class="properties__body">
-								<h2 class="properties__title title">Off-Plan Properties for Sale in Dubai</h2>
+								<h2 class="properties__title title">Внеплановая недвижимость на продажу в Дубае</h2>
 								<div class="properties__content">
 									<!-- <div class="properties__item item-properties">
 										<a href="" class="item-properties__image-ibg">
@@ -435,11 +442,10 @@ input[type=submit]:hover {
 										</div>
 									</div> -->
 								</div>
-	<button class="page-link button button_small2" id="nextButton">Show More</button>
+								<button class="page-link button button_small2" id="nextButton">Показать больше</button>
 							</div>
 						</div>
 					</div>
-
 					<div class="page__image-bottle image-bottle">
 						<div class="image-bottle__container">
 							<div class="image-bottle__image-ibg"><img data-src="@img/image-bottle/0.png" alt=""></div>
@@ -452,15 +458,15 @@ input[type=submit]:hover {
 									<div class="send-detail__image">
 										<img src="@img/main-page/4.png" alt="">
 									</div>
-									<div class="send-detail__title title">Send your details for free consultation</div>
+									<div class="send-detail__title title">Отправьте свои данные для бесплатной консультации</div>
 								</div>
 								<div class="send-detail__consultation">
 									<form action="#" method="get" enctype="multipart/form-data" class="send-detail__form send-detail-form">
 										<div class="send-detail-form__block">
-											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="Enter your name" class="send-detail-form__input">
+											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" required placeholder="Имя*" class="send-detail-form__input">
 										</div>
 										<div class="send-detail-form__block">
-											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="Enter your e-mail*" class="send-detail-form__input">
+											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" required placeholder="Почта*" class="send-detail-form__input">
 										</div>
 									</form>
 									<!-- <div class="send-detail__enter">
@@ -468,7 +474,7 @@ input[type=submit]:hover {
 										<a href="" class="send-detail__link">Enter your name</a>
 									</div> -->
 									<a href="" class="send-detail__button button button_red">
-										Free consultation
+										Бесплатная консультация
 									</a>
 								</div>
 							</div>
@@ -476,31 +482,33 @@ input[type=submit]:hover {
 					</div>
 				</section>
 				<section class="page__area area">
-					<div class="area__body">
-						<!-- <a href="" class="area__item">
-							<div class="area__image-ibg"><img data-src="@img/areas/01.png" alt="Dubai island buildings"></div>
-							<div class="area__title">
-								Beachfront Properties
-							</div>
-						</a>
-						<a href="" class="area__item">
-							<div class="area__image-ibg"><img data-src="@img/areas/02.png" alt="Dubai island buildings"></div>
-							<div class="area__title">
-								Beachfront Properties
-							</div>
-						</a>
-						<a href="" class="area__item">
-							<div class="area__image-ibg"><img data-src="@img/areas/03.png" alt="Dubai island buildings"></div>
-							<div class="area__title">
-								Beachfront Properties
-							</div>
-						</a>
-						<a href="" class="area__item">
-							<div class="area__image-ibg"><img data-src="@img/areas/04.png" alt="Dubai island buildings"></div>
-							<div class="area__title">
-								Beachfront Properties
-							</div>
-						</a> -->
+					<div class="area__container">
+						<div class="area__body">
+							<!-- <a href="" class="area__item">
+								<div class="area__image-ibg"><img data-src="@img/areas/01.png" alt="Dubai island buildings"></div>
+								<div class="area__title">
+									Beachfront Properties
+								</div>
+							</a>
+							<a href="" class="area__item">
+								<div class="area__image-ibg"><img data-src="@img/areas/02.png" alt="Dubai island buildings"></div>
+								<div class="area__title">
+									Beachfront Properties
+								</div>
+							</a>
+							<a href="" class="area__item">
+								<div class="area__image-ibg"><img data-src="@img/areas/03.png" alt="Dubai island buildings"></div>
+								<div class="area__title">
+									Beachfront Properties
+								</div>
+							</a>
+							<a href="" class="area__item">
+								<div class="area__image-ibg"><img data-src="@img/areas/04.png" alt="Dubai island buildings"></div>
+								<div class="area__title">
+									Beachfront Properties
+								</div>
+							</a> -->
+						</div>
 					</div>
 				</section>
 				<section class="page__property property">
@@ -511,22 +519,22 @@ input[type=submit]:hover {
 								<button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="property__icon-play _icon-play"></button>
 							</div>
 							<div class="property__content">
-								<div class="property__title title">How to Buy <br> An Off-Plan Property in Dubai?</div>
+								<div class="property__title title">Как купить <br> незавершенную недвижимость в Дубае?</div>
 								<div class="property__info">
 									<p class="property__text">
-										When buying off-plan property directly from a developer in Dubai you get a lot of benefits. Most of the real estate developers have special offers like DLD waiver or free property management.
+										Покупая строящуюся недвижимость напрямую у застройщика в Дубае, вы получаете массу преимуществ. У большинства застройщиков есть специальные предложения, такие как отказ от DLD или бесплатное управление недвижимостью.
 									</p>
 									<p class="property__text">
-										For the past decade, off-plan apartments in Dubai has become very popular among buyer and investors both local and foreign.
+										За последнее десятилетие квартиры в стадии строительства в Дубае стали очень популярны среди покупателей и инвесторов, как местных, так и иностранных.
 									</p>
 									<p class="property__text">
-										There are several major reasons of increased demand in Dubai’s real estate sector. First of all, off-plan property comes at much lower price than ready property.
+										Есть несколько основных причин повышенного спроса в секторе недвижимости Дубая. Во-первых, строящаяся недвижимость стоит намного дешевле, чем готовая недвижимость.
 									</p>
 									<p class="property__text">
-										Secondly, most of the off-plan properties in Dubai feature special payment plan: you can purchase a property and pay for it in small installments instead of paying the full price upfront.
+										Во-вторых, большая часть строящейся недвижимости в Дубае имеет специальную схему оплаты: вы можете приобрести недвижимость и оплачивать ее небольшими частями вместо того, чтобы платить полную стоимость сразу.
 									</p>
 									<p class="property__text">
-										Finally, considering constant increasing popularity of real estate in Dubai, buying off-plan property is a great investment opportunity with high returns of investments (ROI).
+										Наконец, учитывая постоянно растущую популярность недвижимости в Дубае, покупка незавершенной недвижимости является отличной инвестиционной возможностью с высокой доходностью инвестиций (ROI).
 									</p>
 								</div>
 								<div class="property__row">
@@ -535,7 +543,7 @@ input[type=submit]:hover {
 											<img src="@img/properties/1.png" alt="">
 										</div>
 										<div class="property__subtitle">
-											Full Support
+											Полная поддержка
 										</div>
 									</div>
 									<div class="property__card">
@@ -543,7 +551,7 @@ input[type=submit]:hover {
 											<img src="@img/properties/2.png" alt="">
 										</div>
 										<div class="property__subtitle">
-											Full Support
+											Совершенно новый Проекты
 										</div>
 									</div>
 									<div class="property__card">
@@ -551,7 +559,7 @@ input[type=submit]:hover {
 											<img src="@img/properties/3.png" alt="">
 										</div>
 										<div class="property__subtitle">
-											Full Support
+											Приоритет бронирование
 										</div>
 									</div>
 								</div>
@@ -561,8 +569,8 @@ input[type=submit]:hover {
 				</section>
 				<section class="page__best-area best-area">
 					<div class="best-area__container">
-						<div class="best-area__title title">Best Real Estate Areas</div>
-						<div class="best-area__subtitle">in Dubai</div>
+						<div class="best-area__title title">Лучшие районы недвижимости</div>
+						<div class="best-area__subtitle">В Дубаи</div>
 					</div>
 					<div class="best-area__body">
 						<!-- <a href="" class="best-area__item item-area">
@@ -608,14 +616,14 @@ input[type=submit]:hover {
 					</div>
 				</section>
 				<section class="page__map map">
-					<div class="map__title title title_w">Dubai's Off-Plan Properties Map</div>
+					<div class="map__title title title_w">Карта незавершенной недвижимости Дубая</div>
 					<div id="map"  style="width: auto; height: 500px;" >
 
 					</div>
 				</section>
 				<section class="page__lead lead">
 					<div class="lead__container">
-						<div class="lead__title title">Leading Dubai Developers</div>
+						<div class="lead__title title">Ведущие застройщики Дубая</div>
 						<div class="lead__body">
 							<div class="lead__controls lead-controls">
 								<div class="lead-controls__arrows slider-arrows">
@@ -664,7 +672,7 @@ input[type=submit]:hover {
 							<div class="lead__pagination pagination-control"></div>
 						</div>
 						<div class="lead__developers">
-							<a href="" class="lead__button button button_red-square">All Developers in Dubai</a>
+							<a href="" class="lead__button button button_red-square">Все застройщики в Дубае</a>
 							<a href="" class="lead__developer-img">
 								<img src="@img/developers/01.png" alt="Emaar Developers">
 							</a>
@@ -679,7 +687,7 @@ input[type=submit]:hover {
 				</section>
 				<section class="page__overviews-slider overviews-slider">
 					<div class="overviews-slider__container">
-						<div class="overviews-slider__title title">Dubai's Best Real Estate Video Overviews</div>
+						<div class="overviews-slider__title title">Лучшие обзоры видео о недвижимости в Дубае</div>
 						<div class="overviews-slider__body">
 							<div class="overviews-slider__controls controls-overviews-slider" data-da=".overviews-slider__body,1570,first">
 								<div class="controls-overviews-slider__arrows slider-arrows">
@@ -709,7 +717,7 @@ input[type=submit]:hover {
 				</section>
 				<section class="page__news news">
 					<div class="news__container">
-						<div class="news__title title">Real Estate News, Insights & Tips</div>
+						<div class="news__title title">Новости недвижимости, идеи и советы</div>
 						<div class="news__body">
 							<!-- <div class="news__card card-news">
 								<div class="card-news__body">
@@ -814,18 +822,18 @@ input[type=submit]:hover {
 									<img src="@img/success.png" alt="Success icon">
 								</div>
 								<div class="quiz__title">
-									Got Confused? Complete A Quiz & Get The Best Offers
+									Запутались? Пройдите тест и получите лучшие предложения
 								</div>
 								<div class="quiz__text">
-									<p>Being qualified property experts with years of experience, we realize how confusing Dubai’s off-plan property market could be for new buyers, as well as for professional investors. Especially when there are thousands of off-plan properties in Dubai.</p>
-									<p>You won’t need to look through countless listings on other the UAE's property websites. We have gathered all available information about off-plan property in one place and created a short quiz for you to find your perfect home in less than two minutes.</p>
-									<p>Follow simple steps on the screen to get your personal selection of projects that meet all your requirements. Explore any project in Dubai relevant to you and contact us!</p>
+									<p>Будучи квалифицированными экспертами в области недвижимости с многолетним опытом, мы понимаем, насколько запутанным может быть рынок незавершенной недвижимости Дубая для новых покупателей, а также для профессиональных инвесторов. Особенно, когда в Дубае тысячи незавершенных объектов.</p>
+									<p>Вам не нужно будет просматривать бесчисленные списки на других сайтах недвижимости ОАЭ. Мы собрали всю доступную информацию о строящейся недвижимости в одном месте и создали небольшой тест, чтобы вы могли найти свой идеальный дом менее чем за две минуты.</p>
+									<p>Следуйте простым шагам на экране, чтобы получить персональную подборку проектов, отвечающих всем вашим требованиям. Изучите любой интересующий вас проект в Дубае и свяжитесь с нами!</p>
 								</div>
 								<div class="quiz__actions">
-									<a href="#" class="quiz__button button button_normal">Take A Quick Test</a>
+									<a href="#" class="quiz__button button button_normal">Пройдите быстрый тест</a>
 									<div class="quiz__less-time">
 										<span class="_icon-clock"></span>
-										It takes less than 2 minutes
+										Это занимает менее 2 минут
 									</div>
 								</div>
 							</div>
@@ -836,7 +844,7 @@ input[type=submit]:hover {
 					<a href="tel:+971588070001" class="social-links__link social-links__link_phone">
 						<img src="@img/more/24.png" alt="">
 						<span class="social-links__text">
-							Phone
+							Телефон
 						</span>
 					</a>
 					<a href="https://wa.me/971588070001" class="social-links__link social-links__link_whatsapp">
@@ -852,10 +860,6 @@ input[type=submit]:hover {
 		</div>
 		@@include('html/_popup.htm',{})
 		@@include('html/_js.htm',{})
-
-
-
-
 <!-- Start of LiveChat (www.livechat.com) code -->
 <script>
     window.__lc = window.__lc || {};

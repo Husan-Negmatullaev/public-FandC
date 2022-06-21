@@ -210,3 +210,11 @@ developers.pageDevelopers()
 import * as areas from "./files/api-pages/areas.js";
 
 areas.pageAreas()
+
+import * as faq from "./files/api-pages/faq.js";
+
+faq.pageFaq()
+
+import * as subBlog from "./files/api-pages/sub-blog.js";
+
+subBlog.pageSubBlog()

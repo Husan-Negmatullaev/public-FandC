@@ -2,19 +2,26 @@ import {getResource} from "../functions.js";
 
 
 export async function pageBlog() {
-    const body = document.body
+
+      // Fakes the loading setting a timeout
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 5000);
+
+
+    const body = document.body;
     if (location.pathname === "/blog.html") {
 
         const blog = await getResource("/blog/");
 
-
             const overviewsWrapper = document.querySelector(".news-blog__body");
-             blog.forEach((char, index) => {
+
+            blog.forEach((char, index) => {
                 const div = document.createElement("div");
                 div.className = "news-blog__card card-news";
                 div.innerHTML = `
                <div class="card-news__body">
-                                <a href="" class="card-news__image-ibg"><img data-src="${char.mainphoto}" alt=""></a>
+                                <a href="/sub-blog.html#${char.id}" class="card-news__image-ibg"><img data-src="${char.mainphoto}" alt=""></a>
                                 <div class="card-news__date">
                                     <span class="card-news__icon _icon-calendar"></span>
                                     <span class="card-news__date-text">
@@ -27,7 +34,7 @@ export async function pageBlog() {
                                     </div>
                                     <div class="card-news__title">${char.title}</div>
                                     <div class="card-news__text">${char.description_ru_ru}</div>
-                                    <a href="" class="card-news__button button button_small">
+                                    <a href="${char.link}" class="card-news__button button button_small">
                                         Video Overview
                                     </a>
                                 </div>

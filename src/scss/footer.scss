@@ -14,7 +14,7 @@
 
     &__main {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         @include adaptiveValue("padding-top", 40, 20, $containerWidth, $minWidth, 1);
         @include adaptiveValue("padding-bottom", 40, 20, $containerWidth, $minWidth, 1);
         @media (max-width: em(1250)) {
