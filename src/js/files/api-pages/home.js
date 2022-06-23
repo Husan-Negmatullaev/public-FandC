@@ -7,218 +7,218 @@ export async function pageHome() {
 
 
 
-  // Fakes the loading setting a timeout
-    setTimeout(function() {
-        $('body').addClass('loaded');
-    }, 5000);
+    // Fakes the loading setting a timeout
 
 
-       // Get the modal
+
+    // Get the modal
 
 
 
     const body = document.body;
     if (location.pathname === "/" || location.pathname === "/home.html") {
+
         const data = await getResource("/an_object/");
-        const developers = await getResource("/an_object/");
-        const area = await getResource("/an_object/");
-        const type = await getResource("/an_object/");
+        // const developers = await getResource("/an_object/");
+        // const area = await getResource("/an_object/");
+        // const type = await getResource("/an_object/");
+
+        const developers = JSON.parse(JSON.stringify(data));
+        const area = JSON.parse(JSON.stringify(data));
+        const type = JSON.parse(JSON.stringify(data));
+        
+        const dataBlog = await getResource("/blog/");
         const data_developer = await getResource("/developer/");
         const dataArea = await getResource("/area/");
-        const dataType = await getResource("/type/");
-        const dataBlog = await getResource("/blog/");
- var projectData =[];
-  var projectIndex =[];
-  var start =0
-        var end =10
+
+        // const dataType = await getResource("/type/"); // Dont Used request
+        var projectData = [];
+        var projectIndex = [];
+        var start = 0
+        var end = 10
 
         let pageSize = 10;
         let currentPage = 1;
 
 
 
-async function getResourceHere() {
-	const _apiBase = "https://kvartirivdubai.ru/api/an_object/"
-	const res = await fetch(`${_apiBase}`)
+        async function getResourceHere() {
+            const _apiBase = "https://kvartirivdubai.ru/api/an_object/"
+            const res = await fetch(`${_apiBase}`)
 
-    const body = await res.json()
-    projectData = body;
-             start = (currentPage - 1) * pageSize
-             end = currentPage * pageSize
+            const body = await res.json()
+            projectData = body;
+            start = (currentPage - 1) * pageSize
+            end = currentPage * pageSize
 
-}
-async function renderProjects(page =1,first,last){
+        }
 
-    await getResourceHere()
-    if (page == numPages()) {
-    nextButton.style.visibility = "hidden";
-  } else {
-    nextButton.style.visibility = "visible";
-  }
-    projectData.filter((row,index) =>{
-             start = first
-             end = last
-
-            if (index >= start && index < end) return true ;
-
-        }).forEach(char => {
-
-            console.log(projectData)
+        async function renderProjects(page = 1, first, last) {
             const propertyContent = document.querySelector(".properties__content");
-            const propertyItem = document.createElement("div");
-            propertyItem.className = "properties__item item-properties ";
-            propertyItem.setAttribute("data-index", char.id);
-            propertyItem.setAttribute("data-tabs-title", "");
-            propertyItem.innerHTML = `
-                <a href="/more.html#${char.id}" class="item-properties__image-ibg">
-                    <img src="${char.mainphoto}" alt="">
-                </a>
-                <div class="item-properties__content">
-                    <div class="item-properties__body">
-                        <div class="item-properties__title">${char.title}</div>
-                        <div class="item-properties__subtitle">
-                            Area: <span class="item-properties__value">
-                                ${char.area}
-                            </span>
-                        </div>
-                        <div class="item-properties__position">
-                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">
-                            <span class="item-properties__value"> ${char.developer}</span>
-                        </div>
-                        <div class="item-properties__info">
-                            <a href="${char.video_link
-                        }" class="item-properties__col">
-                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">
-                                <span class="item-properties__subtitle">
-                                    Play Video Overview
-                                </span>
-                            </a>
-                            <a href="${char.tour_360
-                        }" class="item-properties__col">
-                                <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">
-                                <span class="item-properties__subtitle">
-                                    Open 3600 Tour
-                                </span>
-                            </a>
-                        </div>
-                        <div class="item-properties__subtitle">
-                             
-                            <span class="item-properties__price">
-                                 ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}
-                            </span>
-                        </div>
-                    </div>
-                    <a href="/more.html#${char.id}" class="item-properties__next">
-                        <span class="_icon-arrow-right"></span>
+            console.log('home.html');
+            setTimeout(function () {
+                $('body').addClass('loaded');
+            }, 1000)
+            await getResourceHere()
+            if (page == numPages()) {
+                nextButton.style.visibility = "hidden";
+            } else {
+                nextButton.style.visibility = "visible";
+            }
+            projectData.filter((row, index) => {
+                start = first
+                end = last
+
+                if (index >= start && index < end) return true;
+
+            }).forEach(char => {
+                const propertyItem = document.createElement("div");
+                propertyItem.className = "properties__item item-properties ";
+                propertyItem.setAttribute("data-index", char.id);
+                propertyItem.setAttribute("data-tabs-title", "");
+                propertyItem.innerHTML = `
+                    <a href="/project.html#${char.id}" class="item-properties__image-ibg">
+                        <img src="${char.mainphoto}" alt="">
                     </a>
-                </div>`;
+                    <div class="item-properties__content">
+                        <div class="item-properties__body">
+                            <div class="item-properties__title">${char.title}</div>
+                            <div class="item-properties__subtitle">
+                                Область: <span class="item-properties__value">
+                                    ${char.area}
+                                </span>
+                            </div>
+                            <div class="item-properties__position">
+                                <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">
+                                <span class="item-properties__value"> ${char.developer}</span>
+                            </div>
+                            <div class="item-properties__info">
+                                <a href="${char.video_link
+                    }" class="item-properties__col">
+                                    <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">
+                                    <span class="item-properties__subtitle">
+                                        Посмотреть видео
+                                    </span>
+                                </a>
+                                <a href="${char.tour_360
+                    }" class="item-properties__col">
+                                    <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">
+                                    <span class="item-properties__subtitle">
+                                        Открытый тур 360<sup>0</sup>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="item-properties__subtitle">
+                                <span class="item-properties__price">
+                                    ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}
+                                </span>
+                            </div>
+                        </div>
+                        <a href="/project.html#${char.id}" class="item-properties__next">
+                            <span class="_icon-arrow-right"></span>
+                        </a>
+                    </div>`;
 
-            propertyContent.appendChild(propertyItem);
+                propertyContent.appendChild(propertyItem);
+            })
+        }
 
-        })
-}
-renderProjects(1,start,end)
+        renderProjects(1, start, end)
 
         function numPages() {
-  return Math.ceil(projectData.length / pageSize);
-}
-
-        function previousPage(){
-    if(currentPage > 1)
-        currentPage--;
-    renderProjects(currentPage)
+            return Math.ceil(projectData.length / pageSize);
         }
 
-        function nextPage(){
-    start+=10
-            end+=10
-    renderProjects(currentPage,start,end)
+        function previousPage() {
+            if (currentPage > 1)
+                currentPage--;
+            renderProjects(currentPage)
         }
 
-document.querySelector('#nextButton').addEventListener('click', nextPage, false);
+        function nextPage() {
+            start += 10
+            end += 10
+            renderProjects(currentPage, start, end)
+        }
 
-
-
+        document.querySelector('#nextButton').addEventListener('click', nextPage, false);
 
         /* ===================== */
         // Main Block
 
-            let developerArray = [];
-            var developerTitle
-            let developerObject = {};
+        let developerArray = [];
+        var developerTitle
+        let developerObject = {};
 
-            for (let i in developers) {
+        for (let i in developers) {
 
-                // Extract the title
-                developerTitle = developers[i]['developer'];
+            // Extract the title
+            developerTitle = developers[i]['developer'];
 
-                // Use the title as the index
-                developerObject[developerTitle] = developers[i];
-            }
-             for (let x in developerObject) {
-                developerArray.push(developerObject[x]);
-            }
+            // Use the title as the index
+            developerObject[developerTitle] = developers[i];
+        }
+        for (let x in developerObject) {
+            developerArray.push(developerObject[x]);
+        }
 
-         developerArray.forEach((char2, index) => {
+        developerArray.forEach((char2, index) => {
             const selectContent = document.querySelector(".form-find__select-developer");
             const selectItem = document.createElement("option");
             selectItem.className = "";
             selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
             selectContent.appendChild(selectItem);
+        });
 
-         });
 
+        let areaArray = [];
+        var areaTitle
+        let areaObject = {};
 
-             let areaArray = [];
-            var areaTitle
-            let areaObject = {};
+        for (let i in area) {
 
-            for (let i in area) {
+            // Extract the title
+            areaTitle = area[i]['area'];
 
-                // Extract the title
-                areaTitle = area[i]['area'];
+            // Use the title as the index
+            areaObject[areaTitle] = area[i];
+        }
+        for (let x in areaObject) {
+            areaArray.push(areaObject[x]);
+        }
 
-                // Use the title as the index
-                areaObject[areaTitle] = area[i];
-            }
-             for (let x in areaObject) {
-                areaArray.push(areaObject[x]);
-            }
-
-         areaArray.forEach((char2, index) => {
+        areaArray.forEach((char2, index) => {
             const selectContent = document.querySelector(".form-find__select-area");
             const selectItem = document.createElement("option");
             selectItem.className = "";
             selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
             selectContent.appendChild(selectItem);
 
-         });
+        });
 
+        let typeArray = [];
+        var typeTitle
+        let typeObject = {};
 
-             let typeArray = [];
-            var typeTitle
-            let typeObject = {};
+        for (let i in type) {
 
-            for (let i in type) {
+            // Extract the title
+            typeTitle = type[i]['type'];
 
-                // Extract the title
-                typeTitle = type[i]['type'];
+            // Use the title as the index
+            typeObject[typeTitle] = type[i];
+        }
+        for (let x in typeObject) {
+            typeArray.push(typeObject[x]);
+        }
 
-                // Use the title as the index
-                typeObject[typeTitle] = type[i];
-            }
-             for (let x in typeObject) {
-                typeArray.push(typeObject[x]);
-            }
-
-         typeArray.forEach((char2, index) => {
+        typeArray.forEach((char2, index) => {
             const selectContent = document.querySelector(".form-find__select-type");
             const selectItem = document.createElement("option");
             selectItem.className = "";
             selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
             selectContent.appendChild(selectItem);
-
-         });
+        });
 
 
         // data.forEach((char, index) => {
@@ -228,7 +228,7 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
         //     propertyItem.setAttribute("data-index", char.id);
         //     propertyItem.setAttribute("data-tabs-title", "");
         //     propertyItem.innerHTML = `
-        //         <a href="/more.html" class="item-properties__image-ibg">
+        //         <a href="/project.html" class="item-properties__image-ibg">
         //             <img src="${char.mainphoto}" alt="">
         //         </a>
         //         <div class="item-properties__content">
@@ -266,7 +266,7 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
         //                     </span>
         //                 </div>
         //             </div>
-        //             <a href="/more.html#${char.id}" class="item-properties__next">
+        //             <a href="/project.html#${char.id}" class="item-properties__next">
         //                 <span class="_icon-arrow-right"></span>
         //             </a>
         //         </div>`;
@@ -286,19 +286,19 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
         var BreakException2 = {};
         var aar2 = 0;
         try {
-        dataArea.forEach((char, index) => {
+            dataArea.forEach((char, index) => {
 
-            console.log(aar2);
-          if (aar2 === 4) throw BreakException2;
-          aar2+=1
+                // console.log(aar2);
+                if (aar2 === 4) throw BreakException2;
+                aar2 += 1
 
-            const a = document.createElement("a");
-            a.className = "best-area__item item-area";
-            a.hreflang ="search.html"
-            a.innerHTML = `
+                const a = document.createElement("a");
+                a.className = "best-area__item item-area";
+                a.hreflang = "search.html"
+                a.innerHTML = `
                <a href="search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=" > <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""> </div>
                 <div class="item-area__content">
-                    <div class="item-area__message">From AED ${char.starting_price}</div>
+                    <div class="item-area__message">От AED ${char.starting_price}</div>
                     <div class="item-area__info">
                     
                         <div class="item-area__title title title_w">${char.name}</div>
@@ -307,10 +307,10 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
                     
                 </div></a>`;
                 bestAreaBody.appendChild(a);
-        });
-} catch (e) {
-  if (e !== BreakException2) throw e;
-}
+            });
+        } catch (e) {
+            if (e !== BreakException2) throw e;
+        }
         /* ===================== */
 
         /* ===================== */
@@ -319,22 +319,22 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
         var BreakException = {};
         var aar = 0;
         try {
-        dataArea.forEach((char, index) => {
-         console.log(aar);
-          if (aar === 4) throw BreakException;
-          aar+=1
-            const a = document.createElement("a");
-            a.className = "area__item";
-            a.innerHTML = `
+            dataArea.forEach((char, index) => {
+                //  console.log(aar);
+                if (aar === 4) throw BreakException;
+                aar += 1
+                const a = document.createElement("a");
+                a.className = "area__item";
+                a.innerHTML = `
                 <div class="area__image-ibg"><a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max="><img src="${char.mainphoto}" alt="Dubai island buildings"></a></div>
                 <div class="area__title">
                     ${char.name}
                 </div>`;
-            areaBody.appendChild(a);
-         });
-} catch (e) {
-  if (e !== BreakException) throw e;
-}
+                areaBody.appendChild(a);
+            });
+        } catch (e) {
+            if (e !== BreakException) throw e;
+        }
         /* ===================== */
 
         /* ===================== */
@@ -351,8 +351,8 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
             </div>`;
             overviewsWrapper.appendChild(div)
         })
-        
-        
+
+
         /* ===================== */
         // Lead
         const leadWrapper = document.querySelector(".lead__wrapper");
@@ -381,9 +381,12 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
             const div = document.createElement("div");
             div.className = "news__card card-news";
             const dateArr = char.created.split('-');
-            console.log(dateArr);
-            const getMonth = new Date(dateArr[1]).toLocaleDateString("en", {
+            // console.log(dateArr);
+            const getMonth = new Date(dateArr).toLocaleDateString("ru", {
                 month: "long"
+            });
+            const getWeekday = new Date(dateArr).toLocaleDateString("ru", {
+                weekday: "short"
             });
             // console.log(typeof dateArr[0]);
             div.innerHTML = `
@@ -392,17 +395,15 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
                     <div class="card-news__date">
                         <span class="card-news__icon _icon-calendar"></span>
                         <span class="card-news__date-text">
-                            ${dateArr[2]} <sup>th</sup> ${getMonth} ${dateArr[0]}
+                            ${dateArr[2]} <sup>${getWeekday}</sup> ${getMonth} ${dateArr[0]}
                         </span>
                     </div>
                     <div class="card-news__content">
-                        <div class="card-news__type-projects">
-                            NEW PROJECTS 
-                        </div>
+                        
                         <div class="card-news__title">${char.title}</div>
                         <div class="card-news__text">${char.description}</div>
                         <a href="${char.link}" class="card-news__button button button_small">
-                            Video Overview
+                            Обзор видео
                         </a>
                     </div>
                 </div>`;
@@ -412,42 +413,41 @@ document.querySelector('#nextButton').addEventListener('click', nextPage, false)
 
 
 
-var locations = [];
-data.forEach((char, index) => {
-    locations[index] = [char.title , char.latitude , char.longitude , index]
-});
-    //   ['Bondi Beach', -33.890542, 151.274856, 4],
-    //   ['Coogee Beach', -33.923036, 151.259052, 5],
-    //   ['Cronulla Beach', -34.028249, 151.157507, 3],
-    //   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-    //   ['Maroubra Beach', -33.950198, 151.259302, 1]
-    // ];
+        var locations = [];
+        data.forEach((char, index) => {
+            locations[index] = [char.title, char.latitude, char.longitude, index]
+        });
+        //   ['Bondi Beach', -33.890542, 151.274856, 4],
+        //   ['Coogee Beach', -33.923036, 151.259052, 5],
+        //   ['Cronulla Beach', -34.028249, 151.157507, 3],
+        //   ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        //   ['Maroubra Beach', -33.950198, 151.259302, 1]
+        // ];
 
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 12,
-      center: new google.maps.LatLng(25.0617177,55.312431),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: new google.maps.LatLng(25.0617177, 55.312431),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
-    var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
+        var marker, i;
 
-    for (i = 0; i < locations.length; i++) {
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
-      });
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map
+            });
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
         }
-      })(marker, i));
-    }
 
     }
-
 
 }

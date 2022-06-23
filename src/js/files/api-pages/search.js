@@ -6,14 +6,17 @@ import {isMobile, getResource2,getResource} from "../functions.js";
 export async function pageSearch() {
 
       // Fakes the loading setting a timeout
-    setTimeout(function() {
-        $('body').addClass('loaded');
-    }, 5000);
+    
 
 
 
-      if (location.pathname === "/" || location.pathname === "/search.html") {
+      if (location.pathname === "/search.html") {
     const params = new URLSearchParams(window.location.search)
+
+        setTimeout(function() {
+            $('body').addClass('loaded');
+            console.log('search.html')
+        }, 5000);
 
           const developers = await getResource("/an_object/");
         const area = await getResource("/an_object/");
@@ -114,6 +117,8 @@ export async function pageSearch() {
             propertyItem.className = "best-properties__item-propertie item-propertie";
             propertyItem.setAttribute("data-index", char.id);
             propertyItem.setAttribute("data-tabs-title", "");
+            const videoLink = extractVideoID(char.video_link);
+
             propertyItem.innerHTML = `
                                            <div class="best-properties__item-propertie item-propertie">
                                 <div class="item-propertie__body">
@@ -135,8 +140,8 @@ export async function pageSearch() {
                                             <img src="img/icons/building.svg" alt="Building icon">
                                             <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>
                                         </div>
-								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
-                                            Play Video Overview
+								        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">
+                                            Посмотреть видео
                                         </button>
                                         <div class="item-propertie__price">
                                             

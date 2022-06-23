@@ -592,19 +592,19 @@ h1 {
             flex-direction: column;
         }
         position: relative;
-        @media (min-width:$mobile){
-            &::before{
-                content:'';
-                display: block;
-                position: absolute;
-                width: 100vw;
-                height: 100%;
-                top: -40px;
-                right: -760px;
+        // @media (min-width:$mobile){
+        //     &::before{
+        //         content:'';
+        //         display: block;
+        //         position: absolute;
+        //         width: 100vw;
+        //         height: 100%;
+        //         top: -40px;
+        //         right: -760px;
 
-                border-radius: 20px;
-            }     
-        }
+        //         border-radius: 20px;
+        //     }     
+        // }
     }
 
     // .trusted__left

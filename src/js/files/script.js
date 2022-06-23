@@ -83,8 +83,8 @@ window.onload = function () {
         })
     }
 
-    setTimeout(function () {
-        flsModules.popup.open("#quiz")
-    }, 4000)
+    // setTimeout(function () {
+    //     flsModules.popup.open("#quiz")
+    // }, 4000)
 }
 

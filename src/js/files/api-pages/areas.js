@@ -1,36 +1,40 @@
-import { isMobile, getResource } from "../functions.js";
+import { isMobile, getResource, extractVideoID } from "../functions.js";
 
 
 
 
 export async function pageAreas() {
 
-       // Get the modal
+    // Get the modal
 
-  // Fakes the loading setting a timeout
-    setTimeout(function() {
-        $('body').addClass('loaded');
-    }, 5000);
+    // Fakes the loading setting a timeout
+   
 
 
 
     const body = document.body;
-    if (location.pathname === "/" || location.pathname === "/areas.html") {
-        const data = await getResource("/an_object/");
+    if (location.pathname === "/areas.html") {
+
+        setTimeout(function () {
+            $('body').addClass('loaded');
+            console.log('areas.html');
+        }, 5000);
+
+        // const data = await getResource("/an_object/");
         const developers = await getResource("/an_object/");
         const area = await getResource("/an_object/");
         const type = await getResource("/an_object/");
-        const data_developer = await getResource("/developer/");
-        const data_area = await getResource("/area/");
+        // const data_developer = await getResource("/developer/");
+        // const data_area = await getResource("/area/");
 
 
-        var projectData =[];
-        var projectData2 =[];
-        var projectIndex =[];
-        var start =0
-        var start2 =0
-        var end =10
-        var end2 =10
+        var projectData = [];
+        var projectData2 = [];
+        var projectIndex = [];
+        var start = 0
+        var start2 = 0
+        var end = 10
+        var end2 = 10
 
         let pageSize = 10;
         let pageSize2 = 10;
@@ -50,7 +54,7 @@ export async function pageAreas() {
             end = currentPage * pageSize
 
         }
-        async function renderProjects(page =1,first,last){
+        async function renderProjects(page = 1, first, last) {
 
             await getResourceHere()
             if (page == numPages()) {
@@ -58,15 +62,15 @@ export async function pageAreas() {
             } else {
                 nextButton.style.visibility = "visible";
             }
-            projectData.filter((row,index) =>{
+            projectData.filter((row, index) => {
                 start = first
                 end = last
 
-                if (index >= start && index < end) return true ;
+                if (index >= start && index < end) return true;
 
             }).forEach(char => {
 
-                console.log(projectData)
+                // console.log(projectData)
 
                 const div = document.createElement("a");
                 div.className = "areas-city__city-area city-area";
@@ -82,22 +86,22 @@ export async function pageAreas() {
                 overviewsWrapper.appendChild(div)
             })
         }
-        renderProjects(1,start,end)
+        renderProjects(1, start, end)
 
         function numPages() {
             return Math.ceil(projectData.length / pageSize);
         }
 
-        function previousPage(){
-            if(currentPage > 1)
+        function previousPage() {
+            if (currentPage > 1)
                 currentPage--;
             renderProjects(currentPage)
         }
 
-        function nextPage(){
-            start+=10
-            end+=10
-            renderProjects(currentPage,start,end)
+        function nextPage() {
+            start += 10
+            end += 10
+            renderProjects(currentPage, start, end)
         }
 
         document.querySelector('#nextButton').addEventListener('click', nextPage, false);
@@ -116,7 +120,7 @@ export async function pageAreas() {
             end2 = currentPage2 * pageSize2
 
         }
-        async function renderProjects2(page =1,first,last){
+        async function renderProjects2(page = 1, first, last) {
 
             await getResourceHere2()
             if (page == numPages2()) {
@@ -124,21 +128,22 @@ export async function pageAreas() {
             } else {
                 nextButton.style.visibility = "visible";
             }
-            projectData2.filter((row,index) =>{
+            projectData2.filter((row, index) => {
                 start2 = first
                 end2 = last
 
-                if (index >= start2 && index < end2) return true ;
+                if (index >= start2 && index < end2) return true;
 
             }).forEach(char => {
 
-                console.log(projectData2)
+                // console.log(projectData2)
 
                 const propertyContent2 = document.querySelector(".best-properties__content");
                 const propertyItem2 = document.createElement("div");
                 propertyItem2.className = "best-properties__item-propertie item-propertie";
                 propertyItem2.setAttribute("data-index", char.id);
                 propertyItem2.setAttribute("data-tabs-title", "");
+                const videoLink = extractVideoID(char.video_link);
                 propertyItem2.innerHTML = `
                                            <div class="best-properties__item-propertie item-propertie">
                                 <div class="item-propertie__body">
@@ -160,8 +165,8 @@ export async function pageAreas() {
                                             <img src="img/icons/building.svg" alt="Building icon">
                                             <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>
                                         </div>
-								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
-                                            Play Video Overview
+								        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">
+                                            Воспроизвести видео обзор
                                         </button>
                                         <div class="item-propertie__price">
                                             
@@ -176,22 +181,22 @@ export async function pageAreas() {
 
             });
         }
-        renderProjects2(1,start,end)
+        renderProjects2(1, start, end)
 
         function numPages2() {
             return Math.ceil(projectData2.length / pageSize2);
         }
 
-        function previousPage2(){
-            if(currentPage2 > 1)
+        function previousPage2() {
+            if (currentPage2 > 1)
                 currentPage2--;
             renderProjects2(currentPage2)
         }
 
-        function nextPage2(){
-            start2+=10
-            end2+=10
-            renderProjects2(currentPage2,start2,end2)
+        function nextPage2() {
+            start2 += 10
+            end2 += 10
+            renderProjects2(currentPage2, start2, end2)
         }
 
         document.querySelector('#nextButton2').addEventListener('click', nextPage2, false);
@@ -244,46 +249,46 @@ export async function pageAreas() {
             // Extract the title
             areaTitle = area[i]['area'];
             // Use the title as the index
-                areaObject[areaTitle] = area[i];
-            }
-             for (let x in areaObject) {
-                areaArray.push(areaObject[x]);
-            }
+            areaObject[areaTitle] = area[i];
+        }
+        for (let x in areaObject) {
+            areaArray.push(areaObject[x]);
+        }
 
-         areaArray.forEach((char2, index) => {
+        areaArray.forEach((char2, index) => {
             const selectContent = document.querySelector(".form-find__select-area");
             const selectItem = document.createElement("option");
             selectItem.className = "";
             selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
             selectContent.appendChild(selectItem);
 
-         });
+        });
 
 
-             let typeArray = [];
-            var typeTitle
-            let typeObject = {};
+        let typeArray = [];
+        var typeTitle
+        let typeObject = {};
 
-            for (let i in type) {
+        for (let i in type) {
 
-                // Extract the title
-                typeTitle = type[i]['type'];
+            // Extract the title
+            typeTitle = type[i]['type'];
 
-                // Use the title as the index
-                typeObject[typeTitle] = type[i];
-            }
-             for (let x in typeObject) {
-                typeArray.push(typeObject[x]);
-            }
+            // Use the title as the index
+            typeObject[typeTitle] = type[i];
+        }
+        for (let x in typeObject) {
+            typeArray.push(typeObject[x]);
+        }
 
-         typeArray.forEach((char2, index) => {
+        typeArray.forEach((char2, index) => {
             const selectContent = document.querySelector(".form-find__select-type");
             const selectItem = document.createElement("option");
             selectItem.className = "";
             selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
             selectContent.appendChild(selectItem);
 
-         });
+        });
 
 
         // data.forEach((char, index) => {
@@ -313,7 +318,7 @@ export async function pageAreas() {
         //                                     <img src="img/icons/building.svg" alt="Building icon">
         //                                     <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=">${char.developer}</a>
         //                                 </div>
-		// 						        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
+        // 						        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
         //                                     Play Video Overview
         //                                 </button>
         //                                 <div class="item-propertie__price">

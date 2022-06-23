@@ -6,6 +6,11 @@ import { flsModules } from "../modules.js";
 export async function pageSubBlog() {
     const body = document.body;
     if (location.pathname === "/sub-blog.html") {
+        
+        setTimeout(function() {
+            $('body').addClass('loaded');
+            console.log('sub-blog.html')
+        }, 5000);
         const dataCurrentObject = await getResource(`/blog/${getHash()}`);
         const dataDeveloper = await getResource("/developer/")
         const dataAllObject = await getResource("/an_object/")
@@ -64,13 +69,15 @@ export async function pageSubBlog() {
 
             }).forEach(char => {
 
-                console.log(projectData2)
+                // console.log(projectData2)
 
                 const propertyContent2 = document.querySelector(".best-properties__content");
                 const propertyItem2 = document.createElement("div");
                 propertyItem2.className = "best-properties__item-propertie item-propertie";
                 propertyItem2.setAttribute("data-index", char.id);
                 propertyItem2.setAttribute("data-tabs-title", "");
+                const videoLink = extractVideoID(char.video_link);
+
                 propertyItem2.innerHTML = `
                                            <div class="best-properties__item-propertie item-propertie">
                                 <div class="item-propertie__body">
@@ -92,8 +99,8 @@ export async function pageSubBlog() {
                                             <img src="img/icons/building.svg" alt="Building icon">
                                             <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>
                                         </div>
-								        <button type="button" data-popup="#video" data-popup-youtube="6S5Zw2WuyFE" class="item-propertie__video-play _icon-play">
-                                            Play Video Overview
+								        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">
+                                            Посмотреть видео
                                         </button>
                                         <div class="item-propertie__price">
                                             

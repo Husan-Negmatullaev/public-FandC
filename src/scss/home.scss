@@ -1069,7 +1069,10 @@ input, textarea {
 	// .best-area__subtitle
 
 	&__subtitle {
-		@include adaptiveValue("margin-bottom", 80, 30, $containerWidth, $minWidth, 1);
+		// @include adaptiveValue("margin-bottom", 80, 30, $containerWidth, $minWidth, 1);
+		line-height: 141%;
+		@include adaptiveValue("font-size", 25, 16, $containerWidth, 991, 1);
+		color: #252525;
 	}
 
 	// .best-area__body
@@ -1174,6 +1177,10 @@ input, textarea {
 	&__body {
 		height: 475px;
 	}
+}
+
+#map #loader {
+	opacity: 1;
 }
 
 // ========================
@@ -1744,7 +1751,7 @@ input, textarea {
 
 	&__image-ibg {
 		@media (min-width:$tablet){
-			flex: 0 1 45.715232%;
+			flex: 0 1 30.715232%;
 		}
 		@media (max-width:$tablet){
 			display: none;

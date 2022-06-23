@@ -23,7 +23,8 @@
 	font-family: inherit;
 	background: #fff url('@img/icons/select-icon.svg') 96% no-repeat;
 	@include adaptiveValue("background-size", 16, 13, $containerWidth, $minWidth, 1);
-	padding: 0px 0px 0px 15px;
+	padding-left: 15px;
+	@include adaptiveValue("padding-right", 25, 15, $containerWidth, 991, 1);
     -webkit-appearance: none;
 }
 
