@@ -55,6 +55,7 @@
                     data_bg_hidpi: "bg-hidpi",
                     data_bg_multi: "bg-multi",
                     data_bg_multi_hidpi: "bg-multi-hidpi",
+                    data_bg_set: "bg-set",
                     data_poster: "poster",
                     class_applied: "applied",
                     class_loading: "loading",
@@ -73,10 +74,11 @@
                     callback_error: null,
                     callback_finish: null,
                     callback_cancel: null,
-                    use_native: !1
+                    use_native: !1,
+                    restore_on_error: !1
                 }, c = function(t) {
                     return n({}, r, t);
-                }, u = function(n, t) {
+                }, l = function(n, t) {
                     var e, i = "LazyLoad::Initialized", o = new n(t);
                     try {
                         e = new CustomEvent(i, {
@@ -90,22 +92,22 @@
                         });
                     }
                     window.dispatchEvent(e);
-                }, l = "src", s = "srcset", f = "sizes", d = "poster", _ = "llOriginalAttrs", g = "data", v = "loading", b = "loaded", p = "applied", h = "error", m = "native", E = "data-", I = "ll-status", y = function(n, t) {
+                }, u = "src", s = "srcset", d = "sizes", f = "poster", _ = "llOriginalAttrs", g = "data", v = "loading", b = "loaded", m = "applied", p = "error", h = "native", E = "data-", I = "ll-status", y = function(n, t) {
                     return n.getAttribute(E + t);
-                }, A = function(n) {
+                }, k = function(n) {
                     return y(n, I);
-                }, k = function(n, t) {
+                }, w = function(n, t) {
                     return function(n, t, e) {
                         var i = "data-ll-status";
                         null !== e ? n.setAttribute(i, e) : n.removeAttribute(i);
                     }(n, 0, t);
+                }, A = function(n) {
+                    return w(n, null);
                 }, L = function(n) {
-                    return k(n, null);
-                }, w = function(n) {
-                    return null === A(n);
+                    return null === k(n);
                 }, O = function(n) {
-                    return A(n) === m;
-                }, x = [ v, b, p, h ], C = function(n, t, e, i) {
+                    return k(n) === h;
+                }, x = [ v, b, m, p ], C = function(n, t, e, i) {
                     n && (void 0 === i ? void 0 === e ? n(t) : n(t, e) : n(t, e, i));
                 }, N = function(n, t) {
                     o ? n.classList.add(t) : n.className += (n.className ? " " : "") + t;
@@ -122,30 +124,30 @@
                     n && (n.loadingCount += t);
                 }, G = function(n, t) {
                     n && (n.toLoadCount = t);
-                }, D = function(n) {
+                }, j = function(n) {
                     for (var t, e = [], i = 0; t = n.children[i]; i += 1) "SOURCE" === t.tagName && e.push(t);
                     return e;
-                }, V = function(n, t) {
+                }, D = function(n, t) {
                     var e = n.parentNode;
-                    e && "PICTURE" === e.tagName && D(e).forEach(t);
-                }, F = function(n, t) {
-                    D(n).forEach(t);
-                }, j = [ l ], B = [ l, d ], J = [ l, s, f ], P = [ g ], S = function(n) {
+                    e && "PICTURE" === e.tagName && j(e).forEach(t);
+                }, H = function(n, t) {
+                    j(n).forEach(t);
+                }, V = [ u ], F = [ u, f ], B = [ u, s, d ], J = [ g ], P = function(n) {
                     return !!n[_];
-                }, U = function(n) {
+                }, S = function(n) {
                     return n[_];
-                }, $ = function(n) {
+                }, U = function(n) {
                     return delete n[_];
-                }, q = function(n, t) {
-                    if (!S(n)) {
+                }, $ = function(n, t) {
+                    if (!P(n)) {
                         var e = {};
                         t.forEach((function(t) {
                             e[t] = n.getAttribute(t);
                         })), n[_] = e;
                     }
-                }, H = function(n, t) {
-                    if (S(n)) {
-                        var e = U(n);
+                }, q = function(n, t) {
+                    if (P(n)) {
+                        var e = S(n);
                         t.forEach((function(t) {
                             !function(n, t, e) {
                                 e ? n.setAttribute(t, e) : n.removeAttribute(t);
@@ -153,130 +155,141 @@
                         }));
                     }
                 }, K = function(n, t, e) {
-                    N(n, t.class_loading), k(n, v), e && (R(e, 1), C(t.callback_loading, n, e));
+                    N(n, t.class_applied), w(n, m), e && (t.unobserve_completed && T(n, t), C(t.callback_applied, n, e));
                 }, Q = function(n, t, e) {
+                    N(n, t.class_loading), w(n, v), e && (R(e, 1), C(t.callback_loading, n, e));
+                }, W = function(n, t, e) {
                     e && n.setAttribute(t, e);
-                }, W = function(n, t) {
-                    Q(n, f, y(n, t.data_sizes)), Q(n, s, y(n, t.data_srcset)), Q(n, l, y(n, t.data_src));
-                }, X = {
+                }, X = function(n, t) {
+                    W(n, d, y(n, t.data_sizes)), W(n, s, y(n, t.data_srcset)), W(n, u, y(n, t.data_src));
+                }, Y = {
                     IMG: function(n, t) {
-                        V(n, (function(n) {
-                            q(n, J), W(n, t);
-                        })), q(n, J), W(n, t);
+                        D(n, (function(n) {
+                            $(n, B), X(n, t);
+                        })), $(n, B), X(n, t);
                     },
                     IFRAME: function(n, t) {
-                        q(n, j), Q(n, l, y(n, t.data_src));
+                        $(n, V), W(n, u, y(n, t.data_src));
                     },
                     VIDEO: function(n, t) {
-                        F(n, (function(n) {
-                            q(n, j), Q(n, l, y(n, t.data_src));
-                        })), q(n, B), Q(n, d, y(n, t.data_poster)), Q(n, l, y(n, t.data_src)), n.load();
+                        H(n, (function(n) {
+                            $(n, V), W(n, u, y(n, t.data_src));
+                        })), $(n, F), W(n, f, y(n, t.data_poster)), W(n, u, y(n, t.data_src)), n.load();
                     },
                     OBJECT: function(n, t) {
-                        q(n, P), Q(n, g, y(n, t.data_src));
+                        $(n, J), W(n, g, y(n, t.data_src));
                     }
-                }, Y = [ "IMG", "IFRAME", "VIDEO", "OBJECT" ], Z = function(n, t) {
+                }, Z = [ "IMG", "IFRAME", "VIDEO", "OBJECT" ], nn = function(n, t) {
                     !t || function(n) {
                         return n.loadingCount > 0;
                     }(t) || function(n) {
                         return n.toLoadCount > 0;
                     }(t) || C(n.callback_finish, t);
-                }, nn = function(n, t, e) {
-                    n.addEventListener(t, e), n.llEvLisnrs[t] = e;
                 }, tn = function(n, t, e) {
+                    n.addEventListener(t, e), n.llEvLisnrs[t] = e;
+                }, en = function(n, t, e) {
                     n.removeEventListener(t, e);
-                }, en = function(n) {
-                    return !!n.llEvLisnrs;
                 }, on = function(n) {
-                    if (en(n)) {
+                    return !!n.llEvLisnrs;
+                }, an = function(n) {
+                    if (on(n)) {
                         var t = n.llEvLisnrs;
                         for (var e in t) {
                             var i = t[e];
-                            tn(n, e, i);
+                            en(n, e, i);
                         }
                         delete n.llEvLisnrs;
                     }
-                }, an = function(n, t, e) {
+                }, rn = function(n, t, e) {
                     !function(n) {
                         delete n.llTempImage;
                     }(n), R(e, -1), function(n) {
                         n && (n.toLoadCount -= 1);
                     }(e), M(n, t.class_loading), t.unobserve_completed && T(n, e);
-                }, rn = function(n, t, e) {
+                }, cn = function(n, t, e) {
                     var i = z(n) || n;
-                    en(i) || function(n, t, e) {
-                        en(n) || (n.llEvLisnrs = {});
+                    on(i) || function(n, t, e) {
+                        on(n) || (n.llEvLisnrs = {});
                         var i = "VIDEO" === n.tagName ? "loadeddata" : "load";
-                        nn(n, i, t), nn(n, "error", e);
+                        tn(n, i, t), tn(n, "error", e);
                     }(i, (function(o) {
                         !function(n, t, e, i) {
                             var o = O(t);
-                            an(t, e, i), N(t, e.class_loaded), k(t, b), C(e.callback_loaded, t, i), o || Z(e, i);
-                        }(0, n, t, e), on(i);
+                            rn(t, e, i), N(t, e.class_loaded), w(t, b), C(e.callback_loaded, t, i), o || nn(e, i);
+                        }(0, n, t, e), an(i);
                     }), (function(o) {
                         !function(n, t, e, i) {
                             var o = O(t);
-                            an(t, e, i), N(t, e.class_error), k(t, h), C(e.callback_error, t, i), o || Z(e, i);
-                        }(0, n, t, e), on(i);
+                            rn(t, e, i), N(t, e.class_error), w(t, p), C(e.callback_error, t, i), e.restore_on_error && q(t, B), 
+                            o || nn(e, i);
+                        }(0, n, t, e), an(i);
                     }));
-                }, cn = function(n, t, e) {
+                }, ln = function(n, t, e) {
                     !function(n) {
-                        n.llTempImage = document.createElement("IMG");
-                    }(n), rn(n, t, e), function(n) {
-                        S(n) || (n[_] = {
-                            backgroundImage: n.style.backgroundImage
-                        });
-                    }(n), function(n, t, e) {
-                        var i = y(n, t.data_bg), o = y(n, t.data_bg_hidpi), r = a && o ? o : i;
-                        r && (n.style.backgroundImage = 'url("'.concat(r, '")'), z(n).setAttribute(l, r), 
-                        K(n, t, e));
-                    }(n, t, e), function(n, t, e) {
-                        var i = y(n, t.data_bg_multi), o = y(n, t.data_bg_multi_hidpi), r = a && o ? o : i;
-                        r && (n.style.backgroundImage = r, function(n, t, e) {
-                            N(n, t.class_applied), k(n, p), e && (t.unobserve_completed && T(n, t), C(t.callback_applied, n, e));
-                        }(n, t, e));
-                    }(n, t, e);
-                }, un = function(n, t, e) {
-                    !function(n) {
-                        return Y.indexOf(n.tagName) > -1;
-                    }(n) ? cn(n, t, e) : function(n, t, e) {
-                        rn(n, t, e), function(n, t, e) {
-                            var i = X[n.tagName];
-                            i && (i(n, t), K(n, t, e));
+                        return Z.indexOf(n.tagName) > -1;
+                    }(n) ? function(n, t, e) {
+                        !function(n) {
+                            n.llTempImage = document.createElement("IMG");
+                        }(n), cn(n, t, e), function(n) {
+                            P(n) || (n[_] = {
+                                backgroundImage: n.style.backgroundImage
+                            });
+                        }(n), function(n, t, e) {
+                            var i = y(n, t.data_bg), o = y(n, t.data_bg_hidpi), r = a && o ? o : i;
+                            r && (n.style.backgroundImage = 'url("'.concat(r, '")'), z(n).setAttribute(u, r), 
+                            Q(n, t, e));
+                        }(n, t, e), function(n, t, e) {
+                            var i = y(n, t.data_bg_multi), o = y(n, t.data_bg_multi_hidpi), r = a && o ? o : i;
+                            r && (n.style.backgroundImage = r, K(n, t, e));
+                        }(n, t, e), function(n, t, e) {
+                            var i = y(n, t.data_bg_set);
+                            if (i) {
+                                var o = i.split("|"), a = o.map((function(n) {
+                                    return "image-set(".concat(n, ")");
+                                }));
+                                n.style.backgroundImage = a.join(), "" === n.style.backgroundImage && (a = o.map((function(n) {
+                                    return "-webkit-image-set(".concat(n, ")");
+                                })), n.style.backgroundImage = a.join()), K(n, t, e);
+                            }
+                        }(n, t, e);
+                    }(n, t, e) : function(n, t, e) {
+                        cn(n, t, e), function(n, t, e) {
+                            var i = Y[n.tagName];
+                            i && (i(n, t), Q(n, t, e));
                         }(n, t, e);
                     }(n, t, e);
-                }, ln = function(n) {
-                    n.removeAttribute(l), n.removeAttribute(s), n.removeAttribute(f);
+                }, un = function(n) {
+                    n.removeAttribute(u), n.removeAttribute(s), n.removeAttribute(d);
                 }, sn = function(n) {
-                    V(n, (function(n) {
-                        H(n, J);
-                    })), H(n, J);
-                }, fn = {
+                    D(n, (function(n) {
+                        q(n, B);
+                    })), q(n, B);
+                }, dn = {
                     IMG: sn,
                     IFRAME: function(n) {
-                        H(n, j);
+                        q(n, V);
                     },
                     VIDEO: function(n) {
-                        F(n, (function(n) {
-                            H(n, j);
-                        })), H(n, B), n.load();
+                        H(n, (function(n) {
+                            q(n, V);
+                        })), q(n, F), n.load();
                     },
                     OBJECT: function(n) {
-                        H(n, P);
+                        q(n, J);
                     }
-                }, dn = function(n, t) {
+                }, fn = function(n, t) {
                     (function(n) {
-                        var t = fn[n.tagName];
+                        var t = dn[n.tagName];
                         t ? t(n) : function(n) {
-                            if (S(n)) {
-                                var t = U(n);
+                            if (P(n)) {
+                                var t = S(n);
                                 n.style.backgroundImage = t.backgroundImage;
                             }
                         }(n);
                     })(n), function(n, t) {
-                        w(n) || O(n) || (M(n, t.class_entered), M(n, t.class_exited), M(n, t.class_applied), 
+                        L(n) || O(n) || (M(n, t.class_entered), M(n, t.class_exited), M(n, t.class_applied), 
                         M(n, t.class_loading), M(n, t.class_loaded), M(n, t.class_error));
-                    }(n, t), L(n), $(n);
+                    }(n, t), A(n), U(n);
                 }, _n = [ "IMG", "IFRAME", "VIDEO" ], gn = function(n) {
                     return n.use_native && "loading" in HTMLImageElement.prototype;
                 }, vn = function(n, t, e) {
@@ -285,35 +298,35 @@
                             return n.isIntersecting || n.intersectionRatio > 0;
                         }(n) ? function(n, t, e, i) {
                             var o = function(n) {
-                                return x.indexOf(A(n)) >= 0;
+                                return x.indexOf(k(n)) >= 0;
                             }(n);
-                            k(n, "entered"), N(n, e.class_entered), M(n, e.class_exited), function(n, t, e) {
+                            w(n, "entered"), N(n, e.class_entered), M(n, e.class_exited), function(n, t, e) {
                                 t.unobserve_entered && T(n, e);
-                            }(n, e, i), C(e.callback_enter, n, t, i), o || un(n, e, i);
+                            }(n, e, i), C(e.callback_enter, n, t, i), o || ln(n, e, i);
                         }(n.target, n, t, e) : function(n, t, e, i) {
-                            w(n) || (N(n, e.class_exited), function(n, t, e, i) {
+                            L(n) || (N(n, e.class_exited), function(n, t, e, i) {
                                 e.cancel_on_exit && function(n) {
-                                    return A(n) === v;
-                                }(n) && "IMG" === n.tagName && (on(n), function(n) {
-                                    V(n, (function(n) {
-                                        ln(n);
-                                    })), ln(n);
-                                }(n), sn(n), M(n, e.class_loading), R(i, -1), L(n), C(e.callback_cancel, n, t, i));
+                                    return k(n) === v;
+                                }(n) && "IMG" === n.tagName && (an(n), function(n) {
+                                    D(n, (function(n) {
+                                        un(n);
+                                    })), un(n);
+                                }(n), sn(n), M(n, e.class_loading), R(i, -1), A(n), C(e.callback_cancel, n, t, i));
                             }(n, t, e, i), C(e.callback_exit, n, t, i));
                         }(n.target, n, t, e);
                     }));
                 }, bn = function(n) {
                     return Array.prototype.slice.call(n);
-                }, pn = function(n) {
+                }, mn = function(n) {
                     return n.container.querySelectorAll(n.elements_selector);
-                }, hn = function(n) {
+                }, pn = function(n) {
                     return function(n) {
-                        return A(n) === h;
+                        return k(n) === p;
                     }(n);
-                }, mn = function(n, t) {
+                }, hn = function(n, t) {
                     return function(n) {
-                        return bn(n).filter(w);
-                    }(n || pn(t));
+                        return bn(n).filter(L);
+                    }(n || mn(t));
                 }, En = function(n, e) {
                     var o = c(n);
                     this._settings = o, this.loadingCount = 0, function(n, t) {
@@ -326,26 +339,26 @@
                             };
                         }(n)));
                     }(o, this), function(n, e) {
-                        t && window.addEventListener("online", (function() {
+                        t && (e._onlineHandler = function() {
                             !function(n, t) {
                                 var e;
-                                (e = pn(n), bn(e).filter(hn)).forEach((function(t) {
-                                    M(t, n.class_error), L(t);
+                                (e = mn(n), bn(e).filter(pn)).forEach((function(t) {
+                                    M(t, n.class_error), A(t);
                                 })), t.update();
                             }(n, e);
-                        }));
+                        }, window.addEventListener("online", e._onlineHandler));
                     }(o, this), this.update(e);
                 };
                 return En.prototype = {
                     update: function(n) {
-                        var t, o, a = this._settings, r = mn(n, a);
+                        var t, o, a = this._settings, r = hn(n, a);
                         G(this, r.length), !e && i ? gn(a) ? function(n, t, e) {
                             n.forEach((function(n) {
                                 -1 !== _n.indexOf(n.tagName) && function(n, t, e) {
-                                    n.setAttribute("loading", "lazy"), rn(n, t, e), function(n, t) {
-                                        var e = X[n.tagName];
+                                    n.setAttribute("loading", "lazy"), cn(n, t, e), function(n, t) {
+                                        var e = Y[n.tagName];
                                         e && e(n, t);
-                                    }(n, t), k(n, m);
+                                    }(n, t), w(n, h);
                                 }(n, t, e);
                             })), G(e, 0);
                         }(r, a, this) : (o = r, function(n) {
@@ -357,29 +370,31 @@
                         }(t, o)) : this.loadAll(r);
                     },
                     destroy: function() {
-                        this._observer && this._observer.disconnect(), pn(this._settings).forEach((function(n) {
-                            $(n);
-                        })), delete this._observer, delete this._settings, delete this.loadingCount, delete this.toLoadCount;
+                        this._observer && this._observer.disconnect(), t && window.removeEventListener("online", this._onlineHandler), 
+                        mn(this._settings).forEach((function(n) {
+                            U(n);
+                        })), delete this._observer, delete this._settings, delete this._onlineHandler, delete this.loadingCount, 
+                        delete this.toLoadCount;
                     },
                     loadAll: function(n) {
                         var t = this, e = this._settings;
-                        mn(n, e).forEach((function(n) {
-                            T(n, t), un(n, e, t);
+                        hn(n, e).forEach((function(n) {
+                            T(n, t), ln(n, e, t);
                         }));
                     },
                     restoreAll: function() {
                         var n = this._settings;
-                        pn(n).forEach((function(t) {
-                            dn(t, n);
+                        mn(n).forEach((function(t) {
+                            fn(t, n);
                         }));
                     }
                 }, En.load = function(n, t) {
                     var e = c(t);
-                    un(n, e);
+                    ln(n, e);
                 }, En.resetStatus = function(n) {
-                    L(n);
+                    A(n);
                 }, t && function(n, t) {
-                    if (t) if (t.length) for (var e, i = 0; e = t[i]; i += 1) u(n, e); else u(n, t);
+                    if (t) if (t.length) for (var e, i = 0; e = t[i]; i += 1) l(n, e); else l(n, t);
                 }(En, window.lazyLoadOptions), En;
             }));
         }
@@ -2244,6 +2259,7 @@
         const events_emitter = {
             on(events, handler, priority) {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if ("function" !== typeof handler) return self;
                 const method = priority ? "unshift" : "push";
                 events.split(" ").forEach((event => {
@@ -2254,6 +2270,7 @@
             },
             once(events, handler, priority) {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if ("function" !== typeof handler) return self;
                 function onceHandler() {
                     self.off(events, onceHandler);
@@ -2266,6 +2283,7 @@
             },
             onAny(handler, priority) {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if ("function" !== typeof handler) return self;
                 const method = priority ? "unshift" : "push";
                 if (self.eventsAnyListeners.indexOf(handler) < 0) self.eventsAnyListeners[method](handler);
@@ -2273,6 +2291,7 @@
             },
             offAny(handler) {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if (!self.eventsAnyListeners) return self;
                 const index = self.eventsAnyListeners.indexOf(handler);
                 if (index >= 0) self.eventsAnyListeners.splice(index, 1);
@@ -2280,6 +2299,7 @@
             },
             off(events, handler) {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if (!self.eventsListeners) return self;
                 events.split(" ").forEach((event => {
                     if ("undefined" === typeof handler) self.eventsListeners[event] = []; else if (self.eventsListeners[event]) self.eventsListeners[event].forEach(((eventHandler, index) => {
@@ -2290,6 +2310,7 @@
             },
             emit() {
                 const self = this;
+                if (!self.eventsListeners || self.destroyed) return self;
                 if (!self.eventsListeners) return self;
                 let events;
                 let data;
@@ -2542,7 +2563,7 @@
                 if (isVirtual) return swiper.slides.filter((el => parseInt(el.getAttribute("data-swiper-slide-index"), 10) === index))[0];
                 return swiper.slides.eq(index)[0];
             };
-            if ("auto" !== swiper.params.slidesPerView && swiper.params.slidesPerView > 1) if (swiper.params.centeredSlides) swiper.visibleSlides.each((slide => {
+            if ("auto" !== swiper.params.slidesPerView && swiper.params.slidesPerView > 1) if (swiper.params.centeredSlides) (swiper.visibleSlides || dom([])).each((slide => {
                 activeSlides.push(slide);
             })); else for (i = 0; i < Math.ceil(swiper.params.slidesPerView); i += 1) {
                 const index = swiper.activeIndex + i;
@@ -2975,6 +2996,12 @@
             if (void 0 === index) index = 0;
             if (void 0 === speed) speed = this.params.speed;
             if (void 0 === runCallbacks) runCallbacks = true;
+            if ("string" === typeof index) {
+                const indexAsNumber = parseInt(index, 10);
+                const isValidNumber = isFinite(indexAsNumber);
+                if (!isValidNumber) throw new Error(`The passed-in 'index' (string) couldn't be converted to 'number'. [${index}] given.`);
+                index = indexAsNumber;
+            }
             const swiper = this;
             let newIndex = index;
             if (swiper.params.loop) newIndex += swiper.loopedSlides;
@@ -3171,8 +3198,6 @@
             if (swiper.support.touch || !swiper.params.simulateTouch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) return;
             const el = "container" === swiper.params.touchEventsTarget ? swiper.el : swiper.wrapperEl;
             el.style.cursor = "move";
-            el.style.cursor = moving ? "-webkit-grabbing" : "-webkit-grab";
-            el.style.cursor = moving ? "-moz-grabbin" : "-moz-grab";
             el.style.cursor = moving ? "grabbing" : "grab";
         }
         function unsetGrabCursor() {
@@ -3190,6 +3215,7 @@
                 if (!el || el === ssr_window_esm_getDocument() || el === ssr_window_esm_getWindow()) return null;
                 if (el.assignedSlot) el = el.assignedSlot;
                 const found = el.closest(selector);
+                if (!found && !el.getRootNode) return null;
                 return found || __closestFrom(el.getRootNode().host);
             }
             return __closestFrom(base);
@@ -3215,7 +3241,7 @@
             if (swipingClassHasValue && e.target && e.target.shadowRoot && event.path && event.path[0]) $targetEl = dom(event.path[0]);
             const noSwipingSelector = params.noSwipingSelector ? params.noSwipingSelector : `.${params.noSwipingClass}`;
             const isTargetShadow = !!(e.target && e.target.shadowRoot);
-            if (params.noSwiping && (isTargetShadow ? closestElement(noSwipingSelector, e.target) : $targetEl.closest(noSwipingSelector)[0])) {
+            if (params.noSwiping && (isTargetShadow ? closestElement(noSwipingSelector, $targetEl[0]) : $targetEl.closest(noSwipingSelector)[0])) {
                 swiper.allowClick = true;
                 return;
             }
@@ -3495,7 +3521,7 @@
             if (!enabled) return;
             swiper.previousTranslate = swiper.translate;
             if (swiper.isHorizontal()) swiper.translate = -wrapperEl.scrollLeft; else swiper.translate = -wrapperEl.scrollTop;
-            if (-0 === swiper.translate) swiper.translate = 0;
+            if (0 === swiper.translate) swiper.translate = 0;
             swiper.updateActiveIndex();
             swiper.updateSlidesClasses();
             let newProgress;
@@ -3577,6 +3603,12 @@
                 if (breakpointParams.grid.fill && "column" === breakpointParams.grid.fill || !breakpointParams.grid.fill && "column" === params.grid.fill) $el.addClass(`${params.containerModifierClass}grid-column`);
                 swiper.emitContainerClasses();
             }
+            [ "navigation", "pagination", "scrollbar" ].forEach((prop => {
+                const wasModuleEnabled = params[prop] && params[prop].enabled;
+                const isModuleEnabled = breakpointParams[prop] && breakpointParams[prop].enabled;
+                if (wasModuleEnabled && !isModuleEnabled) swiper[prop].disable();
+                if (!wasModuleEnabled && isModuleEnabled) swiper[prop].enable();
+            }));
             const directionChanged = breakpointParams.direction && breakpointParams.direction !== params.direction;
             const needsReLoop = params.loop && (breakpointParams.slidesPerView !== params.slidesPerView || directionChanged);
             if (directionChanged && initialized) swiper.changeDirection();
@@ -3663,6 +3695,8 @@
                 "css-mode": params.cssMode
             }, {
                 centered: params.cssMode && params.centeredSlides
+            }, {
+                "watch-progress": params.watchSlidesProgress
             } ], params.containerModifierClass);
             classNames.push(...suffixes);
             $el.addClass([ ...classNames ].join(" "));
@@ -4020,6 +4054,7 @@
             }
             getSlideClasses(slideEl) {
                 const swiper = this;
+                if (swiper.destroyed) return "";
                 return slideEl.className.split(" ").filter((className => 0 === className.indexOf("swiper-slide") || 0 === className.indexOf(swiper.params.slideClass))).join(" ");
             }
             emitSlidesClasses() {
@@ -4121,6 +4156,7 @@
                         res.children = options => $el.children(options);
                         return res;
                     }
+                    if (!$el.children) return dom($el).children(getWrapperSelector());
                     return $el.children(getWrapperSelector());
                 };
                 let $wrapperEl = getWrapper();
@@ -4249,7 +4285,8 @@
                     hideOnClick: false,
                     disabledClass: "swiper-button-disabled",
                     hiddenClass: "swiper-button-hidden",
-                    lockClass: "swiper-button-lock"
+                    lockClass: "swiper-button-lock",
+                    navigationDisabledClass: "swiper-navigation-disabled"
                 }
             });
             swiper.navigation = {
@@ -4324,8 +4361,10 @@
                 }
             }
             on("init", (() => {
-                init();
-                update();
+                if (false === swiper.params.navigation.enabled) disable(); else {
+                    init();
+                    update();
+                }
             }));
             on("toEdge fromEdge lock unlock", (() => {
                 update();
@@ -4350,7 +4389,18 @@
                     if ($prevEl) $prevEl.toggleClass(swiper.params.navigation.hiddenClass);
                 }
             }));
+            const enable = () => {
+                swiper.$el.removeClass(swiper.params.navigation.navigationDisabledClass);
+                init();
+                update();
+            };
+            const disable = () => {
+                swiper.$el.addClass(swiper.params.navigation.navigationDisabledClass);
+                destroy();
+            };
             Object.assign(swiper.navigation, {
+                enable,
+                disable,
                 update,
                 init,
                 destroy
@@ -4390,7 +4440,8 @@
                     clickableClass: `${pfx}-clickable`,
                     lockClass: `${pfx}-lock`,
                     horizontalClass: `${pfx}-horizontal`,
-                    verticalClass: `${pfx}-vertical`
+                    verticalClass: `${pfx}-vertical`,
+                    paginationDisabledClass: `${pfx}-disabled`
                 }
             });
             swiper.pagination = {
@@ -4563,9 +4614,11 @@
                 if (params.clickable) $el.off("click", classes_to_selector_classesToSelector(params.bulletClass));
             }
             on("init", (() => {
-                init();
-                render();
-                update();
+                if (false === swiper.params.pagination.enabled) disable(); else {
+                    init();
+                    render();
+                    update();
+                }
             }));
             on("activeIndexChange", (() => {
                 if (swiper.params.loop) update(); else if ("undefined" === typeof swiper.snapIndex) update();
@@ -4605,7 +4658,21 @@
                     $el.toggleClass(swiper.params.pagination.hiddenClass);
                 }
             }));
+            const enable = () => {
+                swiper.$el.removeClass(swiper.params.pagination.paginationDisabledClass);
+                if (swiper.pagination.$el) swiper.pagination.$el.removeClass(swiper.params.pagination.paginationDisabledClass);
+                init();
+                render();
+                update();
+            };
+            const disable = () => {
+                swiper.$el.addClass(swiper.params.pagination.paginationDisabledClass);
+                if (swiper.pagination.$el) swiper.pagination.$el.addClass(swiper.params.pagination.paginationDisabledClass);
+                destroy();
+            };
             Object.assign(swiper.pagination, {
+                enable,
+                disable,
                 render,
                 update,
                 init,
@@ -4630,7 +4697,7 @@
             };
             function onThumbClick() {
                 const thumbsSwiper = swiper.thumbs.swiper;
-                if (!thumbsSwiper) return;
+                if (!thumbsSwiper || thumbsSwiper.destroyed) return;
                 const clickedIndex = thumbsSwiper.clickedIndex;
                 const clickedSlide = thumbsSwiper.clickedSlide;
                 if (clickedSlide && dom(clickedSlide).hasClass(swiper.params.thumbs.slideThumbActiveClass)) return;
@@ -4680,7 +4747,7 @@
             }
             function update(initial) {
                 const thumbsSwiper = swiper.thumbs.swiper;
-                if (!thumbsSwiper) return;
+                if (!thumbsSwiper || thumbsSwiper.destroyed) return;
                 const slidesPerView = "auto" === thumbsSwiper.params.slidesPerView ? thumbsSwiper.slidesPerViewDynamic() : thumbsSwiper.params.slidesPerView;
                 const autoScrollOffset = swiper.params.thumbs.autoScrollOffset;
                 const useOffset = autoScrollOffset && !thumbsSwiper.params.loop;
@@ -4723,18 +4790,17 @@
                 update(true);
             }));
             on("slideChange update resize observerUpdate", (() => {
-                if (!swiper.thumbs.swiper) return;
                 update();
             }));
             on("setTransition", ((_s, duration) => {
                 const thumbsSwiper = swiper.thumbs.swiper;
-                if (!thumbsSwiper) return;
+                if (!thumbsSwiper || thumbsSwiper.destroyed) return;
                 thumbsSwiper.setTransition(duration);
             }));
             on("beforeDestroy", (() => {
                 const thumbsSwiper = swiper.thumbs.swiper;
-                if (!thumbsSwiper) return;
-                if (swiperCreated && thumbsSwiper) thumbsSwiper.destroy();
+                if (!thumbsSwiper || thumbsSwiper.destroyed) return;
+                if (swiperCreated) thumbsSwiper.destroy();
             }));
             Object.assign(swiper.thumbs, {
                 init,
@@ -6334,14 +6400,14 @@
         }
         async function pageHome() {
             document.body;
-            if ("/" === location.pathname || "/home.html" === location.pathname) {
+            if ("/" === location.pathname) {
                 const data = await getResource("/an_object/");
-                const developers = JSON.parse(JSON.stringify(data));
-                const area = JSON.parse(JSON.stringify(data));
-                const type = JSON.parse(JSON.stringify(data));
-                const dataBlog = await getResource("/blog/");
+                const developers = await getResource("/an_object/");
+                const area = await getResource("/an_object/");
+                const type = await getResource("/an_object/");
                 const data_developer = await getResource("/developer/");
                 const dataArea = await getResource("/area/");
+                const dataBlog = await getResource("/blog/");
                 var projectData = [];
                 var start = 0;
                 var end = 10;
@@ -6356,11 +6422,9 @@
                     end = currentPage * pageSize;
                 }
                 async function renderProjects(page = 1, first, last) {
-                    const propertyContent = document.querySelector(".properties__content");
-                    console.log("home.html");
                     setTimeout((function() {
                         $("body").addClass("loaded");
-                    }), 1e3);
+                    }), 0);
                     await getResourceHere();
                     if (page == numPages()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
                     projectData.filter(((row, index) => {
@@ -6368,11 +6432,12 @@
                         end = last;
                         if (index >= start && index < end) return true;
                     })).forEach((char => {
+                        const propertyContent = document.querySelector(".properties__content");
                         const propertyItem = document.createElement("div");
                         propertyItem.className = "properties__item item-properties ";
                         propertyItem.setAttribute("data-index", char.id);
                         propertyItem.setAttribute("data-tabs-title", "");
-                        propertyItem.innerHTML = `\n                    <a href="/project.html#${char.id}" class="item-properties__image-ibg">\n                        <img src="${char.mainphoto}" alt="">\n                    </a>\n                    <div class="item-properties__content">\n                        <div class="item-properties__body">\n                            <div class="item-properties__title">${char.title}</div>\n                            <div class="item-properties__subtitle">\n                                Область: <span class="item-properties__value">\n                                    ${char.area}\n                                </span>\n                            </div>\n                            <div class="item-properties__position">\n                                <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                                <span class="item-properties__value"> ${char.developer}</span>\n                            </div>\n                            <div class="item-properties__info">\n                                <a href="${char.video_link}" class="item-properties__col">\n                                    <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                    <span class="item-properties__subtitle">\n                                        Посмотреть видео\n                                    </span>\n                                </a>\n                                <a href="${char.tour_360}" class="item-properties__col">\n                                    <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">\n                                    <span class="item-properties__subtitle">\n                                        Открытый тур 360<sup>0</sup>\n                                    </span>\n                                </a>\n                            </div>\n                            <div class="item-properties__subtitle">\n                                <span class="item-properties__price">\n                                    ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                                </span>\n                            </div>\n                        </div>\n                        <a href="/project.html#${char.id}" class="item-properties__next">\n                            <span class="_icon-arrow-right"></span>\n                        </a>\n                    </div>`;
+                        propertyItem.innerHTML = `\n                <a href="/project.html#${char.id}" class="item-properties__image-ibg">\n                    <img src="${char.mainphoto}" alt="">\n                </a>\n                <div class="item-properties__content">\n                    <div class="item-properties__body">\n                        <div class="item-properties__title">${char.title}</div>\n                        <div class="item-properties__subtitle">\n                            Area: <span class="item-properties__value">\n                                ${char.area}\n                            </span>\n                        </div>\n                        <div class="item-properties__position">\n                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                            <span class="item-properties__value"> ${char.developer}</span>\n                        </div>\n                        <div class="item-properties__info">\n                            <a href="${char.video_link}" class="item-properties__col">\n                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                <span class="item-properties__subtitle">\n                                    Play Video Overview\n                                </span>\n                            </a>\n                            <a href="${char.tour_360}" class="item-properties__col">\n                                <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">\n                                <span class="item-properties__subtitle">\n                                    Open 3600 Tour\n                                </span>\n                            </a>\n                        </div>\n                        <div class="item-properties__subtitle">\n                             \n                            <span class="item-properties__price">\n                                 ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                            </span>\n                        </div>\n                    </div>\n                    <a href="/project.html#${char.id}" class="item-properties__next">\n                        <span class="_icon-arrow-right"></span>\n                    </a>\n                </div>`;
                         propertyContent.appendChild(propertyItem);
                     }));
                 }
@@ -6436,12 +6501,12 @@
                 var aar2 = 0;
                 try {
                     dataArea.forEach(((char, index) => {
+                        console.log(aar2);
                         if (4 === aar2) throw BreakException2;
                         aar2 += 1;
                         const a = document.createElement("a");
                         a.className = "best-area__item item-area";
-                        a.hreflang = "search.html";
-                        a.innerHTML = `\n               <a href="search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=" > <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""> </div>\n                <div class="item-area__content">\n                    <div class="item-area__message">От AED ${char.starting_price}</div>\n                    <div class="item-area__info">\n                    \n                        <div class="item-area__title title title_w">${char.name}</div>\n                        <div class="item-area__text">${char.description}</div>\n                    </div>\n                    \n                </div></a>`;
+                        a.innerHTML = `\n                <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                <div class="item-area__content">\n                    <div class="item-area__message">From AED ${char.starting_price}</div>\n                    <div class="item-area__info">\n                        <div class="item-area__title title title_w">${char.name}</div>\n                        <div class="item-area__text">${char.description}</div>\n                    </div>\n                </div>`;
                         bestAreaBody.appendChild(a);
                     }));
                 } catch (e) {
@@ -6452,11 +6517,12 @@
                 var aar = 0;
                 try {
                     dataArea.forEach(((char, index) => {
-                        if (4 === aar) throw BreakException;
+                        console.log(aar);
+                        if (5 === aar) throw BreakException;
                         aar += 1;
                         const a = document.createElement("a");
                         a.className = "area__item";
-                        a.innerHTML = `\n                <div class="area__image-ibg"><a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max="><img src="${char.mainphoto}" alt="Dubai island buildings"></a></div>\n                <div class="area__title">\n                    ${char.name}\n                </div>`;
+                        a.innerHTML = `\n                <div class="area__image-ibg"><img src="${char.mainphoto}" alt="Dubai island buildings"></div>\n                <div class="area__title">\n                    ${char.name}\n                </div>`;
                         areaBody.appendChild(a);
                     }));
                 } catch (e) {
@@ -6473,7 +6539,7 @@
                 data_developer.forEach(((char, index) => {
                     const a = document.createElement("a");
                     a.className = "lead__card lead-card swiper-slide";
-                    a.innerHTML = `\n                <div class="lead-card__body">\n                    <div class="lead-card__image-ibg"><img data-src="${char.mainphoto}" alt=""></div>\n                    <div class="lead-card__company-logo">\n                        <img src="${char.logo}" alt="">\n                    </div>\n                    <div class="lead-card__content">\n                        <div class="lead-card__title title" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 2;-webkit-box-orient: vertical; overflow: hidden;">${char.title}</div>\n                        <div class="lead-card__text" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;">${char.text}</div>\n                    </div>\n                </div>`;
+                    a.innerHTML = `\n                <div class="lead-card__body">\n                    <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="lead-card__company-logo">\n                        <img src="${char.logo}" alt="">\n                    </div>\n                    <div class="lead-card__content">\n                        <div class="lead-card__title title" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 2;-webkit-box-orient: vertical; overflow: hidden;">${char.title}</div>\n                        <div class="lead-card__text" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;">${char.text}</div>\n                    </div>\n                </div>`;
                     leadWrapper.appendChild(a);
                 }));
                 const newsWrapper = document.querySelector(".news__body");
@@ -6481,13 +6547,11 @@
                     const div = document.createElement("div");
                     div.className = "news__card card-news";
                     const dateArr = char.created.split("-");
-                    const getMonth = new Date(dateArr).toLocaleDateString("ru", {
+                    console.log(dateArr);
+                    const getMonth = new Date(dateArr[1]).toLocaleDateString("en", {
                         month: "long"
                     });
-                    const getWeekday = new Date(dateArr).toLocaleDateString("ru", {
-                        weekday: "short"
-                    });
-                    div.innerHTML = `\n                <div class="card-news__body">\n                    <a href="${char.link}" class="card-news__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                    <div class="card-news__date">\n                        <span class="card-news__icon _icon-calendar"></span>\n                        <span class="card-news__date-text">\n                            ${dateArr[2]} <sup>${getWeekday}</sup> ${getMonth} ${dateArr[0]}\n                        </span>\n                    </div>\n                    <div class="card-news__content">\n                        \n                        <div class="card-news__title">${char.title}</div>\n                        <div class="card-news__text">${char.description}</div>\n                        <a href="${char.link}" class="card-news__button button button_small">\n                            Обзор видео\n                        </a>\n                    </div>\n                </div>`;
+                    div.innerHTML = `\n                <div class="card-news__body">\n                    <a href="${char.link}" class="card-news__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                    <div class="card-news__date">\n                        <span class="card-news__icon _icon-calendar"></span>\n                        <span class="card-news__date-text">\n                            ${dateArr[2]} <sup>th</sup> ${getMonth} ${dateArr[0]}\n                        </span>\n                    </div>\n                    <div class="card-news__content">\n                        <div class="card-news__type-projects">\n                            NEW PROJECTS \n                        </div>\n                        <div class="card-news__title">${char.title}</div>\n                        <div class="card-news__text">${char.description}</div>\n                        <a href="${char.link}" class="card-news__button button button_small">\n                            Video Overview\n                        </a>\n                    </div>\n                </div>`;
                     newsWrapper.appendChild(div);
                 }));
                 var locations = [];
@@ -6526,10 +6590,9 @@
                 const area = await getResource("/an_object/");
                 const data = await getResource2(" https://kvartirivdubai.ru/api/an_object/?developer=" + params.get("developer") + "&area=" + params.get("area") + "&properties=" + params.get("type") + "&type=" + params.get("lifestyle") + "&search=" + params.get("search"));
                 const type = await getResource("/an_object/");
-                await getResource("/developer/");
-                await getResource("/area/");
-                await getResource("/type/");
-                await getResource("/blog/");
+                console.log(params);
+                const formInput = document.querySelector(".form-find__input");
+                formInput.value = params.get("search");
                 let developerArray = [];
                 var developerTitle;
                 let developerObject = {};
@@ -6538,11 +6601,15 @@
                     developerObject[developerTitle] = developers[i];
                 }
                 for (let x in developerObject) developerArray.push(developerObject[x]);
+                console.log(developerArray);
                 developerArray.forEach(((char2, index) => {
                     const selectContent = document.querySelector(".form-find__select-developer");
                     const selectItem = document.createElement("option");
                     selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
+                    console.log(developerArray[index], "developerArray");
+                    if (params.get("developer") === developerArray[index].developer) selectItem.setAttribute("selected", "");
+                    selectItem.setAttribute("value", char2.developer);
+                    selectItem.textContent = `${char2.developer}`;
                     selectContent.appendChild(selectItem);
                 }));
                 let areaArray = [];
@@ -6557,7 +6624,8 @@
                     const selectContent = document.querySelector(".form-find__select-area");
                     const selectItem = document.createElement("option");
                     selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
+                    if (params.get("area") === areaArray[index].area) selectItem.setAttribute("selected", "");
+                    selectItem.textContent = `${char2.area}`;
                     selectContent.appendChild(selectItem);
                 }));
                 let typeArray = [];
@@ -6572,8 +6640,27 @@
                     const selectContent = document.querySelector(".form-find__select-type");
                     const selectItem = document.createElement("option");
                     selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
+                    console.log(typeArray[index], "typeArray");
+                    if (params.get("lifestyle") === typeArray[index].area) {
+                        console.log(params.get("lifestyle") === typeArray[index].area, "select-type");
+                        selectItem.setAttribute("selected", "");
+                    }
+                    selectItem.setAttribute("value", char2.area);
+                    selectItem.textContent = `${char2.type}`;
                     selectContent.appendChild(selectItem);
+                }));
+                const selectTypes = document.querySelectorAll('.form-find__select[name="types"] .select__option');
+                selectTypes.forEach(((char, index) => {
+                    console.log(char.getAttribute("value"), params.get("types"), char.getAttribute("value") === params.get("types"), "types");
+                    if (char.getAttribute("value") === params.get("types")) char.setAttribute("selected", "");
+                }));
+                const selectMinPrice = document.querySelectorAll('.form-find__select[name="min"] .select__option');
+                selectMinPrice.forEach(((char, index) => {
+                    if (char.getAttribute("value") === params.get("min")) char.setAttribute("selected", "");
+                }));
+                const selectMaxPrice = document.querySelectorAll(".form-find__select[name='max'] .select__option");
+                selectMaxPrice.forEach(((char, index) => {
+                    if (char.getAttribute("value") === params.get("max")) char.setAttribute("selected", "");
                 }));
                 data.forEach(((char, index) => {
                     const propertyContent = document.querySelector(".best-properties__content");
@@ -6581,8 +6668,8 @@
                     propertyItem.className = "best-properties__item-propertie item-propertie";
                     propertyItem.setAttribute("data-index", char.id);
                     propertyItem.setAttribute("data-tabs-title", "");
-                    const videoLink = extractVideoID(char.video_link);
-                    propertyItem.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="more.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
+                    const videoLink = functions_extractVideoID(char.video_link);
+                    propertyItem.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
                     propertyContent.appendChild(propertyItem);
                 }));
             }
@@ -6599,7 +6686,7 @@
                 blog.forEach(((char, index) => {
                     const div = document.createElement("div");
                     div.className = "news-blog__card card-news";
-                    div.innerHTML = `\n               <div class="card-news__body">\n                                <a href="/sub-blog.html#${char.id}" class="card-news__image-ibg"><img data-src="${char.mainphoto}" alt=""></a>\n                                <div class="card-news__date">\n                                    <span class="card-news__icon _icon-calendar"></span>\n                                    <span class="card-news__date-text">\n                                        ${char.created}\n                                    </span>\n                                </div>\n                                <div class="card-news__content">\n                                    <div class="card-news__type-projects">\n                                        \n                                    </div>\n                                    <div class="card-news__title">${char.title}</div>\n                                    <div class="card-news__text">${char.description_ru_ru}</div>\n                                    <a href="${char.link}" class="card-news__button button button_small">\n                                        Посмотреть видео\n                                    </a>\n                                </div>\n                            </div>`;
+                    div.innerHTML = `\n               <div class="card-news__body">\n                                <a href="/sub-blog.html#${char.id}" class="card-news__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                                <div class="card-news__date">\n                                    <span class="card-news__icon _icon-calendar"></span>\n                                    <span class="card-news__date-text">\n                                        ${char.created}\n                                    </span>\n                                </div>\n                                <div class="card-news__content">\n                                    <div class="card-news__type-projects">\n                                        \n                                    </div>\n                                    <div class="card-news__title">${char.title}</div>\n                                    <div class="card-news__text">${char.description_ru_ru}</div>\n                                    <a href="${char.link}" class="card-news__button button button_small">\n                                        Посмотреть видео\n                                    </a>\n                                </div>\n                            </div>`;
                     overviewsWrapper.appendChild(div);
                 }));
                 var modal = document.getElementById("myModal");
@@ -7394,7 +7481,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         const overviewsWrapper = document.querySelector(".developers__content");
                         const div = document.createElement("a");
                         div.className = "developers__card lead-card";
-                        div.innerHTML = `\n            <div class="lead-card__body">\n                                    <div class="lead-card__image-ibg"><img src="" alt=""></div>\n                                    <div class="lead-card__company-logo">\n                                        <img src="${char.mainphoto}" alt="">\n                                    </div>\n                                    <div class="lead-card__content">\n                                        <div class="lead-card__title title">${char.name}</div>\n                                        <p class="lead-card__text">${char.title_ru_ru}</p>\n                                    </div>\n                                </div>`;
+                        div.innerHTML = `\n            <div class="lead-card__body">\n                                    <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                                    <div class="lead-card__company-logo">\n                                        <img src="${char.logo}" alt="">\n                                    </div>\n                                    <div class="lead-card__content">\n                                        <div class="lead-card__title title">${char.name}</div>\n                                        <p class="lead-card__text">${char.title_ru_ru}</p>\n                                    </div>\n                                </div>`;
                         overviewsWrapper.appendChild(div);
                     }));
                 }
@@ -7430,7 +7517,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
                         const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="more.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
+                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }
@@ -7566,7 +7653,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
                         const videoLink = functions_extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="more.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Воспроизвести видео обзор\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
+                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Воспроизвести видео обзор\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }
@@ -7666,7 +7753,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
                         const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="more.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
+                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }
@@ -7771,7 +7858,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
                         const videoLink = functions_extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="more.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="more.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
+                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }

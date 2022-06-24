@@ -1137,15 +1137,15 @@ body::after {
   }
 }
 
-@supports (padding-right: clamp( 0.9375rem , -0.1322322971rem  +  1.7271157168vw , 1.5625rem )) {
+@supports (padding-right: clamp( 0.9375rem , -0.6670984456rem  +  2.5906735751vw , 1.875rem )) {
   .select {
-    padding-right: clamp( 0.9375rem , -0.1322322971rem  +  1.7271157168vw , 1.5625rem );
+    padding-right: clamp( 0.9375rem , -0.6670984456rem  +  2.5906735751vw , 1.875rem );
   }
 }
 
-@supports not (padding-right: clamp( 0.9375rem , -0.1322322971rem  +  1.7271157168vw , 1.5625rem )) {
+@supports not (padding-right: clamp( 0.9375rem , -0.6670984456rem  +  2.5906735751vw , 1.875rem )) {
   .select {
-    padding-right: calc(0.9375rem + 0.625 * (100vw - 61.9375rem) / 36.1875);
+    padding-right: calc(0.9375rem + 0.9375 * (100vw - 61.9375rem) / 36.1875);
   }
 }
 
@@ -1785,7 +1785,7 @@ textarea {
   /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
@@ -5026,7 +5026,7 @@ textarea {
   /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
@@ -7027,7 +7027,7 @@ textarea {
   /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
   /* Black w/ opacity */
@@ -7236,8 +7236,8 @@ textarea {
   display: inline-block;
   border-radius: 2px;
   padding: 6.6666666667px 10px;
-  background-color: white;
-  color: #163e8e;
+  background-color: rgb(255, 255, 255);
+  color: rgb(22, 62, 142);
   font-weight: 700;
 }
 
@@ -7401,7 +7401,7 @@ textarea {
 .content-text__text {
   font-size: 1.0625rem;
   line-height: 1.4;
-  color: #373737;
+  color: rgb(55, 55, 55);
 }
 
 /* Pre Loader */
@@ -7879,7 +7879,7 @@ h1 {
 }
 
 .page__real-estate {
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
 }
 
 @supports (padding-top: clamp( 1.875rem , 1.075rem  +  4vw , 5rem )) {
@@ -7915,7 +7915,7 @@ h1 {
 }
 
 .page__overviews-slider-developer {
-  background-color: whitesmoke;
+  background-color: rgb(245, 245, 245);
   margin: 0;
 }
 
@@ -8503,7 +8503,7 @@ h1 {
 .trusted__subtitle {
   margin-bottom: 1.25rem;
   line-height: 1.1;
-  color: #373737;
+  color: rgb(55, 55, 55);
   opacity: 1;
 }
 
@@ -8530,7 +8530,7 @@ h1 {
 .trusted__text {
   font-size: 1.0625rem;
   line-height: 1.4;
-  color: #373737;
+  color: rgb(55, 55, 55);
   opacity: 1;
 }
 
@@ -8621,7 +8621,7 @@ h1 {
 .trusted-slider__title {
   text-align: left;
   line-height: 1;
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: 700;
   margin-bottom: 0.625rem;
 }
@@ -10692,11 +10692,11 @@ h1 {
 }
 
   .social-links__link_phone {
-    background-color: #114297;
+    background-color: rgb(17, 66, 151);
   }
 
   .social-links__link_whatsapp {
-    background-color: #56d062;
+    background-color: rgb(86, 208, 98);
   }
 
   .social-links__text {
