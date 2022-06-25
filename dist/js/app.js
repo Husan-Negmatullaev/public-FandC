@@ -6267,6 +6267,7 @@
                 const dataCurrentObject = await getResource(`/an_object/${getHash()}`);
                 const dataAllObject = await getResource("/an_object/");
                 document.title = dataCurrentObject.title;
+                document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
                 const apartmentPrice = document.querySelector(".apartments__info-number");
                 const apartmentPrice2 = document.createElement("div");
                 apartmentPrice2.className = "apartments__info-number";
@@ -6377,7 +6378,7 @@
                 dataAllObject.forEach(((char, index) => {
                     const div = document.createElement("div");
                     div.className = `properties__item item-properties ${char.properties.join(" ")}`;
-                    div.innerHTML = `\n                <a href="/project.html" class="item-properties__image-ibg">\n                    <img src="${char.mainphoto}" alt="">\n                </a>\n                <div class="item-properties__content">\n                    <div class="item-properties__body">\n                        <div class="item-properties__title">${char.area}</div>\n                        <div class="item-properties__subtitle">\n                            Area: <span class="item-properties__value">\n                                ${dataAllObject[index]?.name ? dataAllObject[index].name : ""}\n                            </span>\n                        </div>\n                        <div class="item-properties__position">\n                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                            <span class="item-properties__value">Azizi</span>\n                        </div>\n                        <div class="item-properties__info">\n                            <a href="${char.video_link}" class="item-properties__col">\n                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                <span class="item-properties__subtitle">\n                                    Посмотреть видео\n                                </span>\n                            </a>\n                            <a href="${char.tour_360}" class="item-properties__col">\n                                <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">\n                                <span class="item-properties__subtitle">\n                                    Open 3600 Tour\n                                </span>\n                            </a>\n                        </div>\n                        <div class="item-properties__subtitle">\n                            <span class="item-properties__price">\n                                AED ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                            </span>\n                        </div>\n                    </div>\n                    <a href="/project.html#${char.id}" class="item-properties__next">\n                        <span class="_icon-arrow-right"></span>\n                    </a>\n                </div>`;
+                    div.innerHTML = `\n                <a href="/project.html" class="item-properties__image-ibg">\n                    <img src="${char.mainphoto}" alt="">\n                </a>\n                <div class="item-properties__content">\n                    <div class="item-properties__body">\n                        <div class="item-properties__title">${char.area}</div>\n                        <div class="item-properties__subtitle">\n                            Area: <span class="item-properties__value">\n                                ${char.area}\n                            </span>\n                        </div>\n                        <div class="item-properties__position">\n                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                            <span class="item-properties__value">${char.developer}</span>\n                        </div>\n                        <div class="item-properties__info">\n                            <a href="${char.video_link}" class="item-properties__col">\n                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                <span class="item-properties__subtitle">\n                                    Посмотреть видео\n                                </span>\n                            </a>\n                            <a href="${char.tour_360}" class="item-properties__col">\n                                <img src="./img/icons/360.svg" class="item-properties__icon" alt="360deg icon">\n                                <span class="item-properties__subtitle">\n                                    Open 3600 Tour\n                                </span>\n                            </a>\n                        </div>\n                        <div class="item-properties__subtitle">\n                            <span class="item-properties__price">\n                                ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                            </span>\n                        </div>\n                    </div>\n                    <a href="/project.html#${char.id}" class="item-properties__next">\n                        <span class="_icon-arrow-right"></span>\n                    </a>\n                </div>`;
                     propertiesFilterContent.appendChild(div);
                 }));
                 const $filterContent = $(".properties-filter .properties__content").isotope({
@@ -6501,18 +6502,13 @@
                 var aar2 = 0;
                 try {
                     dataArea.forEach(((char, index) => {
-                        console.log(aar2);
                         if (4 === aar2) throw BreakException2;
                         aar2 += 1;
                         const a = document.createElement("a");
                         let hrefLabel = char.name.replace(/\s/g, "+");
                         a.setAttribute("href", `https://kvartirivdubai.ru/search.html?types=Type&search=&developer=&area=${hrefLabel}&lifestyle=&min=&max=`);
                         a.className = "best-area__item item-area";
-<<<<<<< HEAD
                         a.innerHTML = `\n                    <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="item-area__content">\n                        <div class="item-area__message">От AED ${char.starting_price}</div>\n                        <div class="item-area__info">\n                            <div class="item-area__title title title_w">${char.name}</div>\n                            <div class="item-area__text">${char.description}</div>\n                        </div>\n                    </div>`;
-=======
-                        a.innerHTML = `\n                <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                <div class="item-area__content">\n                    <div class="item-area__message">From AED ${char.starting_price}</div>\n                    <div class="item-area__info">\n                        <div class="item-area__title title title_w">${char.name}</div>\n                        <div class="item-area__text">${char.description}</div>\n                    </div>\n                </div>`;
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         bestAreaBody.appendChild(a);
                     }));
                 } catch (e) {
@@ -6523,26 +6519,18 @@
                 var aar = 0;
                 try {
                     dataArea.forEach(((char, index) => {
-<<<<<<< HEAD
                         console.log(index);
                         if (index >= 4) {
                             console.log("if 2");
                             return;
                         }
-=======
-                        console.log(aar);
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         if (5 === aar) throw BreakException;
                         aar += 1;
                         let hrefLabel = char.name.replace(/\s/g, "+");
                         const a = document.createElement("a");
                         a.setAttribute("href", `https://kvartirivdubai.ru/search.html?types=Type&search=&developer=&area=${hrefLabel}&lifestyle=&min=&max=`);
                         a.className = "area__item";
-<<<<<<< HEAD
                         a.innerHTML = `\n                    <div class="area__image-ibg"><img src="${char.mainphoto}" alt="Dubai island buildings"></div>\n                    <div class="area__title">\n                        ${char.name}\n                    </div>`;
-=======
-                        a.innerHTML = `\n                <div class="area__image-ibg"><img src="${char.mainphoto}" alt="Dubai island buildings"></div>\n                <div class="area__title">\n                    ${char.name}\n                </div>`;
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         areaBody.appendChild(a);
                     }));
                 } catch (e) {
@@ -6567,10 +6555,6 @@
                     const div = document.createElement("div");
                     div.className = "news__card card-news";
                     const dateArr = char.created.split("-");
-<<<<<<< HEAD
-=======
-                    console.log(dateArr);
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                     const getMonth = new Date(dateArr[1]).toLocaleDateString("en", {
                         month: "long"
                     });
@@ -7503,11 +7487,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         const overviewsWrapper = document.querySelector(".developers__content");
                         const div = document.createElement("a");
                         div.className = "developers__card lead-card";
-<<<<<<< HEAD
                         div.innerHTML = `\n                    <div class="lead-card__body">\n                        <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                        <div class="lead-card__company-logo">\n                            <img src="${char.logo}" alt="">\n                        </div>\n                        <div class="lead-card__content">\n                            <div class="lead-card__title title">${char.name}</div>\n                            <p class="lead-card__text">${char.title_ru_ru}</p>\n                        </div>\n                    </div>`;
-=======
-                        div.innerHTML = `\n            <div class="lead-card__body">\n                                    <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                                    <div class="lead-card__company-logo">\n                                        <img src="${char.logo}" alt="">\n                                    </div>\n                                    <div class="lead-card__content">\n                                        <div class="lead-card__title title">${char.name}</div>\n                                        <p class="lead-card__text">${char.title_ru_ru}</p>\n                                    </div>\n                                </div>`;
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         overviewsWrapper.appendChild(div);
                     }));
                 }
@@ -7542,13 +7522,8 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.className = "best-properties__item-propertie item-propertie";
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
-<<<<<<< HEAD
                         const videoLink = functions_extractVideoID(char.video_link);
                         propertyItem2.innerHTML = `\n                    <div class="best-properties__item-propertie item-propertie">\n                        <div class="item-propertie__body">\n                            <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                <img src="${char.mainphoto}" alt="">\n                                <div class="item-propertie__types">\n                                    <span>${char.properties}</span>\n                                </div>\n                                <div class="item-propertie__stickers">\n                                    \n                                </div>\n                            </a>\n                            <div class="item-propertie__content">\n                                <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                <div class="item-propertie__location">\n                                <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                </div>\n                                <div class="item-propertie__developer">\n                                    <img src="img/icons/building.svg" alt="Building icon">\n                                    <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                </div>\n                                <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                    Посмотреть видео\n                                </button>\n                                <div class="item-propertie__price">\n                                    \n                                    <span class="item-propertie__value">${char.starting_price}</span>\n                                </div>\n                            </div>\n                        </div>\n                    </div>`;
-=======
-                        const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }
@@ -7656,7 +7631,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     })).forEach((char => {
                         const div = document.createElement("a");
                         div.className = "areas-city__city-area city-area";
-                        div.innerHTML = `\n            <div class="city-area__body">\n                                    <a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=&search=" class="city-area__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                                    <div class="city-area__content">\n                                        <h3 class="city-area__title">\n                                            ${char.name_ru_ru}\n                                        </h3>\n                                    </div>\n                                </div>`;
+                        div.innerHTML = `\n                    <div class="city-area__body">\n                        <a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=&search=" class="city-area__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                        <div class="city-area__content">\n                            <h3 class="city-area__title">\n                                ${char.name_ru_ru}\n                            </h3>\n                        </div>\n                    </div>`;
                         overviewsWrapper.appendChild(div);
                     }));
                 }
@@ -7692,11 +7667,7 @@ PERFORMANCE OF THIS SOFTWARE.
                         propertyItem2.setAttribute("data-index", char.id);
                         propertyItem2.setAttribute("data-tabs-title", "");
                         const videoLink = functions_extractVideoID(char.video_link);
-<<<<<<< HEAD
                         propertyItem2.innerHTML = `\n                    <div class="best-properties__item-propertie item-propertie">\n                        <div class="item-propertie__body">\n                            <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                <img src="${char.mainphoto}" alt="">\n                                <div class="item-propertie__types">\n                                    <span>${char.properties}</span>\n                                </div>\n                                <div class="item-propertie__stickers">\n                                    \n                                </div>\n                            </a>\n                            <div class="item-propertie__content">\n                                <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                <div class="item-propertie__location">\n                                    <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                </div>\n                                <div class="item-propertie__developer">\n                                    <img src="img/icons/building.svg" alt="Building icon">\n                                    <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                </div>\n                                <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                    Воспроизвести видео обзор\n                                </button>\n                                <div class="item-propertie__price">\n                                    \n                                    <span class="item-propertie__value">${char.starting_price}</span>\n                                </div>\n                            </div>\n                        </div>\n                    </div>`;
-=======
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Воспроизвести видео обзор\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
->>>>>>> 00480575f5c25d3beb2b758c952fc0e9311e0255
                         propertyContent2.appendChild(propertyItem2);
                     }));
                 }
@@ -7878,6 +7849,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 const area = await getResource("/an_object/");
                 const type = await getResource("/an_object/");
                 document.title = dataCurrentObject.title;
+                document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
                 var projectData2 = [];
                 var start = 0;
                 var start2 = 0;
