@@ -6513,7 +6513,7 @@
                         let hrefLabel = char.name.replace(/\s/g, "+");
                         a.setAttribute("href", `https://kvartirivdubai.ru/search.html?types=Type&search=&developer=&area=${hrefLabel}&lifestyle=&min=&max=`);
                         a.className = "best-area__item item-area";
-                        a.innerHTML = `\n                    <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="item-area__content">\n                        <div class="item-area__message">От AED ${char.starting_price}</div>\n                        <div class="item-area__info">\n                            <div class="item-area__title title title_w">${char.name}</div>\n                            <div class="item-area__text">${char.description}</div>\n                        </div>\n                    </div>`;
+                        a.innerHTML = `\n                    <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="item-area__content">\n                        <div class="item-area__message">От $ ${char.starting_price}</div>\n                        <div class="item-area__info">\n                            <div class="item-area__title title title_w">${char.name}</div>\n                            <div class="item-area__text">${char.description}</div>\n                        </div>\n                    </div>`;
                         bestAreaBody.appendChild(a);
                     }));
                 } catch (e) {
@@ -7754,7 +7754,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     console.log("faq.html");
                 }), 5e3);
                 const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("keywords", dataText[0].key_text);
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
                 const type = await getResource("/an_object/");
