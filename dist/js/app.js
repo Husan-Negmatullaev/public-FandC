@@ -6265,6 +6265,8 @@
                     console.log("project.html");
                 }), 5e3);
                 const dataCurrentObject = await getResource(`/an_object/${getHash()}`);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const dataAllObject = await getResource("/an_object/");
                 document.title = dataCurrentObject.title;
                 document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
@@ -6402,6 +6404,8 @@
         async function pageHome() {
             document.body;
             if ("/" === location.pathname) {
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const data = await getResource("/an_object/");
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
@@ -6452,6 +6456,7 @@
                     renderProjects(currentPage, start, end);
                 }
                 document.querySelector("#nextButton").addEventListener("click", nextPage, false);
+                console.log(dataText);
                 let developerArray = [];
                 var developerTitle;
                 let developerObject = {};
@@ -6519,11 +6524,7 @@
                 var aar = 0;
                 try {
                     dataArea.forEach(((char, index) => {
-                        console.log(index);
-                        if (index >= 4) {
-                            console.log("if 2");
-                            return;
-                        }
+                        if (index >= 4) return;
                         if (5 === aar) throw BreakException;
                         aar += 1;
                         let hrefLabel = char.name.replace(/\s/g, "+");
@@ -6593,6 +6594,8 @@
                     $("body").addClass("loaded");
                     console.log("search.html");
                 }), 5e3);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
                 const data = await getResource2("https://kvartirivdubai.ru/api/an_object/?developer=" + params.get("developer") + "&area=" + params.get("area") + "&properties=" + params.get("type") + "&type=" + params.get("lifestyle") + "&search=" + params.get("search"));
@@ -6684,6 +6687,8 @@
         async function pageBlog() {
             document.body;
             if ("/blog.html" === location.pathname) {
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 setTimeout((function() {
                     $("body").addClass("loaded");
                     console.log("blog.html");
@@ -7398,6 +7403,8 @@ PERFORMANCE OF THIS SOFTWARE.
         async function pageMap() {
             document.body;
             if ("/map.html" === location.pathname) {
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const data = await getResource("/an_object/");
                 setTimeout((function() {
                     $("body").addClass("loaded");
@@ -7454,6 +7461,8 @@ PERFORMANCE OF THIS SOFTWARE.
                     $("body").addClass("loaded");
                     console.log("developers.html");
                 }), 5e3);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const data = await getResource("/an_object/");
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
@@ -7598,6 +7607,8 @@ PERFORMANCE OF THIS SOFTWARE.
                     $("body").addClass("loaded");
                     console.log("areas.html");
                 }), 5e3);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const data = await getResource("/an_object/");
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
@@ -7742,6 +7753,8 @@ PERFORMANCE OF THIS SOFTWARE.
                     $("body").addClass("loaded");
                     console.log("faq.html");
                 }), 5e3);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("keywords", dataText[0].key_text);
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
                 const type = await getResource("/an_object/");
@@ -7842,6 +7855,8 @@ PERFORMANCE OF THIS SOFTWARE.
                     $("body").addClass("loaded");
                     console.log("sub-blog.html");
                 }), 5e3);
+                const dataText = await getResource("/text/");
+                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const dataCurrentObject = await getResource(`/blog/${getHash()}`);
                 await getResource("/developer/");
                 await getResource("/an_object/");
