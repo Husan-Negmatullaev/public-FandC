@@ -829,7 +829,7 @@
             let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
             if (!url) return;
             let match = url.match(regExp);
-            if (match && 11 == match[7].length) return match[7]; else alert("Could not extract video ID.");
+            if (match && 11 == match[7].length) return match[7]; else console.log("Не могу получить ID видео");
         }
         async function getResource(url) {
             const _apiBase = "https://kvartirivdubai.ru/api";
@@ -6694,6 +6694,7 @@
                     console.log("blog.html");
                 }), 5e3);
                 const blog = await getResource("/blog/");
+                const data = await getResource("/an_object/");
                 const overviewsWrapper = document.querySelector(".news-blog__body");
                 blog.forEach(((char, index) => {
                     const div = document.createElement("div");
@@ -6708,6 +6709,13 @@
                 window.onclick = function(event) {
                     if (event.target == modal) modal.style.display = "none";
                 };
+                const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
+                data.forEach(((char, index) => {
+                    const div = document.createElement("div");
+                    div.className = "trusted-slider__slide swiper-slide";
+                    div.innerHTML = `\n                <a href="/project.html#${char.id}" class="trusted-slider__item">\n                    <div class="trusted-slider__image-ibg"><img src="${char.photo}" alt=""></div>\n                    <div class="trusted-slider__content">\n                        <div class="trusted-slider__text-content">\n                            <h3 class="trusted-slider__title">\n                                ${char.title}\n                            </h3>\n                        </div>\n                        <div class="trusted-slider__icon">\n                            <img src="img/icons/right-arrow.svg" alt="">\n                        </div>\n                    </div>\n                </a>`;
+                    trustedWrapper.appendChild(div);
+                }));
             }
         }
         function sortKD(ids, coords, nodeSize, left, right, depth) {
@@ -7613,6 +7621,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
                 const type = await getResource("/an_object/");
+                console.log(data);
                 var projectData = [];
                 var projectData2 = [];
                 var start = 0;
@@ -7737,6 +7746,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
                     selectContent.appendChild(selectItem);
                 }));
+                console.log(data);
                 const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
                 data.forEach(((char, index) => {
                     const div = document.createElement("div");

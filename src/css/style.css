@@ -8663,8 +8663,11 @@ h1 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
+  row-gap: 12px;
 }
 
 .trusted-slider__pagination span {
@@ -9154,11 +9157,6 @@ h1 {
     -webkit-transform: scale(1.3);
             transform: scale(1.3);
   }
-}
-
-#chat-widget-container {
-  bottom: 57px !important;
-  left: -10px !important;
 }
 
 .swiper {
@@ -10727,6 +10725,11 @@ h1 {
       font-size: calc(0.875rem + 0.25 * (100vw - 20rem) / 78.125);
     }
 }
+
+  #chat-widget-container {
+    bottom: 57px !important;
+    left: -10px !important;
+  }
 }
 
 @media (max-width: 34.375rem) {
