@@ -6268,7 +6268,7 @@
                 const dataText = await getResource("/text/");
                 document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
                 const dataAllObject = await getResource("/an_object/");
-                document.title = dataCurrentObject.title;
+                document.querySelector("title").textContent = dataCurrentObject.title;
                 document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
                 const apartmentPrice = document.querySelector(".apartments__info-number");
                 const apartmentPrice2 = document.createElement("div");
@@ -7873,7 +7873,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 const developers = await getResource("/an_object/");
                 const area = await getResource("/an_object/");
                 const type = await getResource("/an_object/");
-                document.title = dataCurrentObject.title;
+                document.querySelector("title").textContent = dataCurrentObject.title;
                 document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
                 var projectData2 = [];
                 var start = 0;
