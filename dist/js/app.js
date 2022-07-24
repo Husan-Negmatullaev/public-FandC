@@ -431,7 +431,7 @@
     })();
     (() => {
         "use strict";
-        const flsModules = {};
+        const modules_flsModules = {};
         function isWebp() {
             function testWebP(callback) {
                 let webP = new Image;
@@ -773,14 +773,13 @@
                 }
             }));
         }
-        function menuClose() {
-            bodyUnlock();
-            document.documentElement.classList.remove("menu-open");
-        }
-        function FLS(message) {
+        function functions_FLS(message) {
             setTimeout((() => {
                 if (window.FLS) console.log(message);
             }), 0);
+        }
+        function removeClasses(array, className) {
+            for (var i = 0; i < array.length; i++) array[i].classList.remove(className);
         }
         function uniqArray(array) {
             return array.filter((function(item, index, self) {
@@ -825,21 +824,9 @@
                 }
             }
         }
-        function extractVideoID(url) {
-            let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-            if (!url) return;
-            let match = url.match(regExp);
-            if (match && 11 == match[7].length) return match[7]; else console.log("Не могу получить ID видео");
-        }
         async function getResource(url) {
             const _apiBase = "https://kvartirivdubai.ru/api";
             const res = await fetch(`${_apiBase}${url}`);
-            if (!res.ok) throw new Error(`Could not fetch ${url} , received ${res.status}`);
-            const body = await res.json();
-            return body;
-        }
-        async function getResource2(url) {
-            const res = await fetch(url);
             if (!res.ok) throw new Error(`Could not fetch ${url} , received ${res.status}`);
             const body = await res.json();
             return body;
@@ -1085,39 +1072,10 @@
                 if (!this.isOpen && this.lastFocusEl) this.lastFocusEl.focus(); else focusable[0].focus();
             }
             popupLogging(message) {
-                this.options.logging ? FLS(`[Попапос]: ${message}`) : null;
+                this.options.logging ? functions_FLS(`[Попапос]: ${message}`) : null;
             }
         }
-        flsModules.popup = new Popup({});
-        let gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
-            const targetBlockElement = document.querySelector(targetBlock);
-            if (targetBlockElement) {
-                let headerItem = "";
-                let headerItemHeight = 0;
-                if (noHeader) {
-                    headerItem = "header.header";
-                    headerItemHeight = document.querySelector(headerItem).offsetHeight;
-                }
-                let options = {
-                    speedAsDuration: true,
-                    speed,
-                    header: headerItem,
-                    offset: offsetTop,
-                    easing: "easeOutQuad"
-                };
-                document.documentElement.classList.contains("menu-open") ? menuClose() : null;
-                if ("undefined" !== typeof SmoothScroll) (new SmoothScroll).animateScroll(targetBlockElement, "", options); else {
-                    let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
-                    targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
-                    targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
-                    window.scrollTo({
-                        top: targetBlockElementPosition,
-                        behavior: "smooth"
-                    });
-                }
-                FLS(`[gotoBlock]: Юхуу...едем к ${targetBlock}`);
-            } else FLS(`[gotoBlock]: Ой ой..Такого блока нет на странице: ${targetBlock}`);
-        };
+        modules_flsModules.popup = new Popup({});
         function formFieldsInit(options = {
             viewPass: false
         }) {
@@ -1209,11 +1167,11 @@
                         const checkbox = checkboxes[index];
                         checkbox.checked = false;
                     }
-                    if (flsModules.select) {
+                    if (modules_flsModules.select) {
                         let selects = form.querySelectorAll(".select");
                         if (selects.length) for (let index = 0; index < selects.length; index++) {
                             const select = selects[index].querySelector("select");
-                            flsModules.select.selectBuild(select);
+                            modules_flsModules.select.selectBuild(select);
                         }
                     }
                 }), 0);
@@ -1222,71 +1180,6 @@
                 return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
             }
         };
-        function formSubmit(options = {
-            validate: true
-        }) {
-            const forms = document.forms;
-            if (forms.length) for (const form of forms) {
-                form.addEventListener("submit", (function(e) {
-                    const form = e.target;
-                    formSubmitAction(form, e);
-                }));
-                form.addEventListener("reset", (function(e) {
-                    const form = e.target;
-                    formValidate.formClean(form);
-                }));
-            }
-            async function formSubmitAction(form, e) {
-                const error = !form.hasAttribute("data-no-validate") ? formValidate.getErrors(form) : 0;
-                if (0 === error) {
-                    const ajax = form.hasAttribute("data-ajax");
-                    if (ajax) {
-                        e.preventDefault();
-                        const formAction = form.getAttribute("action") ? form.getAttribute("action").trim() : "#";
-                        const formMethod = form.getAttribute("method") ? form.getAttribute("method").trim() : "GET";
-                        const formData = new FormData(form);
-                        form.classList.add("_sending");
-                        const response = await fetch(formAction, {
-                            method: formMethod,
-                            body: formData
-                        });
-                        if (response.ok) {
-                            await response.json();
-                            form.classList.remove("_sending");
-                            formSent(form);
-                        } else {
-                            alert("Ошибка");
-                            form.classList.remove("_sending");
-                        }
-                    } else if (form.hasAttribute("data-dev")) {
-                        e.preventDefault();
-                        formSent(form);
-                    }
-                } else {
-                    e.preventDefault();
-                    const formError = form.querySelector("._form-error");
-                    if (formError && form.hasAttribute("data-goto-error")) gotoBlock(formError, true, 1e3);
-                }
-            }
-            function formSent(form) {
-                document.dispatchEvent(new CustomEvent("formSent", {
-                    detail: {
-                        form
-                    }
-                }));
-                setTimeout((() => {
-                    if (flsModules.popup) {
-                        const popup = form.dataset.popupMessage;
-                        popup ? flsModules.popup.open(popup) : null;
-                    }
-                }), 0);
-                formValidate.formClean(form);
-                formLogging(`Форма отправлена!`);
-            }
-            function formLogging(message) {
-                FLS(`[Формы]: ${message}`);
-            }
-        }
         function isObject(obj) {
             return null !== obj && "object" === typeof obj && "constructor" in obj && obj.constructor === Object;
         }
@@ -4814,7 +4707,7 @@
                 observeParents: true,
                 slidesPerView: 1,
                 spaceBetween: 32,
-                watchOverflow: true,
+                watchOverflow: false,
                 loop: true,
                 loopAdditionalSlides: 5,
                 preloadImages: false,
@@ -4828,8 +4721,7 @@
                         slidesPerView: 2,
                         spaceBetween: 10
                     }
-                },
-                on: {}
+                }
             });
             if (document.querySelector(".lead__body")) new core(".lead__body", {
                 modules: [ Pagination, Navigation ],
@@ -4837,7 +4729,7 @@
                 observeParents: true,
                 slidesPerView: 1,
                 spaceBetween: 20,
-                watchOverflow: true,
+                watchOverflow: false,
                 loop: true,
                 loopAdditionalSlides: 5,
                 preloadImages: false,
@@ -4987,6 +4879,82 @@
                 pagination: {
                     el: ".trusted-slider__body .trusted-slider__pagination",
                     clickable: true
+                }
+            });
+            if (document.querySelector(".news__body")) new core(".news__body", {
+                modules: [ Pagination, Navigation ],
+                observer: true,
+                observeParents: true,
+                slidesPerView: 2,
+                spaceBetween: 20,
+                watchOverflow: true,
+                loop: true,
+                loopAdditionalSlides: 2,
+                preloadImages: false,
+                speed: 800,
+                navigation: {
+                    prevEl: ".news__body .slider-arrow_prev",
+                    nextEl: ".news__body .slider-arrow_next"
+                },
+                pagination: {
+                    el: ".news__pagination",
+                    clickable: true
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 20
+                    },
+                    991.98: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    }
+                }
+            });
+            if (document.querySelector(".banner__body")) new core(".banner__body", {
+                modules: [ Pagination, Navigation ],
+                observer: true,
+                observeParents: true,
+                slidesPerView: 1,
+                spaceBetween: 20,
+                watchOverflow: false,
+                loop: true,
+                loopAdditionalSlides: 2,
+                preloadImages: false,
+                speed: 800,
+                pagination: {
+                    el: ".banner__pagination",
+                    clickable: true
+                }
+            });
+            if (document.querySelector(".developers__body")) new core(".developers__body", {
+                modules: [ Pagination, Navigation ],
+                observer: true,
+                observeParents: true,
+                slidesPerView: 3,
+                spaceBetween: 20,
+                watchOverflow: true,
+                loop: true,
+                loopAdditionalSlides: 2,
+                preloadImages: false,
+                speed: 800,
+                pagination: {
+                    el: ".developers__pagination",
+                    clickable: true
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    767.98: {
+                        slidesPerView: 2,
+                        spaceBetween: 15
+                    },
+                    991.98: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    }
                 }
             });
         }
@@ -6221,347 +6189,67 @@
             }, d;
         }));
         window.onload = function() {
-            const headerElement = document.querySelector(".header");
+            const headerElement = document.querySelector(".header") ?? document.querySelector(".project-header");
             const callback = function(entries, observer) {
                 if (entries[0].isIntersecting) headerElement.classList.remove("_scroll"); else headerElement.classList.add("_scroll");
             };
             const headerObserver = new IntersectionObserver(callback);
             headerObserver.observe(headerElement);
-            const developerCards = document.querySelectorAll(".developers__card");
-            function liveSearch() {
-                let searchQuery = document.querySelector(".developers__input").value;
-                for (let i = 0; i < developerCards.length; i++) if (developerCards[i].querySelector(".lead-card__title").textContent.toLowerCase().includes(searchQuery.toLowerCase())) developerCards[i].classList.remove("is-hidden"); else developerCards[i].classList.add("is-hidden");
-            }
-            let typingTimer;
-            let typeInterval = 100;
-            let searchInput = document.querySelector(".developers__input");
-            if (developerCards.length > 0) searchInput.addEventListener("keyup", (() => {
-                clearTimeout(typingTimer);
-                typingTimer = setTimeout(liveSearch, typeInterval);
-            }));
-            const areasCards = document.querySelectorAll(".areas-city__city-area");
-            function liveSearchAres() {
-                let searchQuery = document.querySelector(".areas-city__input").value;
-                for (let i = 0; i < areasCards.length; i++) if (areasCards[i].querySelector(".city-area__title").textContent.toLowerCase().includes(searchQuery.toLowerCase())) areasCards[i].classList.remove("is-hidden"); else areasCards[i].classList.add("is-hidden");
-            }
-            let typingTimerAreas;
-            let typeIntervalAreas = 100;
-            let searchInputAreas = document.querySelector(".areas-city__input");
-            if (areasCards.length > 0) searchInputAreas.addEventListener("keyup", (() => {
-                clearTimeout(typingTimerAreas);
-                typingTimerAreas = setTimeout(liveSearchAres, typeIntervalAreas);
-            }));
             const quizButton = document.querySelector(".quiz__button");
             if (quizButton) quizButton.addEventListener("click", (e => {
                 e.preventDefault();
                 Marquiz.showModal("62a9d7fb7cd214004ab0c35a");
             }));
+            document.querySelectorAll(".menu__link[data-spoller]");
         };
+        document.addEventListener("click", documentActions);
+        document.addEventListener("mouseover", (event => {
+            const targetItem = event.target;
+            if (window.innerWidth > 991) if (targetItem.closest(".menu__item")) {
+                const menuItem = targetItem.closest(".menu__item");
+                menuItem.classList.add("_hover");
+            }
+        }));
+        document.addEventListener("mouseout", (event => {
+            const targetItem = event.target;
+            if (window.innerWidth > 991) if (targetItem.closest(".menu__item")) {
+                const menuItem = targetItem.closest(".menu__item");
+                menuItem.classList.remove("_hover");
+            }
+        }));
+        function documentActions(e) {
+            const targetitem = event.target;
+            if (window.innerWidth > 768 && isMobile.any()) {
+                if (targetitem.classList.contains("menu-project__link") || targetitem.classList.contains("menu-project__arrow")) targetitem.closest(".menu-project__item").classList.toggle("_hover");
+                if (!targetitem.closest(".menu-project__item") && document.querySelectorAll(".menu-project__item._hover").length > 0) removeClasses(document.querySelectorAll(".menu-project__item._hover"), "_hover");
+            }
+            if (targetitem.closest(".menu__item")) {
+                if (targetitem.closest(".menu__sub-blog")) return;
+                targetitem.closest(".menu__item").classList.toggle("_hover");
+            }
+        }
         async function pageMore() {
             document.body;
-            if ("/project.html" === location.pathname) {
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("project.html");
-                }), 5e3);
-                const dataCurrentObject = await getResource(`/an_object/${getHash()}`);
-                await getResource("/text/");
-                const dataAllObject = await getResource("/an_object/");
-                document.querySelector('meta[property="og:title"]').setAttribute("content", dataCurrentObject.title);
-                document.querySelector('meta[property="og:description"]').setAttribute("content", dataCurrentObject.description);
-                document.querySelector('meta[property="og:image"]').setAttribute("content", dataCurrentObject.mainphoto);
-                const apartmentPrice = document.querySelector(".apartments__info-number");
-                const apartmentPrice2 = document.createElement("div");
-                apartmentPrice2.className = "apartments__info-number";
-                apartmentPrice2.innerHTML = `<p>${dataCurrentObject.starting_price}</p>`;
-                apartmentPrice.appendChild(apartmentPrice2);
-                const apartmentHandover = document.querySelector(".apartments__info-number2");
-                const apartmentHandover2 = document.createElement("div");
-                apartmentHandover2.className = "apartments__info-number";
-                apartmentHandover2.innerHTML = `<h4>${dataCurrentObject.post_handover}</h4>`;
-                apartmentHandover.appendChild(apartmentHandover2);
-                const apartmentBooking = document.querySelector(".apartments__info-number3");
-                const apartmentBooking2 = document.createElement("div");
-                apartmentBooking2.className = "apartments__info-number";
-                apartmentBooking2.innerHTML = `<h4>${dataCurrentObject.booking}</h4>`;
-                apartmentBooking.appendChild(apartmentBooking2);
-                const apartmentTitle = document.querySelector(".apartments__title");
-                apartmentTitle.textContent = dataCurrentObject.title;
-                const apartmentSafe = document.querySelector(".apartments__safe");
-                apartmentSafe.style.marginTop = apartmentTitle.offsetHeight + 20 + "px";
-                const apartmentText = document.querySelector(".apartments__text");
-                apartmentText.innerHTML = dataCurrentObject.description;
-                document.querySelector(".apartments-slider__wrapper");
-                const mainImage = document.querySelector(".apartments-slider__image-ibg img");
-                mainImage.src = dataCurrentObject.mainphoto;
-                const discoverTitle = document.querySelector(".discover-content-image__title");
-                discoverTitle.textContent = dataCurrentObject?.title_two_ru_ru ? dataCurrentObject.title_two : dataCurrentObject.title_en_us;
-                const discoverImage = document.querySelector(".discover-content-image__image-ibg img");
-                const discoverImageSmall = document.querySelector(".discover-content-image__image-small");
-                discoverImage.src = dataCurrentObject.photo;
-                discoverImageSmall.src = dataCurrentObject.photo_two;
-                const discoverText = document.querySelector(".discover__text");
-                discoverText.innerHTML = dataCurrentObject.text_ru_ru;
-                const features = document.querySelector(".advantages__body");
-                console.log("object_gallery", dataCurrentObject.object_gallery);
-                dataCurrentObject.object_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    div.className = "advantages__card advantages-card";
-                    div.innerHTML = `\n             <div class="advantages-card__content">\n             <div class="advantages-card__image">\n                                    <img src="${item.image}" alt="">\n                                </div>\n                            </div>\n                        </div>\n            `;
-                    features.appendChild(div);
-                }));
-                const galleryInterier = document.querySelector(".gallery-interier__wrapper");
-                const galleryInterierThumbs = document.querySelector(".thumbs-interier__wrapper");
-                dataCurrentObject.interier_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    const divThumb = document.createElement("div");
-                    div.className = "gallery-interier__slide swiper-slide";
-                    divThumb.className = "thumbs-interier__slide swiper-slide";
-                    divThumb.innerHTML = `\n                <div data-exterior="${item.interior_gallery}" class="thumbs-interier__image-ibg"><img src="${item.exterior}" alt=""></div>\n             `;
-                    div.innerHTML = `\n                <div data-exterior="${item.interior_gallery}" class="gallery-interier__image-ibg"><img src="${item.exterior}" alt=""></div>\n            `;
-                    galleryInterier.appendChild(div);
-                    galleryInterierThumbs.appendChild(divThumb);
-                }));
-                const galleryExterier = document.querySelector(".gallery-exterier__wrapper");
-                const galleryExterierThumbs = document.querySelector(".thumbs-exterier__wrapper");
-                dataCurrentObject.exterior_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    const divThumb = document.createElement("div");
-                    div.className = "gallery-exterier__slide swiper-slide";
-                    divThumb.className = "thumbs-exterier__slide swiper-slide";
-                    divThumb.innerHTML = `\n                <div data-exterior="${item.exterior_gallery}" class="thumbs-interier__image-ibg"><img src="${item.exterior}" alt=""></div>\n             `;
-                    div.innerHTML = `\n                <div data-exterior="${item.exterior_gallery}" class="gallery-interier__image-ibg"><img src="${item.exterior}" alt=""></div>\n            `;
-                    galleryExterier.appendChild(div);
-                    galleryExterierThumbs.appendChild(divThumb);
-                }));
-                const locatedTopLeft = document.querySelector(".located-top__image-1-ibg img");
-                const locatedTopRight = document.querySelector(".located-top__image-2-ibg img");
-                const locatedBottomImage = document.querySelector(".located-bottom__image-ibg img");
-                const locatedTopTitle = document.querySelector(".located-top__title");
-                const locatedBottomText = document.querySelector(".located-bottom__text");
-                locatedTopLeft.src = dataCurrentObject.photo_three;
-                locatedTopRight.src = dataCurrentObject.photo_four;
-                locatedBottomImage.src = dataCurrentObject.mainphoto_two;
-                locatedTopTitle.textContent = dataCurrentObject.title_three;
-                locatedBottomText.innerHTML = dataCurrentObject.content;
-                const advantagesBody = document.querySelector(".advantages-time__body");
-                console.log("object_logo_gallery", dataCurrentObject.object_logo_gallery);
-                dataCurrentObject.object_logo_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    div.className = "advantages__card advantages-card";
-                    div.innerHTML = `\n                <div class="advantages-card__content">\n                    <div class="advantages-card__image">\n                        <img src="${item.logo}" alt="">\n                    </div>\n                </div>\n            `;
-                    advantagesBody.appendChild(div);
-                }));
-                const bedroomTabsContent = document.querySelector(".bedroom-tabs__wrapper");
-                dataCurrentObject.object_plan.forEach(((item, index) => {
-                    const div = document.createElement("div");
-                    div.setAttribute("object-plan", item.object_plan);
-                    div.className = "bedroom-tabs-content__body swiper-slide";
-                    div.innerHTML = `\n                    <div class="bedroom-tabs-content__content">\n                        <div class="bedroom-tabs-content__title">${item.name}</div>\n                        <div class="bedroom-tabs-content__area-info">\n                            <div class="bedroom-tabs-content__area">\n                                <span class="_icon-suite-area"></span>\n                                Suite Area: ${item.suite_area} sqft\n                            </div>\n                            <div class="bedroom-tabs-content__area">\n                                <span class="_icon-total-area"></span>\n                                Total Area: ${item.total_area} sqft\n                            </div>\n                        </div>\n                        <a href="" class="bedroom-tabs-content__button button button_small-large" onclick="Marquiz.showModal('62a9d7fb7cd214004ab0c35a')">Получить всю планировку</a>\n                        <br>\n                        <a href="" class="bedroom-tabs-content__button button button_small-large-transparent" onclick="Marquiz.showModal('62a9d7fb7cd214004ab0c35a')">Скачать брошюру</a>\n                    </div>\n                    <div class="bedroom-tabs-content__image">\n                        <div class="bedroom-tabs-content__image-ibg"><img src="${item.plan}" alt=""></div>\n                    </div>\n                `;
-                    bedroomTabsContent.appendChild(div);
-                }));
-                const paymentTitle = document.querySelector(".payment__title");
-                paymentTitle.textContent = dataCurrentObject.booking;
-                const paymentContent = document.querySelector(".payment__content");
-                dataCurrentObject.second_object_logo_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    div.className = "payment__item item-payment";
-                    div.innerHTML = `\n                <div second-object-logo-gallery="${item.second_object_logo_gallery}" class="item-payment__body">\n                    <div class="item-payment__image-ibg"><img src="${item.second_logo}" alt=""></div>\n                    <div class="item-payment__text">On Booking</div>\n                </div>`;
-                    paymentContent.appendChild(div);
-                }));
-                const propertiesFilterContent = document.querySelector(".properties-filter .properties__content");
-                dataAllObject.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = `properties__item item-properties ${char.properties.join(" ")}`;
-                    div.innerHTML = `\n                <a href="/project.html" class="item-properties__image-ibg">\n                    <img src="${char.mainphoto}" alt="">\n                </a>\n                <div class="item-properties__content">\n                    <div class="item-properties__body">\n                        <div class="item-properties__title">${char.area}</div>\n                        <div class="item-properties__subtitle">\n                            Area: <span class="item-properties__value">\n                                ${char.area}\n                            </span>\n                        </div>\n                        <div class="item-properties__position">\n                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                            <span class="item-properties__value">${char.developer}</span>\n                        </div>\n                        <div class="item-properties__info">\n                            <a href="${char.video_link}" class="item-properties__col">\n                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                <span class="item-properties__subtitle">\n                                    Посмотреть видео\n                                </span>\n                            </a>\n                        </div>\n                        <div class="item-properties__subtitle">\n                            <span class="item-properties__price">\n                                ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                            </span>\n                        </div>\n                    </div>\n                    <a href="/project.html#${char.id}" class="item-properties__next">\n                        <span class="_icon-arrow-right"></span>\n                    </a>\n                </div>`;
-                    propertiesFilterContent.appendChild(div);
-                }));
-                const $filterContent = $(".properties-filter .properties__content").isotope({
-                    itemSelector: ".properties__item"
+            const $filterContent = $(".properties-filter .properties__content").isotope({
+                itemSelector: ".properties__item"
+            });
+            $(".properties-filter__actions").on("click", "button", (function() {
+                var sortValue = $(this).attr("data-filter");
+                $filterContent.isotope({
+                    filter: sortValue
                 });
-                $(".properties-filter__actions").on("click", "button", (function() {
-                    var sortValue = $(this).attr("data-filter");
-                    $filterContent.isotope({
-                        filter: sortValue
-                    });
+            }));
+            $(".properties-filter__actions").each((function(i, buttonGroup) {
+                var $buttonGroup = $(buttonGroup);
+                $buttonGroup.on("click", "button", (function() {
+                    $buttonGroup.find(".is-checked").removeClass("is-checked");
+                    $(this).addClass("is-checked");
                 }));
-                $(".properties-filter__actions").each((function(i, buttonGroup) {
-                    var $buttonGroup = $(buttonGroup);
-                    $buttonGroup.on("click", "button", (function() {
-                        $buttonGroup.find(".is-checked").removeClass("is-checked");
-                        $(this).addClass("is-checked");
-                    }));
-                }));
-            }
+            }));
         }
         async function pageHome() {
             document.body;
             if ("/" === location.pathname) {
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const data = await getResource("/an_object/");
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const type = await getResource("/an_object/");
-                const data_developer = await getResource("/developer/");
-                const dataArea = await getResource("/area/");
-                const dataBlog = await getResource("/blog/");
-                var projectData = [];
-                var start = 0;
-                var end = 10;
-                let pageSize = 10;
-                let currentPage = 1;
-                async function getResourceHere() {
-                    const _apiBase = "https://kvartirivdubai.ru/api/an_object/";
-                    const res = await fetch(`${_apiBase}`);
-                    const body = await res.json();
-                    projectData = body;
-                    start = (currentPage - 1) * pageSize;
-                    end = currentPage * pageSize;
-                }
-                async function renderProjects(page = 1, first, last) {
-                    setTimeout((function() {
-                        $("body").addClass("loaded");
-                    }), 0);
-                    await getResourceHere();
-                    if (page == numPages()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
-                    projectData.filter(((row, index) => {
-                        start = first;
-                        end = last;
-                        if (index >= start && index < end) return true;
-                    })).forEach((char => {
-                        const afterFiveDays = new Date(char.created).addDays(5);
-                        new Date(char.created).addDays(30);
-                        const timeProject = (new Date).getTime() <= afterFiveDays.getTime();
-                        const propertyContent = document.querySelector(".properties__content");
-                        const propertyItem = document.createElement("div");
-                        propertyItem.className = "properties__item item-properties ";
-                        propertyItem.setAttribute("data-index", char.id);
-                        propertyItem.setAttribute("data-tabs-title", "");
-                        propertyItem.innerHTML = `\n                <a href="/project.html#${char.id}" class="item-properties__image-ibg">\n                    <img src="${char.mainphoto}" alt="">\n                </a>\n                ${timeProject ? `\n                    <div class="item-properties__type">\n                        "Новый проект"\n                    </div>\n                ` : ""}\n                <div class="item-properties__content">\n                    <div class="item-properties__body">\n                        <div class="item-properties__title">${char.title}</div>\n                        <div class="item-properties__subtitle">\n                            Area: <span class="item-properties__value">\n                                ${char.area}\n                            </span>\n                        </div>\n                        <div class="item-properties__position">\n                            <img src="./img/icons/building.svg" class="item-properties__icon" alt="Building icon">\n                            <span class="item-properties__value"> ${char.developer}</span>\n                        </div>\n                        <div class="item-properties__info">\n                            <a href="${char.video_link}" class="item-properties__col">\n                                <img src="./img/icons/youtube.svg" class="item-properties__icon" alt="Youtube icon">\n                                <span class="item-properties__subtitle">\n                                    Обзор видео\n                                </span>\n                            </a>\n                        </div>\n                        <div class="item-properties__subtitle">\n                            <span class="item-properties__price">\n                                ${char.starting_price.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, ",")}\n                            </span>\n                        </div>\n                    </div>\n                    <a href="/project.html#${char.id}" class="item-properties__next">\n                        <span class="_icon-arrow-right"></span>\n                    </a>\n                </div>`;
-                        propertyContent.appendChild(propertyItem);
-                    }));
-                }
-                renderProjects(1, start, end);
-                function numPages() {
-                    return Math.ceil(projectData.length / pageSize);
-                }
-                function nextPage() {
-                    start += 10;
-                    end += 10;
-                    renderProjects(currentPage, start, end);
-                }
-                document.querySelector("#nextButton").addEventListener("click", nextPage, false);
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                const bestAreaBody = document.querySelector(".best-area__body");
-                var BreakException2 = {};
-                var aar2 = 0;
-                try {
-                    dataArea.forEach(((char, index) => {
-                        if (4 === aar2) throw BreakException2;
-                        aar2 += 1;
-                        const a = document.createElement("a");
-                        let hrefLabel = char.name.replace(/\s/g, "+");
-                        a.setAttribute("href", `https://kvartirivdubai.ru/search.html?types=Type&search=&developer=&area=${hrefLabel}&lifestyle=&min=&max=`);
-                        a.className = "best-area__item item-area";
-                        a.innerHTML = `\n                    <div class="item-area__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="item-area__content">\n                        <div class="item-area__message">От $ ${char.starting_price}</div>\n                        <div class="item-area__info">\n                            <div class="item-area__title title title_w">${char.name}</div>\n                            <div class="item-area__text">${char.description}</div>\n                        </div>\n                    </div>`;
-                        bestAreaBody.appendChild(a);
-                    }));
-                } catch (e) {
-                    if (e !== BreakException2) throw e;
-                }
-                const areaBody = document.querySelector(".area__body");
-                var BreakException = {};
-                var aar = 0;
-                try {
-                    dataArea.forEach(((char, index) => {
-                        if (index >= 4) return;
-                        if (5 === aar) throw BreakException;
-                        aar += 1;
-                        let hrefLabel = char.name.replace(/\s/g, "+");
-                        const a = document.createElement("a");
-                        a.setAttribute("href", `https://kvartirivdubai.ru/search.html?types=Type&search=&developer=&area=${hrefLabel}&lifestyle=&min=&max=`);
-                        a.className = "area__item";
-                        a.innerHTML = `\n                    <div class="area__image-ibg"><img src="${char.mainphoto}" alt="Dubai island buildings"></div>\n                    <div class="area__title">\n                        ${char.name}\n                    </div>`;
-                        areaBody.appendChild(a);
-                    }));
-                } catch (e) {
-                    if (e !== BreakException) throw e;
-                }
-                const overviewsWrapper = document.querySelector(".overviews-slider__wrapper");
-                data_developer.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "swiper-slide overviews-slider__slide";
-                    div.innerHTML = `\n            <div class="swiper-slide overviews-slider__slide">\n                <a href="${char.link}" class="overviews-slider__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                <div class="overviews-slider__subtitle">${char.name}</div>\n                <a href="${char.link}" class="button button_small overviews-slider__button">Обзор видео</a>\n            </div>`;
-                    overviewsWrapper.appendChild(div);
-                }));
-                const leadWrapper = document.querySelector(".lead__wrapper");
-                data_developer.forEach(((char, index) => {
-                    const a = document.createElement("a");
-                    a.className = "lead__card lead-card swiper-slide";
-                    a.innerHTML = `\n                <div class="lead-card__body">\n                    <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                    <div class="lead-card__company-logo">\n                        <img src="${char.logo}" alt="">\n                    </div>\n                    <div class="lead-card__content">\n                        <div class="lead-card__title title" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 2;-webkit-box-orient: vertical; overflow: hidden;">${char.title}</div>\n                        <div class="lead-card__text" style=" display: -webkit-box;max-width: 450px;-webkit-line-clamp: 4;-webkit-box-orient: vertical;overflow: hidden;">${char.text}</div>\n                    </div>\n                </div>`;
-                    leadWrapper.appendChild(a);
-                }));
-                const newsWrapper = document.querySelector(".news__body");
-                const lastElements = [ dataBlog.pop(), dataBlog.pop() ];
-                lastElements.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "news__card card-news";
-                    const dateArr = char.created.split("-");
-                    const getMonth = new Date(dateArr[1]).toLocaleDateString("en", {
-                        month: "long"
-                    });
-                    div.innerHTML = `\n                <div class="card-news__body">\n                    <a href="/sub-blog.html#${char.id}" class="card-news__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                    <div class="card-news__date">\n                        <span class="card-news__icon _icon-calendar"></span>\n                        <span class="card-news__date-text">\n                            ${dateArr[2]} <sup>th</sup> ${getMonth} ${dateArr[0]}\n                        </span>\n                    </div>\n                    <div class="card-news__content">\n                        \n                        <div class="card-news__title">${char.title}</div>\n                        <div class="card-news__text">${char.description}</div>\n                        <a href="/sub-blog.html#${char.id}" class="card-news__button button button_small">\n                            Подробнее\n                        </a>\n                    </div>\n                </div>`;
-                    newsWrapper.appendChild(div);
-                }));
-                var locations = [];
-                data.forEach(((char, index) => {
-                    locations[index] = [ char.title, char.latitude, char.longitude, index ];
-                }));
                 var map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 12,
                     center: new google.maps.LatLng(25.0617177, 55.312431),
@@ -6581,149 +6269,6 @@
                         };
                     }(marker, i));
                 }
-            }
-        }
-        async function pageSearch() {
-            if ("/search.html" === location.pathname) {
-                const params = new URLSearchParams(window.location.search);
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("search.html");
-                }), 5e3);
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const data = await getResource2("https://kvartirivdubai.ru/api/an_object/?developer=" + params.get("developer") + "&area=" + params.get("area") + "&properties=" + params.get("type") + "&type=" + params.get("lifestyle") + "&search=" + params.get("search"));
-                const type = await getResource("/an_object/");
-                console.log(params);
-                const formInput = document.querySelector(".form-find__input");
-                formInput.value = params.get("search");
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                console.log(developerArray);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    console.log(developerArray[index], "developerArray");
-                    if (params.get("developer") === developerArray[index].developer) selectItem.setAttribute("selected", "");
-                    selectItem.setAttribute("value", char2.developer);
-                    selectItem.textContent = `${char2.developer}`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    if (params.get("area") === areaArray[index].area) selectItem.setAttribute("selected", "");
-                    selectItem.textContent = `${char2.area}`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    console.log(typeArray[index], "typeArray");
-                    if (params.get("lifestyle") === typeArray[index].area) {
-                        console.log(params.get("lifestyle") === typeArray[index].area, "select-type");
-                        selectItem.setAttribute("selected", "");
-                    }
-                    selectItem.setAttribute("value", char2.area);
-                    selectItem.textContent = `${char2.type}`;
-                    selectContent.appendChild(selectItem);
-                }));
-                const selectTypes = document.querySelectorAll('.form-find__select[name="types"] .select__option');
-                selectTypes.forEach(((char, index) => {
-                    console.log(char.getAttribute("value"), params.get("types"), char.getAttribute("value") === params.get("types"), "types");
-                    if (char.getAttribute("value") === params.get("types")) char.setAttribute("selected", "");
-                }));
-                const selectMinPrice = document.querySelectorAll('.form-find__select[name="min"] .select__option');
-                selectMinPrice.forEach(((char, index) => {
-                    if (char.getAttribute("value") === params.get("min")) char.setAttribute("selected", "");
-                }));
-                const selectMaxPrice = document.querySelectorAll(".form-find__select[name='max'] .select__option");
-                selectMaxPrice.forEach(((char, index) => {
-                    if (char.getAttribute("value") === params.get("max")) char.setAttribute("selected", "");
-                }));
-                data.forEach(((char, index) => {
-                    const propertyContent = document.querySelector(".best-properties__content");
-                    const propertyItem = document.createElement("div");
-                    propertyItem.className = "best-properties__item-propertie item-propertie";
-                    propertyItem.setAttribute("data-index", char.id);
-                    propertyItem.setAttribute("data-tabs-title", "");
-                    const videoLink = extractVideoID(char.video_link);
-                    propertyItem.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
-                    propertyContent.appendChild(propertyItem);
-                }));
-            }
-        }
-        async function pageBlog() {
-            document.body;
-            if ("/blog.html" === location.pathname) {
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("blog.html");
-                }), 5e3);
-                const blog = await getResource("/blog/");
-                const data = await getResource("/an_object/");
-                const overviewsWrapper = document.querySelector(".news-blog__body");
-                blog.forEach(((char, index) => {
-                    const afterFiveDays = new Date(char.created).addDays(5);
-                    const afterThirtyDays = new Date(char.created).addDays(30);
-                    const timeProject = (new Date).getTime() <= afterFiveDays.getTime();
-                    if ((new Date).getTime() >= afterThirtyDays.getTime()) return;
-                    const div = document.createElement("div");
-                    div.className = "news-blog__card card-news";
-                    div.innerHTML = `\n               <div class="card-news__body">\n                    <a href="/sub-blog.html#${char.id}" class="card-news__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                    <div class="card-news__date">\n                        <span class="card-news__icon _icon-calendar"></span>\n                        <span class="card-news__date-text">\n                            ${char.created}\n                        </span>\n                    </div>\n                    <div class="card-news__content">\n                        <div class="card-news__type-projects">\n                            ${timeProject ? "Новый проект" : ""}\n                        </div>\n                        <div class="card-news__title">${char.title}</div>\n                        <div class="card-news__text">${char.description_ru_ru}</div>\n                        <a href="/sub-blog.html#${char.id}" class="card-news__button button button_small">\n                            Подробнее\n                        </a>\n                    </div>\n                </div>`;
-                    overviewsWrapper.appendChild(div);
-                }));
-                var modal = document.getElementById("myModal");
-                modal.style.display = "none";
-                document.getElementById("myBtn");
-                document.getElementsByClassName("close")[0];
-                window.onclick = function(event) {
-                    if (event.target == modal) modal.style.display = "none";
-                };
-                const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
-                const swiperElements = [];
-                for (let index = 0; index < 10; index++) {
-                    let counterItem = 0;
-                    if (counterItem < 10) {
-                        swiperElements.push(data[index]);
-                        counterItem++;
-                    }
-                }
-                swiperElements.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "trusted-slider__slide swiper-slide";
-                    div.innerHTML = `\n                <a href="/project.html#${char.id}" class="trusted-slider__item">\n                    <div class="trusted-slider__image-ibg"><img src="${char.photo}" alt=""></div>\n                    <div class="trusted-slider__content">\n                        <div class="trusted-slider__text-content">\n                            <h3 class="trusted-slider__title">\n                                ${char.title}\n                            </h3>\n                        </div>\n                        <div class="trusted-slider__icon">\n                            <img src="img/icons/right-arrow.svg" alt="">\n                        </div>\n                    </div>\n                </a>`;
-                    trustedWrapper.appendChild(div);
-                }));
             }
         }
         function sortKD(ids, coords, nodeSize, left, right, depth) {
@@ -7470,573 +7015,6 @@ PERFORMANCE OF THIS SOFTWARE.
                 });
             }
         }
-        async function pageDevelopers() {
-            document.body;
-            if ("/developers.html" === location.pathname) {
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("developers.html");
-                }), 5e3);
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const data = await getResource("/an_object/");
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const type = await getResource("/an_object/");
-                var projectData = [];
-                var projectData2 = [];
-                var start = 0;
-                var start2 = 0;
-                var end = 10;
-                var end2 = 10;
-                let pageSize = 10;
-                let pageSize2 = 10;
-                let currentPage = 1;
-                let currentPage2 = 1;
-                async function getResourceHere() {
-                    const _apiBase = "https://kvartirivdubai.ru/api/developer/";
-                    const res = await fetch(`${_apiBase}`);
-                    const body = await res.json();
-                    projectData = body;
-                    start = (currentPage - 1) * pageSize;
-                    end = currentPage * pageSize;
-                }
-                async function renderProjects(page = 1, first, last) {
-                    await getResourceHere();
-                    if (page == numPages()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
-                    projectData.filter(((row, index) => {
-                        start = first;
-                        end = last;
-                        if (index >= start && index < end) return true;
-                    })).forEach((char => {
-                        const overviewsWrapper = document.querySelector(".developers__content");
-                        const div = document.createElement("a");
-                        div.className = "developers__card lead-card";
-                        div.innerHTML = `\n                    <div class="lead-card__body">\n                        <div class="lead-card__image-ibg"><img src="${char.mainphoto}" alt=""></div>\n                        <div class="lead-card__company-logo">\n                            <img src="${char.logo}" alt="">\n                        </div>\n                        <div class="lead-card__content">\n                            <div class="lead-card__title title">${char.name}</div>\n                            <p class="lead-card__text">${char.title_ru_ru}</p>\n                        </div>\n                    </div>`;
-                        overviewsWrapper.appendChild(div);
-                    }));
-                }
-                renderProjects(1, start, end);
-                function numPages() {
-                    return Math.ceil(projectData.length / pageSize);
-                }
-                function nextPage() {
-                    start += 10;
-                    end += 10;
-                    renderProjects(currentPage, start, end);
-                }
-                document.querySelector("#nextButton").addEventListener("click", nextPage, false);
-                async function getResourceHere2() {
-                    const _apiBase2 = "https://kvartirivdubai.ru/api/an_object/";
-                    const res2 = await fetch(`${_apiBase2}`);
-                    const body2 = await res2.json();
-                    projectData2 = body2;
-                    start2 = (currentPage2 - 1) * pageSize2;
-                    end2 = currentPage2 * pageSize2;
-                }
-                async function renderProjects2(page = 1, first, last) {
-                    await getResourceHere2();
-                    if (page == numPages2()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
-                    projectData2.filter(((row, index) => {
-                        start2 = first;
-                        end2 = last;
-                        if (index >= start2 && index < end2) return true;
-                    })).forEach((char => {
-                        const propertyContent2 = document.querySelector(".best-properties__content");
-                        const propertyItem2 = document.createElement("div");
-                        propertyItem2.className = "best-properties__item-propertie item-propertie";
-                        propertyItem2.setAttribute("data-index", char.id);
-                        propertyItem2.setAttribute("data-tabs-title", "");
-                        const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                    <div class="best-properties__item-propertie item-propertie">\n                        <div class="item-propertie__body">\n                            <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                <img src="${char.mainphoto}" alt="">\n                                <div class="item-propertie__types">\n                                    <span>${char.properties}</span>\n                                </div>\n                                <div class="item-propertie__stickers">\n                                    \n                                </div>\n                            </a>\n                            <div class="item-propertie__content">\n                                <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                <div class="item-propertie__location">\n                                <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                </div>\n                                <div class="item-propertie__developer">\n                                    <img src="img/icons/building.svg" alt="Building icon">\n                                    <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                </div>\n                                <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                    Посмотреть видео\n                                </button>\n                                <div class="item-propertie__price">\n                                    \n                                    <span class="item-propertie__value">${char.starting_price}</span>\n                                </div>\n                            </div>\n                        </div>\n                    </div>`;
-                        propertyContent2.appendChild(propertyItem2);
-                    }));
-                }
-                renderProjects2(1, start, end);
-                function numPages2() {
-                    return Math.ceil(projectData2.length / pageSize2);
-                }
-                function nextPage2() {
-                    start2 += 10;
-                    end2 += 10;
-                    renderProjects2(currentPage2, start2, end2);
-                }
-                document.querySelector("#nextButton2").addEventListener("click", nextPage2, false);
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
-                const swiperElements = [];
-                for (let index = 0; index < 10; index++) {
-                    let counterItem = 0;
-                    if (counterItem < 10) {
-                        swiperElements.push(data[index]);
-                        counterItem++;
-                    }
-                }
-                swiperElements.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "trusted-slider__slide swiper-slide";
-                    div.innerHTML = `\n                <a href="/project.html#${char.id}" class="trusted-slider__item">\n                    <div class="trusted-slider__image-ibg"><img src="${char.photo}" alt=""></div>\n                    <div class="trusted-slider__content">\n                        <div class="trusted-slider__text-content">\n                            <h3 class="trusted-slider__title">\n                                ${char.title}\n                            </h3>\n                        </div>\n                        <div class="trusted-slider__icon">\n                            <img src="img/icons/right-arrow.svg" alt="">\n                        </div>\n                    </div>\n                </a>`;
-                    trustedWrapper.appendChild(div);
-                }));
-            }
-        }
-        async function pageAreas() {
-            document.body;
-            if ("/areas.html" === location.pathname) {
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("areas.html");
-                }), 5e3);
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const data = await getResource("/an_object/");
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const type = await getResource("/an_object/");
-                console.log(data);
-                var projectData = [];
-                var projectData2 = [];
-                var start = 0;
-                var start2 = 0;
-                var end = 10;
-                var end2 = 10;
-                let pageSize = 10;
-                let pageSize2 = 10;
-                let currentPage = 1;
-                let currentPage2 = 1;
-                const overviewsWrapper = document.querySelector(".areas-city__content");
-                async function getResourceHere() {
-                    const _apiBase = "https://kvartirivdubai.ru/api/area/";
-                    const res = await fetch(`${_apiBase}`);
-                    const body = await res.json();
-                    projectData = body;
-                    start = (currentPage - 1) * pageSize;
-                    end = currentPage * pageSize;
-                }
-                async function renderProjects(page = 1, first, last) {
-                    await getResourceHere();
-                    if (page == numPages()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
-                    projectData.filter(((row, index) => {
-                        start = first;
-                        end = last;
-                        if (index >= start && index < end) return true;
-                    })).forEach((char => {
-                        const div = document.createElement("a");
-                        div.className = "areas-city__city-area city-area";
-                        div.innerHTML = `\n                    <div class="city-area__body">\n                        <a href = "search.html?types=Type&developer=&area=${char.name}&lifestyle=&min=&max=&search=" class="city-area__image-ibg"><img src="${char.mainphoto}" alt=""></a>\n                        <div class="city-area__content">\n                            <h3 class="city-area__title">\n                                ${char.name_ru_ru}\n                            </h3>\n                        </div>\n                    </div>`;
-                        overviewsWrapper.appendChild(div);
-                    }));
-                }
-                renderProjects(1, start, end);
-                function numPages() {
-                    return Math.ceil(projectData.length / pageSize);
-                }
-                function nextPage() {
-                    start += 10;
-                    end += 10;
-                    renderProjects(currentPage, start, end);
-                }
-                document.querySelector("#nextButton").addEventListener("click", nextPage, false);
-                async function getResourceHere2() {
-                    const _apiBase2 = "https://kvartirivdubai.ru/api/an_object/";
-                    const res2 = await fetch(`${_apiBase2}`);
-                    const body2 = await res2.json();
-                    projectData2 = body2;
-                    start2 = (currentPage2 - 1) * pageSize2;
-                    end2 = currentPage2 * pageSize2;
-                }
-                async function renderProjects2(page = 1, first, last) {
-                    await getResourceHere2();
-                    if (page == numPages2()) nextButton.style.visibility = "hidden"; else nextButton.style.visibility = "visible";
-                    projectData2.filter(((row, index) => {
-                        start2 = first;
-                        end2 = last;
-                        if (index >= start2 && index < end2) return true;
-                    })).forEach((char => {
-                        const propertyContent2 = document.querySelector(".best-properties__content");
-                        const propertyItem2 = document.createElement("div");
-                        propertyItem2.className = "best-properties__item-propertie item-propertie";
-                        propertyItem2.setAttribute("data-index", char.id);
-                        propertyItem2.setAttribute("data-tabs-title", "");
-                        const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                    <div class="best-properties__item-propertie item-propertie">\n                        <div class="item-propertie__body">\n                            <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                <img src="${char.mainphoto}" alt="">\n                                <div class="item-propertie__types">\n                                    <span>${char.properties}</span>\n                                </div>\n                                <div class="item-propertie__stickers">\n                                    \n                                </div>\n                            </a>\n                            <div class="item-propertie__content">\n                                <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                <div class="item-propertie__location">\n                                    <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                </div>\n                                <div class="item-propertie__developer">\n                                    <img src="img/icons/building.svg" alt="Building icon">\n                                    <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                </div>\n                                <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                    Воспроизвести видео обзор\n                                </button>\n                                <div class="item-propertie__price">\n                                    \n                                    <span class="item-propertie__value">${char.starting_price}</span>\n                                </div>\n                            </div>\n                        </div>\n                    </div>`;
-                        propertyContent2.appendChild(propertyItem2);
-                    }));
-                }
-                renderProjects2(1, start, end);
-                function numPages2() {
-                    return Math.ceil(projectData2.length / pageSize2);
-                }
-                function nextPage2() {
-                    start2 += 10;
-                    end2 += 10;
-                    renderProjects2(currentPage2, start2, end2);
-                }
-                document.querySelector("#nextButton2").addEventListener("click", nextPage2, false);
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                console.log(data);
-                const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
-                const swiperElements = [];
-                for (let index = 0; index < 10; index++) {
-                    let counterItem = 0;
-                    if (counterItem < 10) {
-                        swiperElements.push(data[index]);
-                        counterItem++;
-                    }
-                }
-                swiperElements.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "trusted-slider__slide swiper-slide";
-                    div.innerHTML = `\n                <a href="/project.html#${char.id}" class="trusted-slider__item">\n                    <div class="trusted-slider__image-ibg"><img src="${char.photo}" alt=""></div>\n                    <div class="trusted-slider__content">\n                        <div class="trusted-slider__text-content">\n                            <h3 class="trusted-slider__title">\n                                ${char.title}\n                            </h3>\n                        </div>\n                        <div class="trusted-slider__icon">\n                            <img src="img/icons/right-arrow.svg" alt="">\n                        </div>\n                    </div>\n                </a>`;
-                    trustedWrapper.appendChild(div);
-                }));
-            }
-        }
-        async function pageFaq() {
-            document.body;
-            if ("/faq.html" === location.pathname) {
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("faq.html");
-                }), 5e3);
-                const data = await getResource("/an_object/");
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const type = await getResource("/an_object/");
-                var projectData2 = [];
-                var start = 0;
-                var start2 = 0;
-                var end = 10;
-                var end2 = 10;
-                let pageSize2 = 10;
-                let currentPage2 = 1;
-                async function getResourceHere2() {
-                    const _apiBase2 = "https://kvartirivdubai.ru/api/an_object/";
-                    const res2 = await fetch(`${_apiBase2}`);
-                    const body2 = await res2.json();
-                    projectData2 = body2;
-                    start2 = (currentPage2 - 1) * pageSize2;
-                    end2 = currentPage2 * pageSize2;
-                }
-                async function renderProjects2(page = 1, first, last) {
-                    await getResourceHere2();
-                    if (page == numPages2()) nextButton2.style.visibility = "hidden"; else nextButton2.style.visibility = "visible";
-                    projectData2.filter(((row, index) => {
-                        start2 = first;
-                        end2 = last;
-                        if (index >= start2 && index < end2) return true;
-                    })).forEach((char => {
-                        const propertyContent2 = document.querySelector(".best-properties__content");
-                        const propertyItem2 = document.createElement("div");
-                        propertyItem2.className = "best-properties__item-propertie item-propertie";
-                        propertyItem2.setAttribute("data-index", char.id);
-                        propertyItem2.setAttribute("data-tabs-title", "");
-                        const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                            <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
-                        propertyContent2.appendChild(propertyItem2);
-                    }));
-                }
-                renderProjects2(1, start, end);
-                function numPages2() {
-                    return Math.ceil(projectData2.length / pageSize2);
-                }
-                function nextPage2() {
-                    start2 += 10;
-                    end2 += 10;
-                    renderProjects2(currentPage2, start2, end2);
-                }
-                document.querySelector("#nextButton2").addEventListener("click", nextPage2, false);
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                const trustedWrapper = document.querySelector(".trusted-slider__wrapper");
-                const swiperElements = [];
-                for (let index = 0; index < 10; index++) {
-                    let counterItem = 0;
-                    if (counterItem < 10) {
-                        swiperElements.push(data[index]);
-                        counterItem++;
-                    }
-                }
-                swiperElements.forEach(((char, index) => {
-                    const div = document.createElement("div");
-                    div.className = "trusted-slider__slide swiper-slide";
-                    div.innerHTML = `\n                <a href="/project.html#${char.id}" class="trusted-slider__item">\n                    <div class="trusted-slider__image-ibg"><img src="${char.photo}" alt=""></div>\n                    <div class="trusted-slider__content">\n                        <div class="trusted-slider__text-content">\n                            <h3 class="trusted-slider__title">\n                                ${char.title}\n                            </h3>\n                        </div>\n                        <div class="trusted-slider__icon">\n                            <img src="img/icons/right-arrow.svg" alt="">\n                        </div>\n                    </div>\n                </a>`;
-                    trustedWrapper.appendChild(div);
-                }));
-            }
-        }
-        async function pageSubBlog() {
-            document.body;
-            if ("/sub-blog.html" === location.pathname) {
-                setTimeout((function() {
-                    $("body").addClass("loaded");
-                    console.log("sub-blog.html");
-                }), 5e3);
-                const dataText = await getResource("/text/");
-                document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text);
-                const dataCurrentObject = await getResource(`/blog/${getHash()}`);
-                await getResource("/developer/");
-                await getResource("/an_object/");
-                const developers = await getResource("/an_object/");
-                const area = await getResource("/an_object/");
-                const type = await getResource("/an_object/");
-                document.querySelector("title").textContent = dataCurrentObject.title;
-                document.querySelector("meta[name='description']").setAttribute("content", dataCurrentObject.description);
-                var projectData2 = [];
-                var start = 0;
-                var start2 = 0;
-                var end = 9;
-                var end2 = 9;
-                let pageSize2 = 9;
-                let currentPage2 = 1;
-                document.querySelector(".areas-city__content");
-                async function getResourceHere2() {
-                    const _apiBase2 = "https://kvartirivdubai.ru/api/an_object/";
-                    const res2 = await fetch(`${_apiBase2}`);
-                    const body2 = await res2.json();
-                    projectData2 = body2;
-                    start2 = (currentPage2 - 1) * pageSize2;
-                    end2 = currentPage2 * pageSize2;
-                }
-                async function renderProjects2(page = 1, first, last) {
-                    await getResourceHere2();
-                    if (page == numPages2()) nextButton2.style.visibility = "hidden"; else nextButton2.style.visibility = "visible";
-                    projectData2.filter(((row, index) => {
-                        start2 = first;
-                        end2 = last;
-                        if (index >= start2 && index < end2) return true;
-                    })).forEach((char => {
-                        const propertyContent2 = document.querySelector(".best-properties__content");
-                        const propertyItem2 = document.createElement("div");
-                        propertyItem2.className = "best-properties__item-propertie item-propertie";
-                        propertyItem2.setAttribute("data-index", char.id);
-                        propertyItem2.setAttribute("data-tabs-title", "");
-                        const videoLink = extractVideoID(char.video_link);
-                        propertyItem2.innerHTML = `\n                                           <div class="best-properties__item-propertie item-propertie">\n                                <div class="item-propertie__body">\n                                    <a href="project.html#${char.id}" class="item-propertie__image-ibg">\n                                        <img src="${char.mainphoto}" alt="">\n                                        <div class="item-propertie__types">\n                                            <span>${char.properties}</span>\n                                        </div>\n                                        <div class="item-propertie__stickers">\n                                            \n                                        </div>\n                                    </a>\n                                    <div class="item-propertie__content">\n                                        <a href="project.html#${char.id}" class="item-propertie__title">${char.title}</a>\n                                        <div class="item-propertie__location">\n                                           <a href = "search.html?types=Type&developer=&area=${char.area}&lifestyle=&min=&max=&search=">${char.area}</a>\n                                        </div>\n                                        <div class="item-propertie__developer">\n                                            <img src="img/icons/building.svg" alt="Building icon">\n                                            <a href = "search.html?types=Type&developer=${char.developer}&area=&lifestyle=&min=&max=&search=">${char.developer}</a>\n                                        </div>\n\t\t\t\t\t\t\t\t        <button type="button" data-popup="#video" data-popup-youtube="${videoLink}" class="item-propertie__video-play _icon-play">\n                                            Посмотреть видео\n                                        </button>\n                                        <div class="item-propertie__price">\n                                            \n                                            <span class="item-propertie__value">${char.starting_price}</span>\n                                        </div>\n                                    </div>\n                                </div>\n                            </div>`;
-                        propertyContent2.appendChild(propertyItem2);
-                    }));
-                }
-                renderProjects2(1, start, end);
-                function numPages2() {
-                    return Math.ceil(projectData2.length / pageSize2);
-                }
-                function nextPage2() {
-                    start2 += 10;
-                    end2 += 10;
-                    renderProjects2(currentPage2, start2, end2);
-                }
-                document.querySelector("#nextButton2").addEventListener("click", nextPage2, false);
-                let developerArray = [];
-                var developerTitle;
-                let developerObject = {};
-                for (let i in developers) {
-                    developerTitle = developers[i]["developer"];
-                    developerObject[developerTitle] = developers[i];
-                }
-                for (let x in developerObject) developerArray.push(developerObject[x]);
-                developerArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-developer");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.developer}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let areaArray = [];
-                var areaTitle;
-                let areaObject = {};
-                for (let i in area) {
-                    areaTitle = area[i]["area"];
-                    areaObject[areaTitle] = area[i];
-                }
-                for (let x in areaObject) areaArray.push(areaObject[x]);
-                areaArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-area");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.area}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                let typeArray = [];
-                var typeTitle;
-                let typeObject = {};
-                for (let i in type) {
-                    typeTitle = type[i]["type"];
-                    typeObject[typeTitle] = type[i];
-                }
-                for (let x in typeObject) typeArray.push(typeObject[x]);
-                typeArray.forEach(((char2, index) => {
-                    const selectContent = document.querySelector(".form-find__select-type");
-                    const selectItem = document.createElement("option");
-                    selectItem.className = "";
-                    selectItem.innerHTML = `<option selected="">${char2.type}</option>`;
-                    selectContent.appendChild(selectItem);
-                }));
-                const mainTitle = document.querySelector(".main-blog-sub__title");
-                mainTitle.textContent = dataCurrentObject.title;
-                const mainImage = document.querySelector(".main-blog-sub__image");
-                mainImage.src = dataCurrentObject.mainphoto;
-                const mainDate = document.querySelector(".main-blog-sub__date-text");
-                const mainDateMonth = document.querySelector(".main-blog-sub__date-month");
-                const mainDateWeek = document.querySelector(".main-blog-sub__date sup");
-                const splitDate = dataCurrentObject.created.split("-");
-                const getWeek = new Date(splitDate).toLocaleDateString("ru", {
-                    weekday: "short"
-                });
-                mainDateWeek.textContent = getWeek;
-                mainDateMonth.textContent = splitDate[0];
-                mainDate.textContent = splitDate[2];
-                const buttonVideo = document.querySelector(".main-blog-sub__button-quiz");
-                const videoId = extractVideoID(dataCurrentObject.link);
-                buttonVideo.dataset.popupYoutube = videoId;
-                const galleryInterier = document.querySelector(".gallery-interier__wrapper");
-                const galleryInterierThumbs = document.querySelector(".thumbs-interier__wrapper");
-                dataCurrentObject.blog_gallery.forEach((item => {
-                    const div = document.createElement("div");
-                    const divThumb = document.createElement("div");
-                    div.className = "gallery-interier__slide swiper-slide";
-                    divThumb.className = "thumbs-interier__slide swiper-slide";
-                    divThumb.innerHTML = `\n                <div data-exterior="${item.blog_gallery}" class="thumbs-interier__image-ibg"><img src="${item.image}" alt=""></div>\n             `;
-                    div.innerHTML = `\n                <div data-exterior="${item.blog_gallery}" class="gallery-interier__image-ibg"><img src="${item.image}" alt=""></div>\n            `;
-                    galleryInterier.appendChild(div);
-                    galleryInterierThumbs.appendChild(divThumb);
-                }));
-                const contentText = document.querySelector(".content-text__text");
-                contentText.innerHTML = dataCurrentObject.description;
-            }
-        }
         window["FLS"] = true;
         isWebp();
         menuInit();
@@ -8046,19 +7024,12 @@ PERFORMANCE OF THIS SOFTWARE.
         formFieldsInit({
             viewPass: false
         });
-        formSubmit();
         Date.prototype.addDays = function(days) {
             this.setDate(this.getDate() + parseInt(days));
             return this;
         };
         pageMore();
         pageHome();
-        pageSearch();
-        pageBlog();
         pageMap();
-        pageDevelopers();
-        pageAreas();
-        pageFaq();
-        pageSubBlog();
     })();
 })();
