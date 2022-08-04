@@ -216,7 +216,7 @@ input, textarea {
 //====================================================================================================
 .apartments {
     @include adaptiveValue("padding-top", 170, 100, $containerWidth, 767.98, 1);
-    @include adaptiveValue("padding-bottom", 120, 40, $containerWidth, 767.98, 1);
+    @include adaptiveValue("padding-bottom", 160, 40, $containerWidth, 767.98, 1);
     background-color: #EDEDED;
     position: relative;
     z-index: 5;
@@ -225,7 +225,7 @@ input, textarea {
             content:'';
             position: absolute;
             width: 100vw;
-            height: 755px;
+            height: rem(815);
             top: 0;
             left: -544px;
             @include adaptiveValue("left", -544, 0, $containerWidth, 767.98, 1);
@@ -465,6 +465,9 @@ input, textarea {
         font-size: rem(20);
         line-height: 1;
         &:not(:last-child) {margin-bottom: rem(5);}
+        @media (max-width: em(1100)){
+            text-align: center;
+        }
     }
 
     // .statistics-apartments__text
@@ -473,6 +476,9 @@ input, textarea {
         font-weight: 700;
         font-size: rem(15);
         line-height: 1.2;
+        @media (max-width: em(1100)){
+            text-align: center;
+        }
     }
 }
 
@@ -632,19 +638,10 @@ input, textarea {
         @media (min-width:$tablet){
             @include adaptiveValue("margin-left", 100, 30, $containerWidth, $minWidth, 1);
         }
-        @media (min-width:$mobile){
-            &::before{
-                content:'';
-                display: block;
-                background-color: #000000;
-                // height: 110px;
-                @include adaptiveValue("height", 110, 50, $containerWidth, 767.98, 1);
-                width: 2px;
-                position: relative;
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-            }     
+        @media (min-width:$tablet){
+            &:not(._showmore-active) {
+                margin-bottom: rem(275);
+            } 
         }
     }
 
@@ -662,7 +659,20 @@ input, textarea {
     // .discover__button
 
     &__button {
-        
+        span {
+            display: none;
+            &:first-child {
+                display: block;
+            }
+            ._showmore-active & {
+                &:first-child {
+                    display: none;
+                }
+                &:last-child {
+                    display: block;
+                }
+            }
+        }
     }
 }
 .discover-content-image {
@@ -714,22 +724,23 @@ input, textarea {
 
 .advantages {
     background: linear-gradient(169.08deg, #EDEDED -128.92%, rgba(237, 237, 237, 0) 109.72%);
-    @include adaptiveValue("padding-top", 155, 50, $containerWidth, 767.98, 1);
-    @include adaptiveValue("padding-bottom", 90, 50, $containerWidth, $minWidth, 1);
-    @media (min-width:$mobile){
+    @include adaptiveValue("padding-top", 130, 50, $containerWidth, 767.98, 1);
+    @include adaptiveValue("padding-bottom", 90, 50, $containerWidth, 767.98, 1);
+    @media (min-width:$tablet){
         clip-path: polygon(0 0, 100% 8%, 100% 100%, 0% 100%);
     }
     // .advantages__container
 
-    &__container {
+    &__wrapper-container {
+        padding: 0px 15px;
     }
 
     // .advantages__body
 
     &__body {
         display: flex;
-        margin: 0px -20px;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
+        gap: 15px;
         @media (max-width:$tablet){
             justify-content: center;
         }
@@ -742,11 +753,10 @@ input, textarea {
 
     &__card {
         flex: 0 1 25%;
-        padding: 0px 20px;
         @media (max-width:$tablet){
-            flex: 1 1 25%;
+            flex: 1 1 55%;
         }
-        @include adaptiveValue("margin-bottom", 85, 25, $containerWidth, 767.98, 1);
+        @include adaptiveValue("margin-bottom", 65, 25, $containerWidth, 767.98, 1);
     }
 }
 .advantages-card {
@@ -755,7 +765,7 @@ input, textarea {
         background: linear-gradient(135deg, #E8E8E8 0%, #FFFFFF 100%);
         box-shadow: -39px 39px 78px rgba(237, 237, 237, 0.2), 39px -39px 78px rgba(237, 237, 237, 0.2), -39px -39px 78px rgba(251, 251, 251, 0.9), 39px 39px 98px rgba(237, 237, 237, 0.9), inset 2px 2px 3px rgba(251, 251, 251, 0.3), inset -2px -2px 3px rgba(237, 237, 237, 0.5);
         border-radius: 40px;
-        padding: 20px 25px 35px 45px;
+        padding: rem(20) rem(25) rem(35) rem(25);
         flex-direction: column;
     }
 
@@ -764,8 +774,8 @@ input, textarea {
     &__image {
         align-self: flex-end;
         @include adaptiveValue("margin-bottom", 17, 13, $containerWidth, $minWidth, 1);
-        height: 120px;
-        width: 270px;
+        min-height: 120px;
+        max-width: 270px;
         img {
             width: rem(120);
             height: rem(120);
@@ -778,9 +788,9 @@ input, textarea {
 
     &__title {
         font-weight: 700;
-        @include adaptiveValue("font-size", 40, 20, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 30, 20, $containerWidth, $minWidth, 1);
         &:not(:last-child) {
-            @include adaptiveValue("margin-bottom", 15, 10, $containerWidth, $minWidth, 1);
+            @include adaptiveValue("margin-bottom", 12, 10, $containerWidth, $minWidth, 1);
         }
         line-height: 134%;
         color: #163F8E;
@@ -789,7 +799,7 @@ input, textarea {
     // .advantages-card__subtitle
 
     &__subtitle {
-        font-size: 24px;
+        font-size: 20px;
         line-height: 194%;
     }
 }
@@ -905,7 +915,7 @@ input, textarea {
     // .gallery-interier__image-ibg
 
     &__image-ibg {
-        padding-bottom: 50.4%;
+        padding-bottom: 76%;
     }
 
     // .gallery-interier__thumbs
@@ -1643,7 +1653,7 @@ input, textarea {
 
     &__item {
         padding: 0px 15px;
-        flex: 0 1 23%;
+        flex: 0 1 25%;
         @media (max-width:$mobile){
             flex: 1 1 25%; 
         }
@@ -1658,10 +1668,10 @@ input, textarea {
         background: linear-gradient(135deg, #E8E8E8 0%, #FFFFFF 100%);
         box-shadow: -39px 39px 78px rgba(237, 237, 237, 0.2), 39px -39px 78px rgba(237, 237, 237, 0.2), -39px -39px 78px rgba(251, 251, 251, 0.9), 39px 39px 98px rgba(237, 237, 237, 0.9), inset 2px 2px 3px rgba(251, 251, 251, 0.3), inset -2px -2px 3px rgba(237, 237, 237, 0.5);
         border-radius: 40px;
-        @include adaptiveValue("padding-top", 75, 35, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("padding-left", 75, 35, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("padding-right", 80, 40, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("padding-bottom", 75, 35, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("padding-top", 65, 35, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("padding-left", 65, 35, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("padding-right", 50, 40, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("padding-bottom", 50, 35, $containerWidth, $minWidth, 1);
     }
 
     // .item-payment__title
@@ -1755,14 +1765,21 @@ input, textarea {
     }
     &__show-more {
         font-weight: 700;
-        @include adaptiveValue("font-size", 50, 25, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 30, 18, $containerWidth, $minWidth, 1);
         line-height: 121.5%;
         color:#000;
         display: inline-block;
-        transition: text-shadow 0.3s ease 0s;
+        transition: all 0.4s ease 0s;
+        padding: rem(20) rem(30);
+        background-color: #163F8E;
+        border: 1px solid transparent;
+        border-radius: rem(10);
+        color: #fff;
         @media (any-hover: hover){
             &:hover{
-                text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+                border: 1px solid #163F8E;
+                background-color: #fff;
+                color:#163F8E;
             }
         }
     }

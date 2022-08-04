@@ -54,7 +54,7 @@ document.addEventListener("mouseout", (event) => {
 })
 
 function documentActions(e) {
-    const targetitem = event.target;
+    const targetitem = e.target;
     if (window.innerWidth > 768 && isMobile.any()) {
         if (targetitem.classList.contains("menu-project__link") || targetitem.classList.contains("menu-project__arrow")) {
             // targetitem.classList.toggle("_hover");
@@ -64,12 +64,21 @@ function documentActions(e) {
             removeClasses(document.querySelectorAll(".menu-project__item._hover"), "_hover")
         }
     }
-    // if () {
-        if (targetitem.closest(".menu__item")) {
-            if (targetitem.closest(".menu__sub-blog")) {
-                return;
-            }
-            targetitem.closest(".menu__item").classList.toggle("_hover");
+    if (targetitem.closest(".menu__item")) {
+        if (targetitem.closest(".menu__sub-blog")) {
+            return;
         }
-    // }
+        targetitem.closest(".menu__item").classList.toggle("_hover");
+    }
+    if (targetitem.closest("[data-popup-content]")) {
+        const dataPopupContent = targetitem.closest("[data-popup-content]").dataset.popupContent.split(",");
+        const inputHiddenContents = document.querySelectorAll(".popup-discover__item_hidden input");
+        for (let i = 0; i < dataPopupContent.length; i++) {
+            const input = inputHiddenContents[i];
+            input.value = dataPopupContent[i];
+        }
+        // dataPopupContent.forEach((content, id) => {
+        //     inputHiddenContents[id].value = content;
+        // });
+    }
 }

@@ -15,37 +15,37 @@ export async function pageAreas() {
     const body = document.body;
     if (location.pathname === "/areas.html") {
 
-        setTimeout(function () {
-            $('body').addClass('loaded');
-            console.log('areas.html');
-        }, 5000);
+        // setTimeout(function () {
+        //     $('body').addClass('loaded');
+        //     console.log('areas.html');
+        // }, 5000);
 
-        const dataText = await getResource("/text/");
-        document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text)
+        // const dataText = await getResource("/text/");
+        // document.querySelector("meta[name='keywords']").setAttribute("content", dataText[0].key_text)
 
-        const data = await getResource("/an_object/");
-        const developers = await getResource("/an_object/");
-        const area = await getResource("/an_object/");
-        const type = await getResource("/an_object/");
-        console.log(data);
+        // const data = await getResource("/an_object/");
+        // const developers = await getResource("/an_object/");
+        // const area = await getResource("/an_object/");
+        // const type = await getResource("/an_object/");
+        // console.log(data);
         
-        // const data_developer = await getResource("/developer/");
-        // const data_area = await getResource("/area/");
+        // // const data_developer = await getResource("/developer/");
+        // // const data_area = await getResource("/area/");
 
 
-        var projectData = [];
-        var projectData2 = [];
-        var projectIndex = [];
-        var start = 0
-        var start2 = 0
-        var end = 10
-        var end2 = 10
+        // var projectData = [];
+        // var projectData2 = [];
+        // var projectIndex = [];
+        // var start = 0
+        // var start2 = 0
+        // var end = 10
+        // var end2 = 10
 
-        let pageSize = 10;
-        let pageSize2 = 10;
-        let currentPage = 1;
-        let currentPage2 = 1;
-        const overviewsWrapper = document.querySelector(".areas-city__content");
+        // let pageSize = 10;
+        // let pageSize2 = 10;
+        // let currentPage = 1;
+        // let currentPage2 = 1;
+        // const overviewsWrapper = document.querySelector(".areas-city__content");
 
 
         /* Areas Div */

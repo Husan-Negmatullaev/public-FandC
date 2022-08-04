@@ -53,7 +53,7 @@ flsFunctions.tabs();
 Модуль "показать еще"
 Сниппет (HTML): showmore
 */
-// flsFunctions.showMore();
+flsFunctions.showMore();
 
 /*
 Попапы

@@ -90,27 +90,28 @@
     }
 
     &__text {
-        font-weight: 700;
-        font-size: rem(18);
-        line-height: 179%;
-        letter-spacing: -0.03em;
+        font-weight: 500;
+        font-size: rem(14);
+        line-height: math.div(18, 14);
         color: #fff;
         @media (max-width:$mobile){
             font-size: rem(14); 
         }
-        @media (min-width:$mobile){
-            margin: 0px 0px 0px 18px;
+        &-link {
+            @media (any-hover: hover){
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
         }
-        &_link {
-            display: inline-flex;
-            align-items: center;
-            gap: rem(10);
-            margin: 0;
+        p {
+            &:not(:last-child) {margin-bottom: rem(5);}
         }
     }
 
     &__social {
         flex: 0 1 50%;
+        justify-content: flex-end;
         @media (max-width:$mobile){
             flex: 0 1 100%;
             width: 100%;

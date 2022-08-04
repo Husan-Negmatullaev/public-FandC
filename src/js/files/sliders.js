@@ -86,45 +86,9 @@ function initSliders() {
 			},
 		});
 	}
-	if (document.querySelector('.apartments-slider__body')) {
-		new Swiper('.apartments-slider__body', {
-			modules: [Navigation, Pagination],
-			observer: true,
-			observeParents: true,
-			slidesPerView: 1,
-			spaceBetween: 10,
-			watchOverflow: true,
-			loop: false,
-			navigation: {
-				prevEl: '.apartments .apartments-slider-controls_prev',
-				nextEl: '.apartments .apartments-slider-controls_next',
-			},
-		});
-	}
 	if (document.querySelector('.gallery-interier__content')) {
-		const thumbsInterier = new Swiper('.thumbs-interier', {
-			modules: [Navigation, Pagination, Thumbs],
-			watchOverflow: true,
-			observer: true,
-			observeParents: true,
-			spaceBetween: 10,
-			slidesPerView: 2,
-			watchSlidesProgress: true,
-			loop: true,
-			speed: 800,
-
-			breakpoints: {
-				991.98: {
-					slidesPerView: 4,
-				},
-				768.98: {
-					slidesPerView: 3,
-				},
-			}
-		})
-
 		new Swiper('.gallery-interier__content', {
-			modules: [Navigation, Pagination, Thumbs],
+			modules: [Navigation, Pagination],
 			spaceBetween: 10,
 			loop: true,
 			watchOverflow: true,
@@ -133,51 +97,24 @@ function initSliders() {
 			speed: 800,
 
 			navigation: {
-				nextEl: ".inline-gallery-slider__arrows .slider-arrow_next",
-				prevEl: ".inline-gallery-slider__arrows .slider-arrow_prev",
-			},
-			thumbs: {
-				swiper: thumbsInterier,
+				nextEl: ".gallery-interier__content .slider-arrow_next",
+				prevEl: ".gallery-interier__content .slider-arrow_prev",
 			},
 		})
 	}
 	if (document.querySelector('.gallery-exterier__content')) {
-		const thumbsInterier = new Swiper('.thumbs-exterier', {
-			modules: [Navigation, Pagination, Thumbs],
-			watchOverflow: true,
-			observer: true,
-			observeParents: true,
-			spaceBetween: 10,
-			slidesPerView: 2,
-			watchSlidesProgress: true,
-			loop: true,
-			speed: 800,
-
-			breakpoints: {
-				991.98: {
-					slidesPerView: 4,
-				},
-				768.98: {
-					slidesPerView: 3,
-				},
-			}
-		})
-
 		new Swiper('.gallery-exterier__content', {
-			modules: [Navigation, Pagination, Thumbs],
+			modules: [Navigation, Pagination],
 			spaceBetween: 10,
 			loop: true,
 			watchOverflow: true,
-			observer: true,
-			observeParents: true,
+			// observer: true,
+			// observeParents: true,
 			speed: 800,
 
 			navigation: {
-				nextEl: ".inline-gallery-slider__arrows .slider-arrow_next",
-				prevEl: ".inline-gallery-slider__arrows .slider-arrow_prev",
-			},
-			thumbs: {
-				swiper: thumbsInterier,
+				nextEl: ".gallery-exterier__content .slider-arrow_next",
+				prevEl: ".gallery-exterier__content .slider-arrow_prev",
 			},
 		})
 	}
@@ -202,8 +139,10 @@ function initSliders() {
 				el: ".bedroom-tabs__content .bedroom-tabs-pagination",
 				clickable: true,
 				renderBullet: function (index, className) {
+					// console.log(this.pagination.el, swiperBullets);
+					const bedroomBullet = this.pagination.el.dataset.pagination.split(',');
 					return `
-						<span class="${className} bedroom-tabs-pagination__item">Plan ${index + 1}</span>
+						<span class="${className} bedroom-tabs-pagination__item">${bedroomBullet[index].trim()}</span>
 					`
 				},
 			},
@@ -228,6 +167,29 @@ function initSliders() {
 
 			pagination: {
 				el: ".trusted-slider__body .trusted-slider__pagination",
+				clickable: true,
+			},
+		})
+	}
+	if (document.querySelector('.page-area__body')) {
+		new Swiper('.page-area__body', {
+			modules: [Navigation, Pagination],
+			observer: true,
+			observeParents: true,
+			slidesPerView: 1,
+			spaceBetween: 20,
+			watchOverflow: false,
+			loop: true,
+			preloadImages: false,
+			speed: 800,
+
+			navigation: {
+				prevEl: '.page-area__body .slider-arrow_prev',
+				nextEl: '.page-area__body .slider-arrow_next',
+			},
+
+			pagination: {
+				el: ".page-area__body .trusted-slider__pagination",
 				clickable: true,
 			},
 		})
@@ -286,36 +248,6 @@ function initSliders() {
 			},
 		});
 	}
-	// if (document.querySelector('.areas-city__body')) {
-	// 	new Swiper('.areas-city__body', {
-	// 		modules: [Pagination, Navigation],
-	// 		observer: true,
-	// 		observeParents: true,
-	// 		slidesPerView: 1,
-	// 		spaceBetween: 20,
-	// 		watchOverflow: true,
-	// 		loop: true,
-	// 		loopAdditionalSlides: 2,
-	// 		preloadImages: false,
-	// 		speed: 800,
-
-	// 		pagination: {
-	// 			el: ".areas-city__pagination",
-	// 			clickable: true,
-	// 		},
-
-	// 		breakpoints: {
-	// 			767.98: {
-	// 				slidesPerView: 1,
-	// 				spaceBetween: 15,
-	// 			},
-	// 			991.98: {
-	// 				slidesPerView: 2,
-	// 				spaceBetween: 20,
-	// 			},
-	// 		},
-	// 	});
-	// }
 	if (document.querySelector('.developers__body')) {
 		new Swiper('.developers__body', {
 			modules: [Pagination, Navigation],
@@ -350,6 +282,32 @@ function initSliders() {
 			},
 		});
 	}
+	if (document.querySelector('.main-developer__slider-body')) {
+		const thumbs = new Swiper(".main-developer__thumbs", {
+			modules: [Pagination, Navigation, Thumbs],
+			spaceBetween: 10,
+			slidesPerView: 2,
+			freeMode: true,
+			watchSlidesProgress: true,
+			breakpoints: {
+				767.98: {
+					slidesPerView: 3,
+				}
+			}
+		});
+
+		new Swiper('.main-developer__slider-body', {
+			modules: [Pagination, Navigation, Thumbs],
+			spaceBetween: 20,
+			navigation: {
+				nextEl: ".main-developer__slider-body .main-developer__right",
+				prevEl: ".main-developer__slider-body .main-developer__left",
+			},
+			thumbs: {
+				swiper: thumbs,
+			},
+		})
+	}
 }
 // Скролл на базе слайдера (по классу swiper_scroll для оболочки слайдера)
 function initSlidersScroll() {
@@ -382,9 +340,9 @@ function initSlidersScroll() {
 
 window.addEventListener("load", function (e) {
 	// Запуск инициализации слайдеров
-	setTimeout(function () {
+	// setTimeout(function () {
 		initSliders();
-	}, 1500)
+	// }, 00)
 	// Запуск инициализации скролла на базе слайдера (по классу swiper_scroll)
 	//initSlidersScroll();
 });

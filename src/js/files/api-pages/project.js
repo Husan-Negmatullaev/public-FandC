@@ -7,7 +7,7 @@ export async function pageMore() {
 
     // Fakes the loading setting a timeout
 
-    const body = document.body;
+    // const body = document.body;
     // if (location.pathname === "/project.html") {
 
     //     setTimeout(function () {

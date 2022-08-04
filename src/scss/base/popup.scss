@@ -93,6 +93,9 @@ body::after {
 			height: 100%;
 			object-fit: cover;
 		}
+		@media (max-width:$mobileSmall){
+			padding-bottom: 65.490066%;
+		}
 	}
 
 	// .popup-video__close
@@ -123,5 +126,246 @@ body::after {
 			overflow: hidden;
 			transform: rotate(-45deg);
 		}
+	}
+}
+
+.popup {
+
+	// .popup__wrapper
+
+	&__wrapper {
+	}
+
+	// .popup__content
+
+	&__content {
+		
+	}
+
+	// .popup__close
+
+	&__close {
+	}
+}
+.popup-discover {
+
+	// .popup-discover__wrapper
+
+	&__wrapper {
+	}
+
+	// .popup-discover__content
+
+	&__content {
+		padding: 0;
+		border-radius: 0px;
+		background-color: #fff;
+		max-width: rem(1000);
+	}
+
+	// .popup-discover__close
+
+	&__close {
+		top: -25px;
+    	right: 0px;
+		@media (max-width: em(1100)){
+			  
+		}
+	}
+
+	// .popup-discover__body
+
+	&__body {
+		display: flex;
+		@media (max-width:$mobile) {
+			flex-direction: column; 
+		}
+	}
+
+	// .popup-discover__meta-content
+	
+	&__meta-content {
+		flex: 0 1 60%;
+		background-color: #163F8E;
+		padding: rem(30) rem(35);
+		@media (max-width:$mobile){
+			padding: rem(20) rem(25); 
+		}
+	}
+
+	// .popup-discover__header
+
+	&__header {
+		padding: 0px 0px rem(35) 0px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		@media (max-width:$mobile){
+			flex-direction: column-reverse;
+			gap: rem(10);
+		}
+	}
+
+	// .popup-discover__title
+
+	&__title {
+		font-weight: 700;
+		color: #fff;
+		font-size: rem(32);
+		line-height: 1;
+		flex: 1 1 auto;
+		margin: 0px rem(10) 0px 0px;
+		@media (max-width:$mobile){
+			font-size: rem(25); 
+		}
+	}
+
+	// .popup-discover__subtitle
+
+	&__subtitle {
+		font-size: rem(16);
+		line-height: 1.2;
+		color: #fff;
+		display: block;
+		margin-top: rem(5);
+		@media (max-width:$mobile){
+			font-size: rem(14); 
+		}
+	}
+
+	// .popup-discover__success
+
+	&__success {
+		flex: 0 1 auto;
+		img {
+			width: rem(70);
+			height: rem(60);
+		}
+	}
+
+	// .popup-discover__cards
+
+	&__cards {
+		display: flex;
+		justify-content: space-between;
+		gap: rem(15);
+		@media (min-width:$mobile){
+			align-items: flex-start;
+		}
+		@media (max-width:$mobile){
+			flex-wrap: wrap; 
+		}
+	}
+
+	// .popup-discover__card
+
+	&__card {
+		flex: 0 1 33.333%;
+		color: #333;
+		padding: rem(21) rem(4);
+		border: 4px solid rgb(242, 242, 249);
+		box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: rem(15);
+		text-align: center;
+		@media (max-width:$mobile){
+			flex: 1 1 48%;
+		}
+	}
+
+	// .popup-discover__image
+
+	&__image {
+		flex: 1 1 auto;
+		img {
+			width: rem(60);
+			height: rem(50);
+		}
+	}
+
+	// .popup-discover__text
+
+	&__text {
+		font-size: rem(14);
+		line-height: 1.1;
+		color: #333;
+		font-weight: 700;
+		text-align: center;
+	}
+
+	// .popup-discover__form
+
+	&__form {
+		flex: 0 1 40%;
+		padding: rem(30) rem(31) rem(35);
+		@media (max-width:$mobile){
+			padding: rem(20) rem(21) rem(25); 
+		}
+	}
+
+	// .popup-discover__form-wrapper
+
+	&__form-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: rem(25);
+	}
+
+	// .popup-discover__item
+
+	&__item {
+		// .popup-discover__item_hidden
+
+		&_hidden {
+			display: none;
+		}
+	}
+
+	// .popup-discover__input
+
+	&__input {
+		min-height: rem(25);
+		padding-bottom: rem(12);
+		color: rgb(51, 51, 51);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+		font-size: rem(18);
+		line-height: 1.2;
+		background-color: transparent;
+		&::placeholder {
+			color:#000;
+		}
+		// .popup-discover__input_hidden
+
+		&_hidden {
+			display: none;
+		}
+	}
+
+	// .popup-discover__button
+
+	&__button {
+		width: 100%;
+		background-color: rgb(22, 63, 142);
+		height: rem(52);
+		border-radius: rem(5);
+		font-size: rem(18);
+		box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+		color: #fff;
+		transition: background-color 0.3s ease 0s;
+		@media (any-hover: hover){
+			&:hover{
+				background-color: rgb(20, 55, 125);		
+			}
+		}
+	}
+}
+.popup-video {
+
+	// .popup-video__close
+
+	&__close {
 	}
 }

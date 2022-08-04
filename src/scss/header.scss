@@ -58,7 +58,7 @@
 		z-index: 5;
 		flex-grow: 0;
 		flex-shrink: 0;
-		@include adaptiveValue("flex-basis", 220, 180, 1570, 991, 1);
+		@include adaptiveValue("flex-basis", 135, 120, 1570, 991, 1);
 		//@media (max-width:$mobileSmall){
 		//	flex: 0 0 130px;
 		//}
@@ -305,7 +305,7 @@
 
 	&__item {
 		@media (min-width:$tablet){
-			flex: 0 1 23%;
+			flex: 1 1 25%;
 			margin: 0px 0px rem(40) 0px;
 		}
 		@media (any-hover: hover){
@@ -386,7 +386,7 @@
 
 	&__content-text {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		flex-wrap: wrap;
 		column-gap: rem(24);
 		row-gap: rem(16);

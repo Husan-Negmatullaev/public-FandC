@@ -3,47 +3,7 @@
 	@@include('html/_head.htm',{
 		"title":"F&C Properties агентство недвижимости в Дубае | Покупка недвижимости в Дубае"
 	})
-	<body >
-	<!-- <div id="loader-wrapper">
-		<div id="loader"></div>
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div> -->
-	<style>
-		/* input[type=text]:not(.input),
-		select {
-			width: 100%;
-			padding: 12px 20px;
-			margin: 0px 0;
-			display: inline-block;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-		} */
-
-		input[type=submit] {
-		width: 100%;
-		background-color: #4CAF50;
-		color: white;
-		padding: 14px 20px;
-		margin: 0px 0;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		}
-
-		input[type=submit]:hover {
-		background-color: #45a049;
-		}
-
-		.modelahmed {
-		border-radius: 5px;
-		background-color: #f2f2f2;
-		padding: 20px;
-		}
-	</style>
-
-	<!-- The Modal -->
+	<body>
 		<div class="wrapper">
 			@@include('html/_header.htm',{})
 			<main class="page">
@@ -52,7 +12,7 @@
 						<div class="main-block__container">
 							<div class="main-block__body" data-fullscreen>
 								<div class="main-block__title">
-									<button type="button" data-popup="#video" data-popup-youtube="Q52LJes0LxY" class="main-block__title title title_w">
+									<button type="button" data-popup="#video" class="main-block__title title title_w">
 										Найди свой дом
 										<div class="main-block__icon">
 											<span class="_icon-play"></span>
@@ -121,8 +81,8 @@
 										<div class="main-block-tabs__body">
 											<form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find">
 												<div class="form-find__wrapper">
-													<div class="form-find__body">
-														<div data-da=".form-find__row,1320,first" class="form-find__column">
+													<div class="form-find__body form-find__body_2">
+														<div data-da=".form-find__row_2,1320,first" class="form-find__column">
 															<select name="developer" class="form-find__select form-find__select-developer select">
 																<option value="" selected="">Комнаты</option>
 															</select>
@@ -130,7 +90,7 @@
 														<div class="form-find__column form-find__column_large">
 															<div class="form-find__item form-find__item_input">
 																<input autocomplete="off" type="text" data-error="Ошибка" placeholder="Поиск по названию проекта" name="search" class="form-find__input input">
-																<button data-da=".form-find__body,479.98,last" type="submit" class="form-find__button button button_large">
+																<button data-da=".form-find__body_2,479.98,last" type="submit" class="form-find__button button button_large">
 																	<span class="_icon-magnify"></span>
 																	Найти
 																</button>
@@ -147,8 +107,8 @@
 																<option value="Building" class="select__option form-find__option">Здания</option>
 															</select>
 														</div>
-														<div class="form-find__row">
-															<div data-da=".form-find__body,1320,first" class="form-find__column">
+														<div class="form-find__row form-find__row_2">
+															<div data-da=".form-find__body_2,1320,first" class="form-find__column">
 																<select name="developer" class="form-find__select form-find__select-developer select">
 																	<option value="" selected="">Все застройщики</option>
 																</select>
@@ -175,7 +135,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="main-block__image-ibg"><img data-src="@img/main-page/05.jpg" alt=""></div>
+						<!-- <div class="main-block__image-ibg"><img data-src="@img/main-page/05.jpg" alt=""></div> -->
 					</section>
 					<section class="page__products products">
 						<div class="products__container">
@@ -186,7 +146,7 @@
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/deyaar_tria_dubai_si_5.jpg" alt="">
+											<img src="@img/main-page/06.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -260,7 +220,7 @@
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/m1.jpg" alt="">
+											<img src="@img/main-page/07.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -334,7 +294,7 @@
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/01_WkNwVDu.jpg" alt="">
+											<img src="@img/main-page/08.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -408,7 +368,7 @@
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/08.jpg" alt="">
+											<img src="@img/main-page/09.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -485,14 +445,14 @@
 											<div class="banner__item">
 												<div class="banner__image">
 													<picture>
-														<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-														<img src="@img/main-page/03.JPG">
+														<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+														<img src="@img/main-page/03.jpg">
 													</picture>
 													<a href="#" class="banner__link">
 														Скачать
 													</a>
-													<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
+													<!-- <img data-src="@img/main-page/03.jpg" alt=""> -->
 												</div>
 											</div>
 										</div>
@@ -500,9 +460,9 @@
 											<div class="banner__item">
 												<div class="banner__image">
 													<picture>
-														<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-														<img src="@img/main-page/03.JPG">
+														<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+														<img src="@img/main-page/03.jpg">
 													</picture>
 													<a href="#" class="banner__link">
 														Скачать
@@ -513,13 +473,13 @@
 										</div>
 									</div>
 									<div class="banner__pagination">
-	
+
 									</div>
 								</div>
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/Mr-C-Residences-Duba.jpg" alt="">
+											<img src="@img/main-page/10j.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -593,7 +553,7 @@
 								<div class="products__item item-products">
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
-											<img src="https://kvartirivdubai.ru/mediafiles/images/EBF_ATB_RENDERS3.jpg" alt="">
+											<img src="@img/main-page/11j.jpg" alt="">
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
@@ -674,13 +634,13 @@
 						<div class="banner__container">
 							<div class="banner__body">
 								<div class="banner__wrapper swiper-wrapper">
-									<div href="#" class="banner__slide swiper-slide">
+									<div class="banner__slide swiper-slide">
 										<div class="banner__item">
 											<div class="banner__image">
 												<picture>
-													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-													<img src="@img/main-page/03.JPG">
+													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+													<img src="@img/main-page/03.jpg">
 												</picture>
 												<a href="#" class="banner__link">
 													Скачать
@@ -689,13 +649,13 @@
 											</div>
 										</div>
 									</div>
-									<div href="#" class="banner__slide swiper-slide">
+									<div class="banner__slide swiper-slide">
 										<div class="banner__item">
 											<div class="banner__image">
 												<picture>
-													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-													<img src="@img/main-page/03.JPG">
+													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+													<img src="@img/main-page/03.jpg">
 												</picture>
 												<a href="#" class="banner__link">
 													Скачать
@@ -724,9 +684,9 @@
 										<div class="banner__item">
 											<div class="banner__image">
 												<picture>
-													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-													<img src="@img/main-page/03.JPG">
+													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+													<img src="@img/main-page/03.jpg">
 												</picture>
 												<a href="#" class="banner__link">
 													Скачать
@@ -739,9 +699,9 @@
 										<div class="banner__item">
 											<div class="banner__image">
 												<picture>
-													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.JPG">
-													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.JPG">
-													<img src="@img/main-page/03.JPG">
+													<source media="(min-width: 479.98px)" srcset="@img/main-page/03.jpg">
+													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
+													<img src="@img/main-page/03.jpg">
 												</picture>
 												<a href="#" class="banner__link">
 													Скачать
@@ -955,55 +915,6 @@
 						</div>
 					</div>
 				</section>
-				<!-- <section class="page__expert-appeal expert-appeal">
-					<div class="expert-appeal__container">
-						<div class="expert-appeal__body">
-							<div class="expert-appeal__appeal appeal">
-								<div class="appeal__body" action="#" method="GET" enctype="multipart/form-data">
-									<div class="appeal__title">
-										Our Expert Will Help You Buy
-										<br>
-										<span class="appeal__subtitle">
-											The Best Residence in Dubai
-										</span>
-									</div>
-									<form action="#" method="GET" enctype="multipart/form-data" class="appeal__form">
-										<div class="appeal__col">
-											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="Full name *" class="appeal__input">
-										</div>
-										<div class="appeal__col">
-											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="Phone number *" class="appeal__input">
-										</div>
-										<div class="appeal__col">
-											<input autocomplete="off" type="text" name="form[]" data-error="Ошибка" placeholder="E-mail *" class="appeal__input">
-										</div>
-										<button type="submit" class="appeal__button button button_small">Take a Quick Test</button>
-									</form>
-								</div>
-							</div>
-							<div class="expert-appeal__profile-expert profile-expert">
-								<div class="profile-expert__image-ibg"><img data-src="@img/main-page/5.JPG" alt=""></div>
-								<div class="profile-expert__content">
-									<div class="profile-expert__info-name">
-										<div class="profile-expert__full-name">Alena Pazniak</div>
-										<div class="profile-expert__profession">Area Manager</div>
-									</div>
-									<div class="profile-expert__info-expert">
-										<div class="profile-expert__icon _icon-phone-call"></div>
-										<a href="971588070001" class="profile-expert__text">+971 58 807 0001</a>
-									</div>
-									<div class="profile-expert__info-expert">
-										<div class="profile-expert__icon _icon-location-mark"></div>
-										<div class="profile-expert__text">
-											Dubai, Business Bay, Bay Square,
-											Building 13 - Dubai
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section> -->
 				<section class="page__quiz quiz">
 					<div class="quiz__container">
 						<div class="quiz__body">
@@ -1050,13 +961,5 @@
 		</div>
 		@@include('html/_popup.htm',{})
 		@@include('html/_js.htm',{})
-		<!-- Start of LiveChat (www.livechat.com) code -->
-		<!-- <script>
-			window.__lc = window.__lc || {};
-			window.__lc.license = 14222202;
-			;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-		</script> -->
-		<!-- <noscript><a href="https://www.livechat.com/chat-with/14222202/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript> -->
-		<!-- End of LiveChat code -->
 	</body>
 </html>

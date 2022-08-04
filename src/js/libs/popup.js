@@ -31,8 +31,8 @@ class Popup {
 			closeEsc: true, // Закрытие по ESC
 			bodyLock: true, // Блокировка скролла
 			hashSettings: {
-				location: true, // Хэш в адресной строке
-				goHash: true, // Переход по наличию в адресной строке
+				location: false, // Хэш в адресной строке
+				goHash: false, // Переход по наличию в адресной строке
 			},
 			on: { // События
 				beforeOpen: function () { },

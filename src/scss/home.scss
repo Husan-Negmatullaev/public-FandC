@@ -213,14 +213,17 @@ input, textarea {
 
 //====================================================================================================
 .main-block {
+	background: #fff url('@img/main-page/05.jpg') top / cover no-repeat;
+	@media (max-width:$tablet){
+		background: #fff url('@img/main-page/05-2.jpg') top / cover no-repeat;
+	}
 	position: relative;
 	@include adaptiveValue("margin-bottom", 40, 25, $containerWidth, $minWidth, 1);
-	@include adaptiveValue("padding-bottom", 60, 30, $containerWidth, $minWidth, 1);
-	@media (max-width:$pc){
-		@include adaptiveValue("padding-top", 60, 30, $containerWidth, 991.98, 1);
+	@media (min-width:$tablet){
+		padding: rem(130) 0px 30px 0px;
 	}
-	@media (max-width:$tablet){
-		padding: 130px 0px 30px 0px;
+	@media (min-width:$mobile){
+		@include adaptiveValue("padding-bottom", 60, 30, $containerWidth, $minWidth, 1);  
 	}
 	// .main-block__container
 
@@ -234,9 +237,15 @@ input, textarea {
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
-		@media (min-width:$pc){
+		@media (min-width: rem(1300)){
 			align-items: center;
 			justify-content: center;
+		}
+		@media (max-width:$tablet){
+			justify-content: center;
+		}
+		@media (max-width: em(1300)){
+			padding: rem(100) 0px 30px 0px;			  
 		}
 	}
 
@@ -270,8 +279,8 @@ input, textarea {
 
 	&__icon {
 		background-color: #163F8E;
-		width: 80px;
-		height: 80px;
+		flex: 0 0 rem(80);
+		height: rem(80);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -294,6 +303,14 @@ input, textarea {
 
 		span {
 			font-size: rem(22);
+			@media (max-width:$mobile){
+				font-size: rem(18); 
+			}
+		}
+		@media (max-width:$mobile){
+			flex: 0 0 rem(50);
+			height: rem(50); 
+			width: 100%;
 		}
 	}
 
@@ -301,26 +318,23 @@ input, textarea {
 
 	&__title {
 		@include adaptiveValue("font-size", 50, 25, $containerWidth, $minWidth, 1);
-		text-shadow: 0 0.2rem 0.9rem rgb(0 0 0 / 25%);
+		text-shadow: 0 0.2rem 0.9rem rgba(0, 0, 0, .25);
 		text-align: center;
 		display: flex;
-		// width: 100%;
 		align-items: center;
 		justify-content: center;
-		gap: rem(25);
+		gap: rem(20);
+		width: 100%;
+		@media (min-width:$mobile){
+			gap: rem(25);
+		}
 		&:not(:last-child) {
 			@include adaptiveValue("margin-bottom", 40, 20, $containerWidth, $minWidth, 1);
 		}
 		@media (max-width:$mobileSmall){
-			flex-direction: column;
+			// flex-direction: column;
 			gap: rem(10); 
 		}
-		// @media (min-width:$tablet){
-		// 	&:not(:last-child) {margin-bottom: rem(200);}
-		// }
-		// @media (max-width:$tablet){
-		// 	text-align: center;
-		// }
 	}
 
 	// .main-block__image-ibg
@@ -332,7 +346,7 @@ input, textarea {
 
 .main-block-tabs {
 	background: rgba(255, 255, 255, .8);
-	box-shadow: 0px 11px 24px rgba(192, 192, 192, 0.25);
+	box-shadow: 0px 11px 24px rgba(192, 192, 192, 0.35);
 	border-radius: 25px;
 	@include adaptiveValue("padding-left", 30, 15, $containerWidth, $minWidth, 1);
 	@include adaptiveValue("padding-right", 30, 15, $containerWidth, $minWidth, 1);
@@ -872,7 +886,7 @@ input, textarea {
 		margin: 0px 0px rem(30) 0px;
 	}
 	@media (max-width:$mobile){
-		 margin: 0px 0px rem(20) 0px; 
+		margin: 0px 0px rem(20) 0px; 
 	}
 	// .banner__container
 
@@ -911,7 +925,7 @@ input, textarea {
 	// .banner__image
 
 	&__image {
-		@media (min-width:$mobileSmall){
+		@media (min-width:$mobileSmall) {
 			position: relative;
 			padding-bottom: 27%;
 			
@@ -923,7 +937,6 @@ input, textarea {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				
 			}
 		}
 		@media (max-width:$mobileSmall){
@@ -1895,9 +1908,48 @@ input, textarea {
 	}
 }
 
-#map #loader {
-	opacity: 1;
+
+.main-map {
+	@include adaptiveValue("margin-bottom", 70, 25, $containerWidth, 767.98, 1);
+	// .main-map__body
+
+	&__body {
+	}
+
+	// .main-map__container
+
+	&__container {
+	}
+
+	// .main-map__content
+
+	&__content {
+		max-width: rem(890);
+		padding: rem(20) rem(25);
+		text-align: center;
+		margin: 0 auto;
+		background-color: #163F8E;
+		border-radius: rem(5);
+		position: relative;
+		z-index: 2;
+	}
+
+	// .main-map__title
+
+	&__title {
+		color: #fff;
+		@include adaptiveValue("font-size", 40, 20, $containerWidth, 767.98, 1);
+		line-height: math.div(47, 40);
+		font-weight: 700;
+	}
+
+	// .main-map__map
+
+	&__map {
+		margin: -40px 0px 0px 0px;
+	}
 }
+
 
 // ========================
 
@@ -2434,8 +2486,8 @@ input, textarea {
 .expert-appeal {
 	background-color: #EDEDED;
 	padding: 65px 0px 110px 0px;
-	@include adaptiveValue("padding-top", 65, 32.5, $containerWidth, $minWidth, 1);
-	@include adaptiveValue("padding-bottom", 110, 55, $containerWidth, $minWidth, 1);
+	@include adaptiveValue("padding-top", 65, 35, $containerWidth, $minWidth, 1);
+	@include adaptiveValue("padding-bottom", 65, 40, $containerWidth, 767.98, 1);
 	// .expert-appeal__container
 
 	&__container {
@@ -2550,9 +2602,9 @@ input, textarea {
 
 	// .profile-expert__image-ibg
 
-	&__image-ibg {
+	&__image {
 		@media (min-width:$tablet){
-			flex: 0 1 30.715232%;
+			flex: 0 1 49%;
 		}
 		@media (max-width:$tablet){
 			display: none;
@@ -2560,6 +2612,9 @@ input, textarea {
 		// padding-bottom: 100%;
 		border-radius: 17px;
 		overflow: hidden;
+		img {
+			max-width: 100%;
+		}
 	}
 
 	&__content {
