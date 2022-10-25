@@ -1,9 +1,9 @@
 .footer-second {
     background-color: #000;
     color: #fff;
-    padding: rem(30) 0;
+    padding: rem(15) 0;
     @media (max-width:$mobile){
-        padding: rem(30) 0 rem(90) 0; 
+        padding: rem(15) 0 rem(90) 0;
     }
     // .footer__top
 
@@ -22,7 +22,7 @@
 
     &__container {
         border-bottom: 0.5px solid #fff;
-        padding: 0px rem(15) rem(40);
+        padding: 0px rem(15) rem(10);
     }
 
     // .top-footer__body
@@ -31,7 +31,6 @@
         display: flex;
         justify-content: space-between;
         gap: rem(25);
-        margin: 0px rem(20);
         @media (max-width:$mobile){
             flex-direction: column; 
         }
@@ -46,7 +45,7 @@
         &_big {
             flex: 1 1 auto;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: flex-end;
             @media (max-width:$mobile){
                 justify-content: flex-start;                  
@@ -57,15 +56,16 @@
     // .top-footer__title
 
     &__title {
-        &:not(:last-child) {margin-bottom: rem(16);}
+        &:not(:last-child) {margin-bottom: rem(1.6);}
     }
 
     // .top-footer__text
 
     &__text {
         font-size: rem(14);
-        &:not(:last-child) {margin-bottom: rem(8);}
+        &:not(:last-child) {margin-bottom: rem(1.6);}
         line-height: math.div(20, 14);
+        color: #7d7d7d;
     }
 
     // .top-footer__link
@@ -93,7 +93,7 @@
     // .bottom-footer__container
 
     &__container {
-        padding: rem(25) rem(15) 0;
+        padding: rem(15) rem(15) 0;
     }
 
     // .bottom-footer__list
@@ -113,14 +113,14 @@
     // .bottom-footer__link
 
     &__link {
-        font-size: rem(16);
+        font-size: rem(14);
         line-height: math.div(20, 16);
     }
 }
 
 .top-footer-title {
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: rem(14);
     line-height: math.div(26, 20);
 }
 .footer-social {
@@ -137,8 +137,8 @@
     &__link {
         display: inline-block;
         img {
-            width: rem(35);
-            height: rem(35);
+            width: rem(30);
+            height: rem(30);
         }
     }
 }

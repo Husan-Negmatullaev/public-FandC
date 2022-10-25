@@ -223,7 +223,11 @@ input, textarea {
     // .main-blog__container
 
     &_developers {
-      @include adaptiveValue("margin-bottom", 120, 40, $containerWidth, $minWidth, 1);
+      @include adaptiveValue("margin-bottom", 50, 20, $containerWidth, $minWidth, 1);
+    }
+
+    &.main-block-js {
+      @include adaptiveValue("margin-bottom", 120, 90, $containerWidth, 767.98, 1);
     }
 
     &__container {
@@ -237,7 +241,7 @@ input, textarea {
 
     &__wrapper {
         position: relative;
-        @include adaptiveValue("padding-top", 200, 90, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("padding-top", 160, 100, $containerWidth, 767.98, 1);
         @include adaptiveValue("padding-bottom", 50, 25, $containerWidth, $minWidth, 1);
         &::before{
             content:'';

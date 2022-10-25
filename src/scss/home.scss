@@ -1,233 +1,25 @@
-/* Pre Loader */
 
-/* Demo Styles */
-#content {
-  margin: 0 auto;
-  padding-bottom: 50px;
-  width: 80%;
-  max-width: 978px;
+.grey {
+	@media (max-width:$tablet){
+		background-color: #F8ECDE; 
+	}
 }
-
-h1 {
-  font-size: 40px;
-}
-
-/* The Loader */
-#loader-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  overflow: hidden;
-}
-.no-js #loader-wrapper {
-  display: none;
-}
-
-#loader {
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: #0033ff;
-  -webkit-animation: spin 1.7s linear infinite;
-          animation: spin 1.7s linear infinite;
-  z-index: 11;
-}
-#loader:before {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: #0033ff;
-  -webkit-animation: spin-reverse 0.6s linear infinite;
-          animation: spin-reverse 0.6s linear infinite;
-}
-#loader:after {
-  content: "";
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  border-top-color: #0033ff;
-  -webkit-animation: spin 1s linear infinite;
-          animation: spin 1s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spin-reverse {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(-360deg);
-  }
-}
-@keyframes spin-reverse {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-#loader-wrapper .loader-section {
-  position: fixed;
-  top: 0;
-  width: 51%;
-  height: 100%;
-  background: #fff;
-  z-index: 10;
-}
-
-#loader-wrapper .loader-section.section-left {
-  left: 0;
-}
-
-#loader-wrapper .loader-section.section-right {
-  right: 0;
-}
-
-/* Loaded styles */
-.loaded #loader-wrapper .loader-section.section-left {
-  transform: translateX(-100%);
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded #loader-wrapper .loader-section.section-right {
-  transform: translateX(100%);
-  transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.loaded #loader {
-  opacity: 0;
-  transition: all 0.3s ease-out;
-}
-
-.loaded #loader-wrapper {
-  visibility: hidden;
-  transform: translateY(-100%);
-  transition: all 0.3s 1s ease-out;
-}
-
-
-.form-box {
-  max-width: 500px;
-  margin: auto;
-  padding: 50px;
-  background: #c7c7c7;
-  border: 10px solid #f2f2f2;
-}
-
-h1, p {
-  text-align: left;
-}
-
-input, textarea {
-  width: 100%;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-   /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-    margin-top: 100px;
-  top: 0;
-	z-index: 10;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  margin: auto;
-  padding: 20px;
-
-  width: 80%;
-    height: 80%;
-}
-
-.back{
-
-    background-size:600px;
-    background-repeat: no-repeat;
-    background-position: top;
-    margin: auto;
-     padding: 20px;
-
-     width: 40%;
-     height: 100%;
-    z-index: 1;
-}
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-	z-index: 3;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 //====================================================================================================
 .main-block {
 	background: #fff url('@img/main-page/05.jpg') top / cover no-repeat;
+	position: relative;
+	@include adaptiveValue("margin-bottom", 40, 10, $containerWidth, $minWidth, 1);
 	@media (max-width:$tablet){
 		background: #fff url('@img/main-page/05-2.jpg') top / cover no-repeat;
 	}
-	position: relative;
-	@include adaptiveValue("margin-bottom", 40, 25, $containerWidth, $minWidth, 1);
-	@media (min-width:$tablet){
-		padding: rem(130) 0px 30px 0px;
-	}
-	@media (min-width:$mobile){
-		@include adaptiveValue("padding-bottom", 60, 30, $containerWidth, $minWidth, 1);  
-	}
+	
 	// .main-block__container
 
 	&__container {
+		@media (min-width:$tablet){
+			max-width: rem(1100);
+			margin: 0 auto; 
+		}
 	}
 
 	// .main-block__body
@@ -237,15 +29,21 @@ input, textarea {
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
+		@include adaptiveValue("padding-bottom", 30, 20, $containerWidth, $minWidth, 1);
+
 		@media (min-width: rem(1300)){
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-end;
+		}
+		@media (max-width: em(1300)){
+			padding: rem(100) 0px rem(30) 0px;			  
 		}
 		@media (max-width:$tablet){
 			justify-content: center;
 		}
-		@media (max-width: em(1300)){
-			padding: rem(100) 0px 30px 0px;			  
+		@media (max-width:$mobileSmall){
+			justify-content: flex-end; 
+			padding: rem(100) 0px rem(16) 0px;			  
 		}
 	}
 
@@ -347,15 +145,15 @@ input, textarea {
 .main-block-tabs {
 	background: rgba(255, 255, 255, .8);
 	box-shadow: 0px 11px 24px rgba(192, 192, 192, 0.35);
-	border-radius: 25px;
-	@include adaptiveValue("padding-left", 30, 15, $containerWidth, $minWidth, 1);
-	@include adaptiveValue("padding-right", 30, 15, $containerWidth, $minWidth, 1);
-	@include adaptiveValue("padding-top", 35, 20, $containerWidth, $minWidth, 1);
-	@include adaptiveValue("padding-bottom", 35, 20, $containerWidth, $minWidth, 1);
+	border-radius: rem(7);
+	@include adaptiveValue("padding-left", 20, 15, $containerWidth, $minWidth, 1);
+	@include adaptiveValue("padding-right", 20, 15, $containerWidth, $minWidth, 1);
+	@include adaptiveValue("padding-top", 25, 20, $containerWidth, $minWidth, 1);
+	@include adaptiveValue("padding-bottom", 25, 20, $containerWidth, $minWidth, 1);
 	// .main-block-tabs__navigation
 
 	&__navigation {
-		margin: 0px 0px rem(20) 0px;
+		margin: 0px 0px rem(10) 0px;
 		@media (max-width:$mobile){
 			margin: 0px 0px rem(15) 0px; 
 		}
@@ -368,16 +166,16 @@ input, textarea {
 
 	&__title {
 		padding: rem(15) rem(20);
+		background-color: #fff;
+		color: #163F8E;
+		border-radius: rem(5);
+		font-size: rem(16);
+		transition: all 0.3s ease 0s;
+		border: 1px solid #163F8E;
 		@media (max-width:$mobile){
 			padding: rem(10) rem(15);
 			font-size: rem(14);
 		}
-		background-color: #fff;
-		color: #163F8E;
-		border-radius: rem(5);
-		font-size: rem(18);
-		transition: all 0.3s ease 0s;
-		border: 1px solid #163F8E;
 		&._tab-active {
 			color: #fff;
 			background-color: rgba(22, 62, 142, 0.5);
@@ -413,7 +211,7 @@ input, textarea {
 	&__body {
 		display: flex;
 		flex-wrap: wrap;
-		gap: rem(20);
+		gap: rem(10);
 		@media (max-width:$tablet){
 			gap: rem(15);
 		}
@@ -425,8 +223,8 @@ input, textarea {
 	&__row {
 		display: flex;
 		// flex-wrap: wrap;
-		gap: rem(20);
-		flex: 1 1 50%;
+		gap: rem(10);
+		flex: 1 1 auto;
 		@media (max-width: em(1320)){
 			flex: 1 1 100%; 
 		}
@@ -434,7 +232,7 @@ input, textarea {
 			flex: 0 1 50%;
 		}
 		@media (max-width:$tablet){
-			gap: rem(15);
+			gap: rem(10);
 		}
 		@media (max-width:$mobile){
 			gap: rem(10); 
@@ -444,14 +242,14 @@ input, textarea {
 	// .form-find__column
 
 	&__column {
-		flex: 1 1 18%;
+		flex: 0 1 20%;
 		
 		@media (max-width: em(1320)){
 			flex: 1 1 100%; 
 		}
 
 		&_large {
-			flex: 1 1 79%;
+			flex: 1 1 75%;
 			@media (max-width: em(1320)){
 				flex: 1 1 100%;
 				order: -1;
@@ -475,9 +273,9 @@ input, textarea {
 
 	&__select {
 		width: 100%;
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
-		line-height: 151%;
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
+		line-height: 161%;
 		color: #000000;
 		cursor: pointer;
 		border-radius: 5px;
@@ -492,8 +290,8 @@ input, textarea {
 	}
 	&__select-developer {
 		width: 100%;
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
 		line-height: 151%;
 		color: #000000;
 		cursor: pointer;
@@ -509,8 +307,8 @@ input, textarea {
 	}
 	&__select-area {
 		width: 100%;
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
 		line-height: 151%;
 		color: #000000;
 		cursor: pointer;
@@ -526,8 +324,8 @@ input, textarea {
 	}
 	&__select-type {
 		width: 100%;
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
-        @include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
 		line-height: 151%;
 		color: #000000;
 		cursor: pointer;
@@ -543,13 +341,13 @@ input, textarea {
 	}
 
 	&__option {
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
 		line-height: 151%;
 		color: #000000;
 	}
 
 	&__item {
-        @include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
 		display: flex;
 
 		&_input {
@@ -567,7 +365,7 @@ input, textarea {
 					border: none;
 				}
 				// @include adaptiveValue("height", 50, 45, $containerWidth, $minWidth, 1);
-				@include adaptiveValue("height", 60, 40, $containerWidth, $minWidth, 1);
+				@include adaptiveValue("height", 52, 40, $containerWidth, $minWidth, 1);
 				&::before{
 					content:'\e90a';
 					color: rgba(0, 0, 0, 0.5);
@@ -581,7 +379,7 @@ input, textarea {
 
 	&__input {
 		flex: 0 1 100%;
-        @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 16, 14, $containerWidth, $minWidth, 1);
 		line-height: 151%;
 		color: #000000;
         @include adaptiveValue("padding-left", 27, 10, $containerWidth, $minWidth, 1);
@@ -606,12 +404,17 @@ input, textarea {
         @media (min-width:$mobileSmall){
             @include adaptiveValue("padding-left", 60, 25, $containerWidth, $minWidth, 1);
             @include adaptiveValue("padding-right", 60, 25, $containerWidth, $minWidth, 1);
+			border-radius: 0 rem(5) rem(5) 0;
         }
+		@media (max-width:$mobileSmall){
+			border-radius: rem(5); 
+		}
         @media (max-width:$mobileSmall){
             width: 100%; 
         }
-        &::before{
-            @include adaptiveValue("font-size", 22, 14, $containerWidth, $minWidth, 1);
+		@include adaptiveValue("font-size", 18, 16, $containerWidth, $minWidth, 1);
+        & span::before{
+            @include adaptiveValue("font-size", 20, 16, $containerWidth, $minWidth, 1);
         }
 	}
 }
@@ -857,7 +660,11 @@ input, textarea {
 // ========================
 
 .image-bottle {
-	@include adaptiveValue("padding-bottom", 60, 30, $containerWidth, $minWidth, 1);
+	@media (max-width:$tablet){
+		background: url("../img/main-page/sand.jpg") center/110% no-repeat;
+		@include adaptiveValue("padding-top", 50, 50, 991, 767, 1);
+	}
+	@include adaptiveValue("padding-bottom", 60, 50, $containerWidth, $minWidth, 1);
 	// .image-bottle__container
 
 	&__container {
@@ -868,6 +675,7 @@ input, textarea {
 
 	&__image-ibg {
 		padding: 0px 0px 51% 0px;
+		
 	}
 }
 
@@ -928,7 +736,12 @@ input, textarea {
 		@media (min-width:$mobileSmall) {
 			position: relative;
 			padding-bottom: 27%;
-			
+			.banner__body_min & {
+				padding-bottom: 80%;
+				@media (min-width:$tablet){
+					padding-bottom: 100%;
+				}
+			}
 			img,
 			source {
 				position: absolute;
@@ -941,36 +754,34 @@ input, textarea {
 		}
 		@media (max-width:$mobileSmall){
 			width: 100%;
-			img {
+			img,
+			source {
 				width: 100%;
 				max-width: 100%;
-				height: rem(425);
+				height: rem(360);
 				@media (max-width: em(380)){
-					height: rem(335);
+					height: rem(330);
+				}
+			}
+			.banner__body_min & {
+				width: 100%;
+				img,
+				source {
+					width: 100%;
+					max-width: 100%;
+					height: rem(360);
+					@media (max-width: em(380)){
+						height: rem(330);
+					}
 				}
 			}
 		}
-		
-		// width: 100%;
-		// @media (min-width:$mobile){
-		// 	img,
-		// 	source{
-		// 		height: rem(300);
-		// 		width: 100%;
-		// 		max-width: 100%;
-		// 	} 
-		// }
-		// @media (max-width:$mobile){
-		// 	img,
-		// 	source{
-		// 		height: rem(400);
-		// 	} 
-		// }
 	}
 
 	// .banner__link
 
 	&__link {
+		cursor: pointer;
 		background-color: #163F8E;
 		box-shadow: 0px 13px 18px rgba(22, 63, 142, 0.35);
 		border-radius: rem(35);
@@ -982,8 +793,9 @@ input, textarea {
 		@include adaptiveValue("font-size", 24, 12, $containerWidth, $minWidth, 1);
 		@include adaptiveValue("bottom", 50, 5, $containerWidth, $minWidth, 1);
 		@include adaptiveValue("left", 75, 15, $containerWidth, $minWidth, 1);
-		@media (max-width:$mobileSmall) {
+		.banner__body_min & {
 			left: 50%;
+			bottom: rem(-10);
 			transform: translate(-50%, -50%); 
 			font-size: rem(16);
 		}
@@ -1063,7 +875,7 @@ input, textarea {
 	&__main-title {
 		font-weight: 700;
 		@include adaptiveValue("font-size", 40, 20, $containerWidth, $minWidth, 1);
-		line-height: 180%;
+		line-height: math.div(48, 40);
 		margin-bottom: rem(40);
 		@media (max-width:$mobile){
 			margin-bottom: rem(20); 
@@ -1150,6 +962,10 @@ input, textarea {
 		flex: 0 1 55%;
 		display: block;
 		position: relative;
+		overflow: hidden;
+		@media (max-width:$tablet){
+			border-radius: rem(10);
+		}
 		@media (max-width:$tablet){
 			padding-bottom: 60%;
 		}
@@ -1198,6 +1014,7 @@ input, textarea {
 
 	&__title {
 		font-size: rem(18);
+		margin-bottom: rem(15);
 		flex: 1 1 100%;
 		line-height: math.div(24, 18);
 		color: #163F8E;
@@ -1251,8 +1068,8 @@ input, textarea {
 	// .item-products__info
 
 	&__info {
-		height: rem(44);
-		margin-bottom: rem(15);
+		// height: rem(44);
+		// margin-bottom: rem(15);
 		display: inline-block;
 		transition: all 0.3s ease 0s;
 		color:#000;
@@ -1260,7 +1077,7 @@ input, textarea {
 		display: block;
 		display: -webkit-box;
 		// margin: 0 auto;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -1282,11 +1099,44 @@ input, textarea {
 		margin: 0px 0px rem(5) 0px;
 	}
 
+	// .item-products__advantages
+
+	&__advantages {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: rem(10) rem(10) rem(10);
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		column-gap: rem(5);
+		row-gap: rem(7);
+		&_bottom {
+			top: auto;
+			bottom: 0;
+		}
+	}
+
+	// .item-products__advanatege
+
+	&__advanatege {
+		display: inline-block;
+		// #D33238
+		background-color: rgba(211, 50, 55, 0.7);
+		padding: rem(5);
+		color:#fff;
+		font-size: rem(11);
+		line-height: math.div(11, 10);
+		border-radius: rem(5);
+		&_green {
+			background-color: rgba(23, 154, 0, 0.7);
+		}
+	}
+
 	// .item-products__apartment-item
 
 	&__apartment-item {
 		display: inline-flex;
-		
 		gap: rem(5);
 	}
 
@@ -1345,8 +1195,11 @@ input, textarea {
 	// .item-products__footer
 
 	&__footer {
-		background-color: #e5e5e5;
+		background-color: #9AA9C8;
 		padding: rem(10) rem(15);
+		@media (max-width:$tablet){
+			border-radius: rem(10);
+		}
 	}
 
 	// .item-products__footer-body

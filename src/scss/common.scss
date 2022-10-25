@@ -2,7 +2,7 @@
 
 .title {
     font-weight: 700;
-    @include adaptiveValue("font-size", 40, 25, $containerWidth, $minWidth, 1);
+    @include adaptiveValue("font-size", 40, 18, $containerWidth, $minWidth, 1);
     line-height: 141%;
     color: #252525;
 

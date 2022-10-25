@@ -373,6 +373,37 @@ h1 {
             flex: 0 1 100%; 
         }
     }
+
+    &__pagination {
+    }
+    &__pagination-list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        column-gap: rem(10);
+        row-gap: rem(6);
+    }
+    &__pagination-item {
+    }
+    &__pagination-link {
+        min-height: rem(30);
+        width: rem(30);
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease 0s;
+        border-radius: 50%;
+        font-size: rem(13);
+        @media (any-hover: hover){
+            &:hover{
+                background-color: #163F8E;
+                color: #fff;
+                border-color: transparent;
+            }
+        }
+    }
 }
 
 .item-propertie {

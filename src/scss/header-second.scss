@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:regular,500,600,700&display=swap");
+
 .project-header {
     position: absolute;
     width: 100%;
@@ -7,15 +9,15 @@
     &._scroll {
 		.project-header__body {
 			@media (max-width:$tablet){
-				min-height: 80px;
+				min-height: 65px;
 			}
             @media (max-width:$mobile){
-                min-height: 70px; 
+                min-height: 60px; 
             }
 		}
         @media (max-width:$mobile){
             .project-header__wrapper {
-                background: linear-gradient(270deg, rgba(22, 63, 142, 0.9) 30%, rgba(255, 255, 255, 0.1) 150.81%);
+                background: linear-gradient(90deg, rgba(22, 63, 142, 0.9) 6.51%, rgba(255, 255, 255, 0.1) 150.81%);
             }
         }
 	}
@@ -24,7 +26,7 @@
 
     &__wrapper {
         backdrop-filter: blur(20px);
-        background: linear-gradient(270deg, rgba(22, 63, 142, 0.9) 30%, rgba(255, 255, 255, 0.1) 150.81%);
+        background: linear-gradient(90deg, rgba(22, 63, 142, 0.9) 6.51%, rgba(255, 255, 255, 0.1) 150.81%);
 		position: fixed;
 		width: 100%;
 		left: 0;
@@ -40,12 +42,13 @@
     // .project-header__body
 
     &__body {
+        position: relative;
 		display: flex;
-		min-height: 100px;
+		min-height: rem(70);
 		align-items: center;
         transition: min-height 0.3s ease 0s;
         @media (max-width:$mobile){
-            min-height: 80px; 
+            min-height: 60px; 
         }
     }
 
@@ -63,21 +66,21 @@
     // .project-header__menu-project
 
     &__menu-project {
-        flex: 1 1 auto;
+        flex: 0 1 auto;
         position: relative;
         @include adaptiveValue("padding-left", 30, 20, $containerWidth, 991, 1);
-        @include adaptiveValue("padding-right", 30, 20, $containerWidth, 991, 1);
+        @include adaptiveValue("padding-right", 10, 5, $containerWidth, 991, 1);
     }
 
     // .project-header__logo
 
     &__logo {
         display: block;
-        width: 110px;
+        flex: 0 0 rem(80);
         position: relative;
         z-index: 6;
         @media (max-width:$mobileSmall){
-            width: rem(90); 
+            flex: 0 0 rem(70); 
         }
         img {
             max-width: 100%;
@@ -141,9 +144,9 @@
             overflow: auto;
             background: #fff url("@img/menu-background.png") center / cover no-repeat;
             transition: left 0.3s ease 0s;
-            padding: 140px 0px 0px 0px;
+            padding: rem(100) 0px 0px 0px;
             @media (max-width:$mobile){
-                padding: 120px 0px 0px 0px; 
+                padding: rem(80) 0px 0px 0px; 
             }
             .menu-open & {
                 left: 0;
@@ -156,11 +159,11 @@
                 top: 0;
                 left: -100%;
                 width: 100%;
-                height: rem(100);
+                height: rem(70);
                 background-color: rgba(22, 63, 142, 1);
                 transition: left 0.3s ease 0s;
                 @media (max-width:$mobile){
-                    height: rem(75); 
+                    height: rem(60); 
                 }
             }
 
@@ -207,7 +210,7 @@
                 visibility: visible;
                 opacity: 1;
                 pointer-events: auto;
-                transform: translate(0, 0);
+                transform: translate(-50%, 0);
             }
             .menu-project__arrow {
                 &::before{
@@ -221,7 +224,7 @@
                     visibility: visible;
                     opacity: 1;
                     pointer-events: auto;
-                    transform: translate(0, 0);
+                    transform: translate(-50%, 0);
                 }
                 .menu-project__arrow {
                     &::before{
@@ -253,11 +256,11 @@
             min-width: rem(250);
             position: absolute;
             top: 100%;
-            left: 0;
+            left: 50%;
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
-            transform: translate(0, 10px);
+            transform: translate(-50%, 10px);
             padding: 10px 0px 0px 0px;
         }
         
@@ -268,9 +271,9 @@
             @extend %ic;
             position: absolute;
             top: 1.5px;
-            left: 10%;
+            left: 50%;
             color: #fff;
-            transform: rotate(-90deg);
+            transform: rotate(-90deg) translateY(-50%);
             font-size: rem(10);
             display: block;
             @media (min-width:$tablet){
@@ -316,10 +319,14 @@
     // .menu-project__link
 
     &__link {
+        display: inline-block;
+        font-family: "Open Sans", sans-serif;
         color: #fff;
-        font-size: rem(18);
-        line-height: math.div(24, 18);
+        font-size: rem(14);
+        line-height: math.div(20, 14);
+        font-weight: 600;
         transition: all 0.3s ease 0s;
+        cursor: pointer;
         @media (max-width:$tablet){
             color:#000;
             font-size: rem(22); 
@@ -346,13 +353,11 @@
 		height: rem(18);
 		cursor: pointer;
 		z-index: 6;
-		left: rem(10);
-        top: rem(-8);
-		// @media (max-width:$mobile){
-		// 	top: rem(-7); 
-		// }
-		@media (max-width:$mobileSmall){
-			top: rem(-7);
+		right: rem(0);
+        top: rem(25);
+		@media (max-width:$mobile){
+            top: rem(21);
+ 
 		}
 		span,
 		&::before,

@@ -3,7 +3,7 @@
 	@@include('html/_head.htm',{
 		"title":"F&C Properties агентство недвижимости в Дубае | Покупка недвижимости в Дубае"
 	})
-	<body>
+	<body class="grey">
 		<div class="wrapper">
 			@@include('html/_header.htm',{})
 			<main class="page">
@@ -29,9 +29,15 @@
 											<form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find">
 												<div class="form-find__wrapper">
 													<div class="form-find__body">
-														<div data-da=".form-find__row,1320,first" class="form-find__column">
-															<select name="developer" class="form-find__select form-find__select-developer select">
-																<option value="" selected="">Комнаты</option>
+														<div class="form-find__column">
+															<select name="types" class="form-find__select select">
+																<option value="Type" class="select__option form-find__option">Типы</option>
+																<option value="Apartments" class="select__option form-find__option">Квартира</option>
+																<option value="Penhouses" class="select__option form-find__option">Пентхаусы</option>
+																<option value="Mansions" class="select__option form-find__option">Особняки</option>
+																<option value="Townhouse" class="select__option form-find__option">Таунхаусы</option>
+																<option value="Villa" class="select__option form-find__option">Виллы</option>
+																<option value="Building" class="select__option form-find__option">Здания</option>
 															</select>
 														</div>
 														<div class="form-find__column form-find__column_large">
@@ -44,20 +50,32 @@
 															</div>
 														</div>
 														<div class="form-find__column">
-															<select name="types" class="form-find__select select">
-																<option value="Type" class="select__option form-find__option">Типы недвижимости</option>
-																<option value="Apartments" class="select__option form-find__option">Квартира</option>
-																<option value="Penhouses" class="select__option form-find__option">Пентхаусы</option>
-																<option value="Mansions" class="select__option form-find__option">Особняки</option>
-																<option value="Townhouse" class="select__option form-find__option">Таунхаусы</option>
-																<option value="Villa" class="select__option form-find__option">Виллы</option>
-																<option value="Building" class="select__option form-find__option">Здания</option>
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Застройщики</option>
+															</select>
+														</div>
+														<div class="form-find__column">
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Спальни</option>
+															</select>
+														</div>
+														<div class="form-find__column">
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Комнаты</option>
 															</select>
 														</div>
 														<div class="form-find__row">
-															<div data-da=".form-find__body,1320,first" class="form-find__column">
-																<select name="developer" class="form-find__select form-find__select-developer select">
-																	<option value="" selected="">Все застройщики</option>
+															<div class="form-find__column">
+																<select name="min" class="form-find__select select">
+																	<option value="" selected="">Мин. Цена</option>
+																	<option value="500000">$ 500,000</option>
+																	<option value="1000000">$ 1,000,000</option>
+																	<option value="2000000">$ 2,000,000</option>
+																	<option value="3000000">$ 3,000,000</option>
+																	<option value="5000000">$ 5,000,000</option>
+																	<option value="10000000">$ 10,000,000</option>
+																	<option value="20000000">$ 20,000,000</option>
+																	<option value="50000000">$ 50,000,000</option>
 																</select>
 															</div>
 															<div class="form-find__column">
@@ -82,9 +100,15 @@
 											<form action="search.html" enctype="multipart/form-data" class="main-block__form-find form-find">
 												<div class="form-find__wrapper">
 													<div class="form-find__body form-find__body_2">
-														<div data-da=".form-find__row_2,1320,first" class="form-find__column">
-															<select name="developer" class="form-find__select form-find__select-developer select">
-																<option value="" selected="">Комнаты</option>
+														<div class="form-find__column">
+															<select name="types" class="form-find__select select">
+																<option value="Type" class="select__option form-find__option">Типы</option>
+																<option value="Apartments" class="select__option form-find__option">Квартира</option>
+																<option value="Penhouses" class="select__option form-find__option">Пентхаусы</option>
+																<option value="Mansions" class="select__option form-find__option">Особняки</option>
+																<option value="Townhouse" class="select__option form-find__option">Таунхаусы</option>
+																<option value="Villa" class="select__option form-find__option">Виллы</option>
+																<option value="Building" class="select__option form-find__option">Здания</option>
 															</select>
 														</div>
 														<div class="form-find__column form-find__column_large">
@@ -97,20 +121,32 @@
 															</div>
 														</div>
 														<div class="form-find__column">
-															<select name="types" class="form-find__select select">
-																<option value="Type" class="select__option form-find__option">Типы недвижимости</option>
-																<option value="Apartments" class="select__option form-find__option">Квартира</option>
-																<option value="Penhouses" class="select__option form-find__option">Пентхаусы</option>
-																<option value="Mansions" class="select__option form-find__option">Особняки</option>
-																<option value="Townhouse" class="select__option form-find__option">Таунхаусы</option>
-																<option value="Villa" class="select__option form-find__option">Виллы</option>
-																<option value="Building" class="select__option form-find__option">Здания</option>
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Застройщики</option>
+															</select>
+														</div>
+														<div class="form-find__column">
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Спальни</option>
+															</select>
+														</div>
+														<div class="form-find__column">
+															<select name="developer" class="form-find__select form-find__select-developer select">
+																<option value="" selected="">Районы</option>
 															</select>
 														</div>
 														<div class="form-find__row form-find__row_2">
-															<div data-da=".form-find__body_2,1320,first" class="form-find__column">
-																<select name="developer" class="form-find__select form-find__select-developer select">
-																	<option value="" selected="">Все застройщики</option>
+															<div class="form-find__column">
+																<select name="min" class="form-find__select select">
+																	<option value="" selected="">Мин. Цена</option>
+																	<option value="500000">$ 500,000</option>
+																	<option value="1000000">$ 1,000,000</option>
+																	<option value="2000000">$ 2,000,000</option>
+																	<option value="3000000">$ 3,000,000</option>
+																	<option value="5000000">$ 5,000,000</option>
+																	<option value="10000000">$ 10,000,000</option>
+																	<option value="20000000">$ 20,000,000</option>
+																	<option value="50000000">$ 50,000,000</option>
 																</select>
 															</div>
 															<div class="form-find__column">
@@ -135,7 +171,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div class="main-block__image-ibg"><img data-src="@img/main-page/05.jpg" alt=""></div> -->
 					</section>
 					<section class="page__products products">
 						<div class="products__container">
@@ -147,12 +182,18 @@
 									<div class="item-products__body">
 										<a href="#" class="item-products__image">
 											<img src="@img/main-page/06.jpg" alt="">
+											<div class="item-products__advantages">
+												<span class="item-products__advanatege">50/50 план оплаты</span>
+												<span class="item-products__advanatege item-products__advanatege_green">сдача 2025 году</span>
+											</div>
 										</a>
 										<div class="item-products__wrapper">
 											<div class="item-products__header">
 												<div class="item-products__content">
 													<div class="item-products__title-actions">
-														<h3 class="item-products__title">$ 2 999 890</h3>
+														<a href="#" class="item-products__text item-products__info">
+															TRIA ОТ DEYAAR
+														</a>
 														<div class="item-products__icons">
 															<a href="#" class="item-products__icon">
 																<img src="@img/icons/favourites.png" alt="">
@@ -162,9 +203,7 @@
 															</a>
 														</div>
 													</div>
-													<a href="#" class="item-products__text item-products__info">
-														TRIA ОТ DEYAAR
-													</a>
+													<h3 class="item-products__title">$ 2 999 890</h3>
 													<div class="item-products__advanateges">
 														<h6 class="item-products__apartment-item">
 															<img src="@img/icons/building.svg" class="item-products__apartments-icon" alt="Building icon">
@@ -449,9 +488,9 @@
 														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 														<img src="@img/main-page/03.jpg">
 													</picture>
-													<a href="#" class="banner__link">
+													<button data-popup="#popup-form" type="button" class="banner__link">
 														Скачать
-													</a>
+													</button>
 													<!-- <img data-src="@img/main-page/03.jpg" alt=""> -->
 												</div>
 											</div>
@@ -464,9 +503,9 @@
 														<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 														<img src="@img/main-page/03.jpg">
 													</picture>
-													<a href="#" class="banner__link">
+													<button data-popup="#popup-form" type="button" class="banner__link">
 														Скачать
-													</a>
+													</button>
 													<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
 												</div>
 											</div>
@@ -642,9 +681,9 @@
 													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 													<img src="@img/main-page/03.jpg">
 												</picture>
-												<a href="#" class="banner__link">
+												<button data-popup="#popup-form" type="button" class="banner__link">
 													Скачать
-												</a>
+												</button>
 												<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
 											</div>
 										</div>
@@ -657,9 +696,9 @@
 													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 													<img src="@img/main-page/03.jpg">
 												</picture>
-												<a href="#" class="banner__link">
+												<button data-popup="#popup-form" type="button" class="banner__link">
 													Скачать
-												</a>
+												</button>
 												<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
 											</div>
 										</div>
@@ -688,9 +727,9 @@
 													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 													<img src="@img/main-page/03.jpg">
 												</picture>
-												<a href="#" class="banner__link">
+												<button data-popup="#popup-form" type="button" class="banner__link">
 													Скачать
-												</a>
+												</button>
 												<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
 											</div>
 										</div>
@@ -703,9 +742,9 @@
 													<source media="(max-width: 479.98px)" srcset="@img/main-page/02.jpg">
 													<img src="@img/main-page/03.jpg">
 												</picture>
-												<a href="#" class="banner__link">
+												<button data-popup="#popup-form" type="button" class="banner__link">
 													Скачать
-												</a>
+												</button>
 												<!-- <img data-src="@img/main-page/03.JPG" alt=""> -->
 											</div>
 										</div>

@@ -216,7 +216,7 @@ input, textarea {
 //====================================================================================================
 .apartments {
     @include adaptiveValue("padding-top", 170, 100, $containerWidth, 767.98, 1);
-    @include adaptiveValue("padding-bottom", 160, 40, $containerWidth, 767.98, 1);
+    @include adaptiveValue("padding-bottom", 160, 20, $containerWidth, 767.98, 1);
     background-color: #EDEDED;
     position: relative;
     z-index: 5;
@@ -274,6 +274,9 @@ input, textarea {
             position: absolute;
             top: 0;
             left: 0;
+        }
+        @media (max-width:$tablet){
+            text-align: center;
         }
     }
 
@@ -640,7 +643,7 @@ input, textarea {
         }
         @media (min-width:$tablet){
             &:not(._showmore-active) {
-                margin-bottom: rem(275);
+                margin-bottom: rem(70);
             } 
         }
     }
@@ -648,7 +651,7 @@ input, textarea {
     // .discover__text
 
     &__text {
-        @include adaptiveValue("margin-top", 60, 20, $containerWidth, 767.98, 1);
+        @include adaptiveValue("margin-top", 60, 10, $containerWidth, 767.98, 1);
         p {
             @include adaptiveValue("font-size", 18, 14, $containerWidth, $minWidth, 1);
             @include adaptiveValue("margin-bottom", 40, 15, $containerWidth, $minWidth, 1);
@@ -680,10 +683,11 @@ input, textarea {
     // .discover-content-image__title
 
     &__title {
-        @media (min-width:$tablet){
-            @include adaptiveValue("margin-bottom", 65, 30, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 50, 18, $containerWidth, 767.98, 1);
+        @include adaptiveValue("margin-bottom", 65, 0, $containerWidth, 767.98, 1);
+        @media (max-width:$mobile){
+            text-align: center; 
         }
-        @include adaptiveValue("margin-bottom", 30, 15, $containerWidth, $minWidth, 1);
     }
 
     // .discover-content-image__image
@@ -724,8 +728,8 @@ input, textarea {
 
 .advantages {
     background: linear-gradient(169.08deg, #EDEDED -128.92%, rgba(237, 237, 237, 0) 109.72%);
-    @include adaptiveValue("padding-top", 130, 50, $containerWidth, 767.98, 1);
-    @include adaptiveValue("padding-bottom", 90, 50, $containerWidth, 767.98, 1);
+    @include adaptiveValue("padding-top", 130, 20, $containerWidth, 767.98, 1);
+    @include adaptiveValue("padding-bottom", 90, 10, $containerWidth, 767.98, 1);
     @media (min-width:$tablet){
         clip-path: polygon(0 0, 100% 8%, 100% 100%, 0% 100%);
     }
@@ -746,6 +750,7 @@ input, textarea {
         }
         @media (max-width:$mobile){
             flex-direction: column;
+            gap: 0px;
         }
     }
 
@@ -756,7 +761,7 @@ input, textarea {
         @media (max-width:$tablet){
             flex: 1 1 55%;
         }
-        @include adaptiveValue("margin-bottom", 65, 25, $containerWidth, 767.98, 1);
+        @include adaptiveValue("margin-bottom", 65, 15, $containerWidth, 767.98, 1);
     }
 }
 .advantages-card {
@@ -807,7 +812,10 @@ input, textarea {
 // ==========================
 
 .gallery {
-    @include adaptiveValue("margin-bottom", 120, 50, $containerWidth, $minWidth, 1);
+    .slider-arrow {
+        top: 50%;
+    }
+    @include adaptiveValue("margin-bottom", 120, 20, $containerWidth, $minWidth, 1);
     // .gallery__container
 
     &__container {
@@ -915,7 +923,10 @@ input, textarea {
     // .gallery-interier__image-ibg
 
     &__image-ibg {
-        padding-bottom: 76%;
+        padding-bottom: 50%;
+        @media (max-width:$mobile){
+            padding-bottom: 75%;  
+        }
     }
 
     // .gallery-interier__thumbs
@@ -1009,7 +1020,10 @@ input, textarea {
     // .gallery-exterier__image-ibg
 
     &__image-ibg {
-        padding-bottom: 50.4%;
+        padding-bottom: 50%;
+        @media (max-width:$mobile){
+            padding-bottom: 75%; 
+        }
     }
 
     // .gallery-exterier__thumbs
@@ -1240,7 +1254,10 @@ input, textarea {
         @media (min-width:$mobile){
             @include adaptiveValue("text-indent", 0, 25, $containerWidth, $minWidth, 1);
         }
-        @include adaptiveValue("font-size", 100, 35, $containerWidth, 767.98, 1);
+        @include adaptiveValue("font-size", 100, 20, $containerWidth, 767.98, 1);
+        @media (max-width:$mobile){
+            text-align: center;
+        }
         line-height: 121.5%;
         color:#000;
         span {
@@ -1257,7 +1274,7 @@ input, textarea {
         @media (max-width:$tablet){
             flex-direction: column;
         }
-        @include adaptiveValue("margin-bottom", 90, 40, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("margin-bottom", 90, 10, $containerWidth, $minWidth, 1);
     }
 
     // .located-bottom__image-ibg
@@ -1317,8 +1334,12 @@ input, textarea {
 
     &__title {
         @include adaptiveValue("margin-bottom", 70, 30, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("font-size", 50, 20, $containerWidth, 767.98, 1);
         position: relative;
         z-index: 2;
+        @media (max-width:$mobile){
+            text-align: center; 
+        }
     }
 
     // .bedroom__body
@@ -1545,7 +1566,7 @@ input, textarea {
 // ==========================
 
 .fc-video {
-    @include adaptiveValue("margin-bottom", 80, 40, $containerWidth, $minWidth, 1);
+    @include adaptiveValue("margin-bottom", 80, 20, $containerWidth, $minWidth, 1);
     // .fc-video__container
 
     &__container {
@@ -1618,27 +1639,37 @@ input, textarea {
 
     &__title {
         @include adaptiveValue("margin-bottom", 40, 20, $containerWidth, 767.98, 1);
+        @include adaptiveValue("font-size", 50, 20, $containerWidth, 767.98, 1);
+        position: relative;
+        z-index: 2;
+        @media (max-width:$mobile){
+            text-align: center;
+        }
     }
 
     // .payment__body
 
     &__body {
-        @include adaptiveValue("padding-top", 50, 20, $containerWidth, 767.98, 1);
+        @media (min-width:$mobile){
+            @include adaptiveValue("padding-top", 50, 20, $containerWidth, 767.98, 1);
+        }
         @include adaptiveValue("padding-bottom", 45, 20, $containerWidth, $minWidth, 1);
 
         max-width: 1345px;
         position: relative;
         margin: 0px auto;
-        &::before{
-            content:'';
-            display: block;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background-color: #F5F5F5;
-            clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+        @media (min-width:$mobile){
+            &::before{
+                content:'';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background-color: #F5F5F5;
+                clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+            }
         }
     }
 
@@ -1646,7 +1677,7 @@ input, textarea {
         display: flex;
         flex-wrap: wrap;
         // justify-content: space-between;
-        @include adaptiveValue("margin-bottom", 50, 30, $containerWidth, $minWidth, 1);
+        @include adaptiveValue("margin-bottom", 50, 0, $containerWidth, $minWidth, 1);
     }
 
     // .payment__item
@@ -1683,6 +1714,7 @@ input, textarea {
         @include adaptiveValue("margin-bottom", 20, 10, $containerWidth, 767.98, 1);
         line-height: 110%;
         color: #163F8E;
+
     }
 
     &__image-ibg {
@@ -1710,8 +1742,12 @@ input, textarea {
         @include adaptiveValue("margin-bottom", 80, 30, $containerWidth, $minWidth, 1);
     }
     &__title {
+        @include adaptiveValue("font-size", 40, 16, $containerWidth, 767.98, 1);
         &:not(:last-child) {
             @include adaptiveValue("margin-right", 70, 0, $containerWidth, $minWidth, 1);
+        }
+        @media (max-width:$mobile){
+            text-align: center; 
         }
     }
     &__actions {
